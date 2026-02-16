@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Aggregation – Causal Semantics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-69b602dbcb39a5128bb15a5fa6480f34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<meta name="mermaid-theme" content="dark">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Causal Semantics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extraction" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extraction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extraction">    
+        <li>
+    <a class="dropdown-item" href="../extraction/extraction.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/c-bert.html">
+ <span class="dropdown-text">C-BERT</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/annotation.html">
+ <span class="dropdown-text">Annotation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Processing</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-processing">    
+        <li>
+    <a class="dropdown-item" href="../processing/processing.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../processing/tuple-construction.html">
+ <span class="dropdown-text">Tuple Construction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../processing/aggregation.html">
+ <span class="dropdown-text">Aggregation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/padjohn/causalsemantics"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Aggregation</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#step-1-counting-identical-tuples" id="toc-step-1-counting-identical-tuples" class="nav-link" data-scroll-target="#step-1-counting-identical-tuples">Step 1: Counting Identical Tuples</a></li>
+  <li><a href="#step-2-weighted-summation" id="toc-step-2-weighted-summation" class="nav-link" data-scroll-target="#step-2-weighted-summation">Step 2: Weighted Summation</a></li>
+  <li><a href="#step-3-normalization" id="toc-step-3-normalization" class="nav-link" data-scroll-target="#step-3-normalization">Step 3: Normalization</a>
+  <ul class="collapse">
+  <li><a href="#bidirectional-normalization-focus-term-analysis" id="toc-bidirectional-normalization-focus-term-analysis" class="nav-link" data-scroll-target="#bidirectional-normalization-focus-term-analysis">Bidirectional Normalization (Focus-Term Analysis)</a></li>
+  <li><a href="#unidirectional-normalization-acg-networks" id="toc-unidirectional-normalization-acg-networks" class="nav-link" data-scroll-target="#unidirectional-normalization-acg-networks">Unidirectional Normalization (ACG Networks)</a></li>
+  </ul></li>
+  <li><a href="#step-4-structuring" id="toc-step-4-structuring" class="nav-link" data-scroll-target="#step-4-structuring">Step 4: Structuring</a></li>
+  <li><a href="#analysis-modes" id="toc-analysis-modes" class="nav-link" data-scroll-target="#analysis-modes">Analysis Modes</a></li>
+  <li><a href="#compositionality" id="toc-compositionality" class="nav-link" data-scroll-target="#compositionality">Compositionality</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Aggregation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">From individual tuples to cumulative causal patterns</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>While <a href="../processing/tuple-construction.html">tuple construction</a> formalizes individual attestations, aggregation addresses the scaling problem: how do hundreds or thousands of individual <span class="math inline">(C, E, I)</span> tuples — extracted from different texts, time periods, and discursive contexts — condense into representative causal patterns?</p>
+<p>The aggregation pipeline transforms a set of individual tuples into normalized, proportional causal weights through four steps: counting identical tuples, weighting by frequency and salience, summing across attestations for each <span class="math inline">(C, E)</span> pair, and normalizing to produce proportional influence scores.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["Individual&lt;br/&gt;(C, E, I) Tuples"] --&gt; B["Count&lt;br/&gt;Identical Tuples"]
+    B --&gt; C["Weight&lt;br/&gt;(frequency × salience)"]
+    C --&gt; D["Sum per&lt;br/&gt;(C, E) Pair"]
+    D --&gt; E["Normalize"]
+    E --&gt; F["Proportional&lt;br/&gt;Influence Scores"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="step-1-counting-identical-tuples" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-counting-identical-tuples">Step 1: Counting Identical Tuples</h2>
+<p>Tuples with identical <span class="math inline">(C, E, I)</span> values are grouped and counted. The frequency <span class="math inline">n</span> quantifies how often a specific tuple configuration occurs in the corpus.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Input</strong> (5 individual tuples):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>C</th>
+<th>E</th>
+<th>I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+1.0</td>
+</tr>
+<tr class="even">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+</tr>
+<tr class="odd">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+</tr>
+<tr class="even">
+<td>Klimawandel</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+</tr>
+<tr class="odd">
+<td>Pestizidverbote</td>
+<td>Insektensterben</td>
+<td>−0.5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output</strong> (4 weighted tuples):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>C</th>
+<th>E</th>
+<th>I</th>
+<th>n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+1.0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Klimawandel</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Pestizidverbote</td>
+<td>Insektensterben</td>
+<td>−0.5</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This distinction matters: ten attestations of monocausal attribution (Pestizide, Insektensterben, +1.0) carry ten times the weight of a single attestation of polycausal attribution (Pestizide, Insektensterben, +0.5).</p>
+</section>
+<section id="step-2-weighted-summation" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-weighted-summation">Step 2: Weighted Summation</h2>
+<p>Tuples sharing the same <span class="math inline">(C, E)</span> pair but differing in <span class="math inline">I</span> values are summed into a single aggregated relation. The aggregated influence is:</p>
+<p><span class="math display">
+F_{C,E} = \sum_{i} I_i \times n_i
+</span></p>
+<p>where <span class="math inline">I_i</span> are the individual INFLUENCE values and <span class="math inline">n_i</span> their frequencies. Polarity-specific counters are tracked separately to capture discursive disagreement.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example (continuing from above)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the Pestizide → Insektensterben pair:</p>
+<p><span class="math display">F = (1.0 \times 1) + (0.5 \times 2) = +2.0</span></p>
+<p>Polarity counters: <span class="math inline">n_{\text{pos}} = 3</span>, <span class="math inline">n_{\text{neg}} = 0</span>, <span class="math inline">n_{\text{neutral}} = 0</span></p>
+<p><strong>Full output:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>C</th>
+<th>E</th>
+<th><span class="math inline">F_{\text{agg}}</span></th>
+<th><span class="math inline">n_{\text{pos}}</span></th>
+<th><span class="math inline">n_{\text{neg}}</span></th>
+<th><span class="math inline">n_{\text{neutral}}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pestizide</td>
+<td>Insektensterben</td>
+<td>+2.0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Klimawandel</td>
+<td>Insektensterben</td>
+<td>+0.5</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Pestizidverbote</td>
+<td>Insektensterben</td>
+<td>−0.5</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Three properties of this summation are worth noting. <strong>Neutralized relations</strong> (<span class="math inline">I = 0</span>, from propositional negation) contribute zero to <span class="math inline">F_{C,E}</span> but are counted in <span class="math inline">n_{\text{neutral}}</span> to document denied causal claims. <strong>Opposing polarities</strong> partially cancel: if the same entity is attributed as both promoting and inhibiting a given effect (e.g.&nbsp;through contradicting sources or temporal shifts), the aggregated value reflects the net balance, while the polarity counters (<span class="math inline">n_{\text{pos}} &gt; 0</span> and <span class="math inline">n_{\text{neg}} &gt; 0</span> simultaneously) expose the controversy. <strong>Salience is already encoded</strong> in the <span class="math inline">I</span> values from tuple construction — a monocausal attestation (<span class="math inline">I = 1.0</span>) contributes twice the weight of a distributed attestation (<span class="math inline">I = 0.5</span>), so frequency and salience interact multiplicatively.</p>
+</section>
+<section id="step-3-normalization" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-normalization">Step 3: Normalization</h2>
+<p>The aggregated values <span class="math inline">F_{C,E}</span> are normalized to produce proportional influence scores <span class="math inline">I_{\text{norm}} \in [-1, +1]</span>, where the sum of absolute values across all co-relations equals approximately 1.0. The normalization strategy depends on the analysis context.</p>
+<section id="bidirectional-normalization-focus-term-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="bidirectional-normalization-focus-term-analysis">Bidirectional Normalization (Focus-Term Analysis)</h3>
+<p>When analyzing a specific term <span class="math inline">T</span> exhaustively — examining all its incoming causes and outgoing effects — both directions are normalized independently:</p>
+<p><span class="math display">
+I_{\text{norm}}(C \to T) = \text{sgn}(F_{C,T}) \times \frac{|F_{C,T}|}{\sum_{C' \in \text{Causes}(T)} |F_{C',T}|}
+</span></p>
+<p><span class="math display">
+I_{\text{norm}}(T \to E) = \text{sgn}(F_{T,E}) \times \frac{|F_{T,E}|}{\sum_{E' \in \text{Effects}(T)} |F_{T,E'}|}
+</span></p>
+<p>This is appropriate when the annotation exhaustively covers all relations involving a focal term but does not cover the co-causes of its effects (e.g.&nbsp;all causes of <em>Insektensterben</em> are annotated, but not all causes of <em>Klimawandel</em>).</p>
+</section>
+<section id="unidirectional-normalization-acg-networks" class="level3">
+<h3 class="anchored" data-anchor-id="unidirectional-normalization-acg-networks">Unidirectional Normalization (ACG Networks)</h3>
+<p>For full causal graph construction, only cause-side normalization is applied — the standard asymmetry of causal graphs:</p>
+<p><span class="math display">
+I_{\text{norm}}(C \to E) = \text{sgn}(F_{C,E}) \times \frac{|F_{C,E}|}{\sum_{C' \in \text{Causes}(E)} |F_{C',E}|}
+</span></p>
+<p>This ensures that, for any effect <span class="math inline">E</span>, the absolute influence values of all its causes sum to 1.0.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Normalization Example (unidirectional)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Input</strong> (from Step 2):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>C → E</th>
+<th><span class="math inline">F_{\text{agg}}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pestizide → Insektensterben</td>
+<td>+2.0</td>
+</tr>
+<tr class="even">
+<td>Klimawandel → Insektensterben</td>
+<td>+0.5</td>
+</tr>
+<tr class="odd">
+<td>Pestizidverbote → Insektensterben</td>
+<td>−0.5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Denominator</strong>: <span class="math inline">|2.0| + |0.5| + |0.5| = 3.0</span></p>
+<p><strong>Output:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>C → E</th>
+<th><span class="math inline">I_{\text{norm}}</span></th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pestizide → Insektensterben</td>
+<td>+0.667</td>
+<td>66.7% of causal attribution (promoting)</td>
+</tr>
+<tr class="even">
+<td>Klimawandel → Insektensterben</td>
+<td>+0.167</td>
+<td>16.7% (promoting)</td>
+</tr>
+<tr class="odd">
+<td>Pestizidverbote → Insektensterben</td>
+<td>−0.167</td>
+<td>16.7% (inhibiting)</td>
+</tr>
+</tbody>
+</table>
+<p>Sum of absolute values: <span class="math inline">0.667 + 0.167 + 0.167 = 1.0</span> ✓</p>
+</div>
+</div>
+<p>Normalization operates on absolute values but preserves the sign via the <span class="math inline">\text{sgn}</span> function. Promoting and inhibiting relations are normalized jointly — the sign is re-applied after normalization. The polarity-specific counters (<span class="math inline">n_{\text{pos}}</span>, <span class="math inline">n_{\text{neg}}</span>, <span class="math inline">n_{\text{neutral}}</span>) remain unchanged, since normalization scales only the weights, not the underlying evidence counts.</p>
+</section>
+</section>
+<section id="step-4-structuring" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-structuring">Step 4: Structuring</h2>
+<p>The normalized relations are stored as a directed graph where each edge <span class="math inline">(C \to E)</span> carries:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>influence_norm</code></td>
+<td>Normalized influence <span class="math inline">I \in [-1, 1]</span></td>
+</tr>
+<tr class="even">
+<td><code>tuple_count</code></td>
+<td>Total underlying tuples (<span class="math inline">n_{\text{pos}} + n_{\text{neg}} + n_{\text{neutral}}</span>)</td>
+</tr>
+<tr class="odd">
+<td><code>count_pos</code></td>
+<td>Attestations with <span class="math inline">I &gt; 0</span></td>
+</tr>
+<tr class="even">
+<td><code>count_neg</code></td>
+<td>Attestations with <span class="math inline">I &lt; 0</span></td>
+</tr>
+<tr class="odd">
+<td><code>count_neutral</code></td>
+<td>Attestations with <span class="math inline">I = 0</span> (propositional negation)</td>
+</tr>
+</tbody>
+</table>
+<p>This structure supports two complementary operations: <strong>local entity extraction</strong> — retrieving all causes and effects of a specific entity for focused analysis — and <strong>global centrality measures</strong> — comparing the structural role of all entities in the causal discourse network.</p>
+</section>
+<section id="analysis-modes" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-modes">Analysis Modes</h2>
+<p>The aggregated graph feeds two analysis modes, each with its own normalization strategy:</p>
+<p><strong>Focus-Term Analysis</strong> positions a single term as a causal nucleus and examines its incoming causes and outgoing effects with bidirectional normalization. Each causal interactant is characterized by three metrics: normalized influence (<span class="math inline">I\%</span>), mean pre-aggregation salience (<span class="math inline">\varnothing|I|</span>, indicating whether the interactant is typically framed monocausally or polycausally), and a Gini coefficient measuring concentration of influence across all interactants (0 = evenly distributed, 1 = fully concentrated on one entity).</p>
+<p><strong>ACG Construction</strong> treats all entities as nodes in a directed graph with unidirectional normalization, enabling network-level analysis: centrality, community detection, and structural comparison across time periods or corpora.</p>
+</section>
+<section id="compositionality" class="level2">
+<h2 class="anchored" data-anchor-id="compositionality">Compositionality</h2>
+<p>A key design principle is that aggregation is <strong>compositional</strong>: it takes the tuple values from <a href="../processing/tuple-construction.html">tuple construction</a> as given. Any refinement to the tuple construction rules (e.g.&nbsp;finer-grained salience computation) flows directly into aggregation without requiring changes to the aggregation pipeline itself. The choice of normalization strategy and the handling of opposing polarities are analytical decisions that depend on the research context.</p>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
+<ul>
+<li>For how individual tuples are computed from annotations, see <a href="../processing/tuple-construction.html">Tuple Construction</a></li>
+<li>For the annotation schema that produces the inputs, see <a href="../extraction/annotation.html">Annotation Guidelines</a> <!-- - For graph-level analysis using aggregated relations, see [ACG](../acg/index.qmd) --></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/padjohn\.github\.io\/causalsemantics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Aggregation"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "From individual tuples to cumulative causal patterns"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>While <span class="co">[</span><span class="ot">tuple construction</span><span class="co">](tuple-construction.qmd)</span> formalizes individual attestations, aggregation addresses the scaling problem: how do hundreds or thousands of individual $(C, E, I)$ tuples — extracted from different texts, time periods, and discursive contexts — condense into representative causal patterns?</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The aggregation pipeline transforms a set of individual tuples into normalized, proportional causal weights through four steps: counting identical tuples, weighting by frequency and salience, summing across attestations for each $(C, E)$ pair, and normalizing to produce proportional influence scores.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>graph LR</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    A[<span class="ot">"</span><span class="st">Individual&lt;br/&gt;(C, E, I) Tuples</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Count&lt;br/&gt;Identical Tuples</span><span class="ot">"</span>]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[<span class="ot">"</span><span class="st">Weight&lt;br/&gt;(frequency × salience)</span><span class="ot">"</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[<span class="ot">"</span><span class="st">Sum per&lt;br/&gt;(C, E) Pair</span><span class="ot">"</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[<span class="ot">"</span><span class="st">Normalize</span><span class="ot">"</span>]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[<span class="ot">"</span><span class="st">Proportional&lt;br/&gt;Influence Scores</span><span class="ot">"</span>]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1: Counting Identical Tuples</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Tuples with identical $(C, E, I)$ values are grouped and counted. The frequency $n$ quantifies how often a specific tuple configuration occurs in the corpus.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple"}</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>**Input** (5 individual tuples):</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> C <span class="pp">|</span> E <span class="pp">|</span> I <span class="pp">|</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +1.0 <span class="pp">|</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizidverbote <span class="pp">|</span> Insektensterben <span class="pp">|</span> −0.5 <span class="pp">|</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>**Output** (4 weighted tuples):</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> C <span class="pp">|</span> E <span class="pp">|</span> I <span class="pp">|</span> n <span class="pp">|</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +1.0 <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span> 2 <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizidverbote <span class="pp">|</span> Insektensterben <span class="pp">|</span> −0.5 <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>This distinction matters: ten attestations of monocausal attribution (Pestizide, Insektensterben, +1.0) carry ten times the weight of a single attestation of polycausal attribution (Pestizide, Insektensterben, +0.5).</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2: Weighted Summation</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>Tuples sharing the same $(C, E)$ pair but differing in $I$ values are summed into a single aggregated relation. The aggregated influence is:</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>F_{C,E} = \sum_{i} I_i \times n_i</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>where $I_i$ are the individual INFLUENCE values and $n_i$ their frequencies. Polarity-specific counters are tracked separately to capture discursive disagreement.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple"}</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example (continuing from above)</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>For the Pestizide → Insektensterben pair:</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>$$F = (1.0 \times 1) + (0.5 \times 2) = +2.0$$</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>Polarity counters: $n_{\text{pos}} = 3$, $n_{\text{neg}} = 0$, $n_{\text{neutral}} = 0$</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>**Full output:**</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> C <span class="pp">|</span> E <span class="pp">|</span> $F_{\text{agg}}$ <span class="pp">|</span> $n_{\text{pos}}$ <span class="pp">|</span> $n_{\text{neg}}$ <span class="pp">|</span> $n_{\text{neutral}}$ <span class="pp">|</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide <span class="pp">|</span> Insektensterben <span class="pp">|</span> +2.0 <span class="pp">|</span> 3 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel <span class="pp">|</span> Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizidverbote <span class="pp">|</span> Insektensterben <span class="pp">|</span> −0.5 <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Three properties of this summation are worth noting. **Neutralized relations** ($I = 0$, from propositional negation) contribute zero to $F_{C,E}$ but are counted in $n_{\text{neutral}}$ to document denied causal claims. **Opposing polarities** partially cancel: if the same entity is attributed as both promoting and inhibiting a given effect (e.g. through contradicting sources or temporal shifts), the aggregated value reflects the net balance, while the polarity counters ($n_{\text{pos}} &gt; 0$ and $n_{\text{neg}} &gt; 0$ simultaneously) expose the controversy. **Salience is already encoded** in the $I$ values from tuple construction — a monocausal attestation ($I = 1.0$) contributes twice the weight of a distributed attestation ($I = 0.5$), so frequency and salience interact multiplicatively.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 3: Normalization</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>The aggregated values $F_{C,E}$ are normalized to produce proportional influence scores $I_{\text{norm}} \in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$, where the sum of absolute values across all co-relations equals approximately 1.0. The normalization strategy depends on the analysis context.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bidirectional Normalization (Focus-Term Analysis)</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>When analyzing a specific term $T$ exhaustively — examining all its incoming causes and outgoing effects — both directions are normalized independently:</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>I_{\text{norm}}(C \to T) = \text{sgn}(F_{C,T}) \times \frac{|F_{C,T}|}{\sum_{C' \in \text{Causes}(T)} |F_{C',T}|}</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>I_{\text{norm}}(T \to E) = \text{sgn}(F_{T,E}) \times \frac{|F_{T,E}|}{\sum_{E' \in \text{Effects}(T)} |F_{T,E'}|}</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>This is appropriate when the annotation exhaustively covers all relations involving a focal term but does not cover the co-causes of its effects (e.g. all causes of *Insektensterben* are annotated, but not all causes of *Klimawandel*).</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unidirectional Normalization (ACG Networks)</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>For full causal graph construction, only cause-side normalization is applied — the standard asymmetry of causal graphs:</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>I_{\text{norm}}(C \to E) = \text{sgn}(F_{C,E}) \times \frac{|F_{C,E}|}{\sum_{C' \in \text{Causes}(E)} |F_{C',E}|}</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>This ensures that, for any effect $E$, the absolute influence values of all its causes sum to 1.0.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple"}</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization Example (unidirectional)</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>**Input** (from Step 2):</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> C → E <span class="pp">|</span> $F_{\text{agg}}$ <span class="pp">|</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide → Insektensterben <span class="pp">|</span> +2.0 <span class="pp">|</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel → Insektensterben <span class="pp">|</span> +0.5 <span class="pp">|</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizidverbote → Insektensterben <span class="pp">|</span> −0.5 <span class="pp">|</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>**Denominator**: $|2.0| + |0.5| + |0.5| = 3.0$</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>**Output:**</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> C → E <span class="pp">|</span> $I_{\text{norm}}$ <span class="pp">|</span> Interpretation <span class="pp">|</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizide → Insektensterben <span class="pp">|</span> +0.667 <span class="pp">|</span> 66.7% of causal attribution (promoting) <span class="pp">|</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel → Insektensterben <span class="pp">|</span> +0.167 <span class="pp">|</span> 16.7% (promoting) <span class="pp">|</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pestizidverbote → Insektensterben <span class="pp">|</span> −0.167 <span class="pp">|</span> 16.7% (inhibiting) <span class="pp">|</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>Sum of absolute values: $0.667 + 0.167 + 0.167 = 1.0$ ✓</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>Normalization operates on absolute values but preserves the sign via the $\text{sgn}$ function. Promoting and inhibiting relations are normalized jointly — the sign is re-applied after normalization. The polarity-specific counters ($n_{\text{pos}}$, $n_{\text{neg}}$, $n_{\text{neutral}}$) remain unchanged, since normalization scales only the weights, not the underlying evidence counts.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 4: Structuring</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>The normalized relations are stored as a directed graph where each edge $(C \to E)$ carries:</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`influence_norm`</span> <span class="pp">|</span> Normalized influence $I \in <span class="co">[</span><span class="ot">-1, 1</span><span class="co">]</span>$ <span class="pp">|</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`tuple_count`</span> <span class="pp">|</span> Total underlying tuples ($n_{\text{pos}} + n_{\text{neg}} + n_{\text{neutral}}$) <span class="pp">|</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`count_pos`</span> <span class="pp">|</span> Attestations with $I &gt; 0$ <span class="pp">|</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`count_neg`</span> <span class="pp">|</span> Attestations with $I &lt; 0$ <span class="pp">|</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`count_neutral`</span> <span class="pp">|</span> Attestations with $I = 0$ (propositional negation) <span class="pp">|</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>This structure supports two complementary operations: **local entity extraction** — retrieving all causes and effects of a specific entity for focused analysis — and **global centrality measures** — comparing the structural role of all entities in the causal discourse network.</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis Modes</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>The aggregated graph feeds two analysis modes, each with its own normalization strategy:</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>**Focus-Term Analysis** positions a single term as a causal nucleus and examines its incoming causes and outgoing effects with bidirectional normalization. Each causal interactant is characterized by three metrics: normalized influence ($I\%$), mean pre-aggregation salience ($\varnothing|I|$, indicating whether the interactant is typically framed monocausally or polycausally), and a Gini coefficient measuring concentration of influence across all interactants (0 = evenly distributed, 1 = fully concentrated on one entity).</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>**ACG Construction** treats all entities as nodes in a directed graph with unidirectional normalization, enabling network-level analysis: centrality, community detection, and structural comparison across time periods or corpora.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Compositionality</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>A key design principle is that aggregation is **compositional**: it takes the tuple values from <span class="co">[</span><span class="ot">tuple construction</span><span class="co">](tuple-construction.qmd)</span> as given. Any refinement to the tuple construction rules (e.g. finer-grained salience computation) flows directly into aggregation without requiring changes to the aggregation pipeline itself. The choice of normalization strategy and the handling of opposing polarities are analytical decisions that depend on the research context.</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how individual tuples are computed from annotations, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](tuple-construction.qmd)</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the annotation schema that produces the inputs, see <span class="co">[</span><span class="ot">Annotation Guidelines</span><span class="co">](../extraction/annotation.qmd)</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - For graph-level analysis using aggregated relations, see [ACG](../acg/index.qmd) --&gt;</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Causal Semantics</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ License: CC BY 4.0
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

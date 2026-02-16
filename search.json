@@ -1,0 +1,632 @@
+[
+  {
+    "objectID": "extraction/extraction.html",
+    "href": "extraction/extraction.html",
+    "title": "Extraction Overview",
+    "section": "",
+    "text": "Extracting causal relations from natural language requires at least two components:\n\nIndicators: operators projecting causal roles\n\ne.g. cause, contribute, reduce, prevent\n\nEntities: arguments that function as Cause and/or Effect\n\ne.g. climate change, emission, poverty, war\n\n\nIndicators can be classified as polar positive (e.g. cause) and negative (e.g. prevent) [1] [2]. Following [3], S_C further distinguishes between mono- (e.g. cause) and polycausal (e.g contribute) relationships. Both dimensions can be modified by contextual markers:\n\nPolarity: death of, rise in\nSalience: less so, especially\n\nHence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes.\n\n\n\n\n\n\nNoteExample\n\n\n\n\n\nIdentification and classification of indicators:\n\nAbsence of emissions hinders climate change\nhinder = polycausal-negative (I = -0.5)\n(C, E, -0.5)\n\nIdentification of Cause and Effect entities:\n\nAbsence of emissions hinders climate change\nCause = Subject = emissions, Effect = Direct Object = climate change\n(\\text{Emission}, \\text{Climate change}, 0.5)\n\nIdentification, classification and scope of coefficient markers:\n\nAbsence of emissions hinders climate change\nAbsence of = negates emissions (-1)\n(\\text{Emission}, \\text{Climate change}, 0.5)\n\n(C, E, I) = (\\text{Emission}, \\text{Climate change}, 0.5)\nFor more examples, see Tuple Construction."
+  },
+  {
+    "objectID": "extraction/extraction.html#components",
+    "href": "extraction/extraction.html#components",
+    "title": "Extraction Overview",
+    "section": "",
+    "text": "Extracting causal relations from natural language requires at least two components:\n\nIndicators: operators projecting causal roles\n\ne.g. cause, contribute, reduce, prevent\n\nEntities: arguments that function as Cause and/or Effect\n\ne.g. climate change, emission, poverty, war\n\n\nIndicators can be classified as polar positive (e.g. cause) and negative (e.g. prevent) [1] [2]. Following [3], S_C further distinguishes between mono- (e.g. cause) and polycausal (e.g contribute) relationships. Both dimensions can be modified by contextual markers:\n\nPolarity: death of, rise in\nSalience: less so, especially\n\nHence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes.\n\n\n\n\n\n\nNoteExample\n\n\n\n\n\nIdentification and classification of indicators:\n\nAbsence of emissions hinders climate change\nhinder = polycausal-negative (I = -0.5)\n(C, E, -0.5)\n\nIdentification of Cause and Effect entities:\n\nAbsence of emissions hinders climate change\nCause = Subject = emissions, Effect = Direct Object = climate change\n(\\text{Emission}, \\text{Climate change}, 0.5)\n\nIdentification, classification and scope of coefficient markers:\n\nAbsence of emissions hinders climate change\nAbsence of = negates emissions (-1)\n(\\text{Emission}, \\text{Climate change}, 0.5)\n\n(C, E, I) = (\\text{Emission}, \\text{Climate change}, 0.5)\nFor more examples, see Tuple Construction."
+  },
+  {
+    "objectID": "extraction/extraction.html#application",
+    "href": "extraction/extraction.html#application",
+    "title": "Extraction Overview",
+    "section": "Application",
+    "text": "Application\nTransforming text into tuples can be achieved in a variety of manual or automatic ways.\nBoth rule-based [4] and prompt-based [5] approaches have been applied to CRE, though neither incorporate salience nor polarity. As of today, a mixture of manual annotation and transformers [6] appear the most promising.\nThe following sections provide an overview of this two-path structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset [7].\n\nAnnotation\nThe annotation schema consists of span annotations (indicators, entities, and semantic coefficients like negation and division) – linked by directed relations (Cause, Effect, Constraint).\nA taxonomy of 642 indicator forms organized into 192 families provides the linguistic foundation: each indicator carries an inherent polarity and salience. As presented above, these values are further modified by context markers (division, priority, negation).\nThe annotation guidelines serve as a reference for manual annotation. At the same time, the annotation also produces the training data for C-BERT [7].\n→ Annotation Guidelines: Full schema, annotation principles, indicator taxonomy, context markers, INFLUENCE computation, and data format\n\n\nC-BERT\nC-BERT is a multi-task transformer built on EuroBERT-610m [8]. It emulates manual annotation through span recognition and relation classification.\n\n\n\n\n\ngraph LR\n    A[Text] --&gt; B2[Spans]\n    B2 --&gt; D[Pairs]\n    D --&gt; E[Relations]\n    E --&gt; F[\"$$(C, E, I)\\;$$\"]\n\n\n\n\n\n\nThe pipeline proceeds in three steps:\n\nSpan classification predicts BIOES tags for each token.\n\nINDICATOR, ENTITY, O\n\nPair construction constructs indicator/entity pairs from extracted spans.\n\n[INDICATOR_1, ENTITY_1], ...\\;,[INDICATOR_n, ENTITY_n]\n\nRelation classification determines, for each pair, the projected\n\nrole (CAUSE, EFFECT, NO_RELATION)\npolarity (POS, NEG)\nsalience (MONO, DIST, PRIO)\n\n\nThe classified [INDICATOR, ENTITY] relationships are then algorithmically collapsed into (C, E, I)-tuples (see Tuple Construction).\n→ C-BERT Model: Architecture, training, results, known limitations, and usage instructions"
+  },
+  {
+    "objectID": "extraction/extraction.html#at-a-glance",
+    "href": "extraction/extraction.html#at-a-glance",
+    "title": "Extraction Overview",
+    "section": "At a Glance",
+    "text": "At a Glance\n\n\n\n\n\n\n\nTraining data\n2,391 relations across 4,753 sentences (German environmental discourse)\n\n\nIndicator taxonomy\n642 forms in 192 families, each classified by polarity and salience\n\n\nModel\nEuroBERT-610m + LoRA, factorized 3-head relation classification\n\n\nPer-head accuracy\nRole: 88.7%, Polarity: 92.0%, Salience: 92.4%\n\n\nReconstructed accuracy\n76.9% (14-class)\n\n\nSpan detection\nEntity F1: 0.765, Indicator F1: 0.768\n\n\nInference speed\n~37 ms/sentence (RTX 4090, batch size 1)\n\n\nCorpus-scale output\n22M sentences → 1.6M unique relations, 357K entities"
+  },
+  {
+    "objectID": "extraction/extraction.html#continue",
+    "href": "extraction/extraction.html#continue",
+    "title": "Extraction Overview",
+    "section": "Continue",
+    "text": "Continue\n\nAnnotation Guidelines — the schema, principles, and data format behind the training data\nC-BERT Model — architecture, experiments, and how to use the model\nTuple Construction — how annotations become formal (C, E, I) values"
+  },
+  {
+    "objectID": "extraction/c-bert.html",
+    "href": "extraction/c-bert.html",
+    "title": "C-BERT",
+    "section": "",
+    "text": "C-BERT [1] is a multi-task transformer for extracting fine-grained causal relations as (C, E, I) tuples from German text. Its key design choice is a factorized architecture that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label.\nThis factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.\nThe model is built on EuroBERT-610m [2] with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).\n\n\n\n\n\n\nNoteResources\n\n\n\n\nModel weights: HuggingFace — pdjohn/C-EBERT-610m\nCode: GitHub — padjohn/cbert\nData subset: HuggingFace — pdjohn/bundestag-causal-attribution (487 relations from German parliamentary debates)\nPaper: Johnson (2025), C-BERT: Factorized Causal Relation Extraction\nAnnotation guidelines: Annotation"
+  },
+  {
+    "objectID": "extraction/c-bert.html#overview",
+    "href": "extraction/c-bert.html#overview",
+    "title": "C-BERT",
+    "section": "",
+    "text": "C-BERT [1] is a multi-task transformer for extracting fine-grained causal relations as (C, E, I) tuples from German text. Its key design choice is a factorized architecture that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label.\nThis factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.\nThe model is built on EuroBERT-610m [2] with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).\n\n\n\n\n\n\nNoteResources\n\n\n\n\nModel weights: HuggingFace — pdjohn/C-EBERT-610m\nCode: GitHub — padjohn/cbert\nData subset: HuggingFace — pdjohn/bundestag-causal-attribution (487 relations from German parliamentary debates)\nPaper: Johnson (2025), C-BERT: Factorized Causal Relation Extraction\nAnnotation guidelines: Annotation"
+  },
+  {
+    "objectID": "extraction/c-bert.html#architecture",
+    "href": "extraction/c-bert.html#architecture",
+    "title": "C-BERT",
+    "section": "Architecture",
+    "text": "Architecture\nC-BERT performs two tasks on a shared encoder:\n\n\n\n\n\ngraph TB\n    Input[\"Input Sentence\"] --&gt; Encoder[\"EuroBERT-610m + LoRA\"]\n\n    Encoder --&gt; T1[\"Task 1: Span Recognition\"]\n    Encoder --&gt; T2[\"Task 2: Relation Classification\"]\n\n    T1 --&gt; BIOES[\"BIOES Tags&lt;br/&gt;(INDICATOR, ENTITY)\"]\n\n    T2 --&gt; Role[\"Role Head&lt;br/&gt;(CAUSE, EFFECT, NO_RELATION)\"]\n    T2 --&gt; Pol[\"Polarity Head&lt;br/&gt;(POS, NEG)\"]\n    T2 --&gt; Sal[\"Salience Head&lt;br/&gt;(MONO, PRIO, DIST)\"]\n\n    BIOES --&gt; Pipeline[\"Tuple Construction\"]\n    Role --&gt; Pipeline\n    Pol --&gt; Pipeline\n    Sal --&gt; Pipeline\n    Pipeline --&gt; Tuples[\"(C, E, I) Tuples\"]\n\n\n\n\n\n\n\nTask 1: Span Recognition\nA token classification head assigns BIOES tags to identify causal indicators and entities in the input sentence:\n\n\n\nTag\nMeaning\n\n\n\n\nB-INDICATOR\nBeginning of a causal indicator span\n\n\nI-INDICATOR\nInside a causal indicator span\n\n\nE-INDICATOR\nEnd of a causal indicator span\n\n\nS-INDICATOR\nSingle-token indicator\n\n\nB-ENTITY\nBeginning of a causal entity span\n\n\nI-ENTITY / E-ENTITY / S-ENTITY\n(analogous)\n\n\nO\nOutside any causal span\n\n\n\n\n\nTask 2: Relation Classification\nFor each (indicator, entity) pair extracted from Task 1, the relation head determines the causal relationship. The input is formatted as:\n[indicator] &lt;|parallel_sep|&gt; [entity] &lt;|parallel_sep|&gt; [sentence]\nThe CLS representation passes through three parallel heads:\nRole (3-class) determines whether the entity is a Cause, Effect, or unrelated to the indicator. This depends primarily on syntactic position and indicator projection patterns.\nPolarity (2-class, masked for NO_RELATION) determines whether the causal influence is promoting (POS) or inhibiting (NEG). This is driven by indicator lexical class and negation context.\nSalience (3-class, masked for NO_RELATION, applied to CAUSE only) determines causal strength:\n\n\n\nClass\n|I|\nMeaning\n\n\n\n\nMONO\n1.0\nMonocausal — sole or primary cause\n\n\nPRIO\n0.75\nPrioritized — highlighted among multiple factors\n\n\nDIST\n0.5\nDistributed — one of several contributing factors\n\n\n\nEffect entities inherit salience from their associated indicator–cause relation. The final influence value is reconstructed as I = \\text{sign}(\\text{polarity}) \\times s_{\\text{salience}}, or 0 for NO_RELATION.\n\n\nWhy Factorize?\nThe full combinatorial label space has 14 classes: \\{MONO, PRIO, DIST\\} \\times \\{POS, NEG\\} \\times \\{CAUSE, EFFECT\\} = 12, plus NO_RELATION and INTERDEPENDENCY. Flat classification over this space suffers from class sparsity (several classes have fewer than 10 training instances) and conflates signals governed by different linguistic cues.\nFactorization addresses both problems. It reduces per-head complexity (3-class and 2-class instead of 14-class), eliminates class sparsity within each head, and allows each head to learn from its own loss signal. In practice, the factorized model consistently outperforms unified classification across all random seeds tested.\nTwo intermediate architectures were explored and abandoned during development. A role + influence regression head (\\tanh \\to [-1,1]) could not jointly learn sign and magnitude, causing outputs to cluster near zero when negation markers were present. A discrete role/polarity + continuous salience variant defaulted to safe intermediate values (~0.85) rather than learning the categorical distinction between MONO, PRIO, and DIST. Both failures motivated the fully discretized three-head design."
+  },
+  {
+    "objectID": "extraction/c-bert.html#training",
+    "href": "extraction/c-bert.html#training",
+    "title": "C-BERT",
+    "section": "Training",
+    "text": "Training\n\nData\nThe model is trained on 2,391 manually annotated causal relations from German environmental discourse (1990–2022), covering four focal terms: Waldsterben (forest dieback), Artensterben (species extinction), Bienensterben (bee death), and Insektensterben (insect death). See Annotation for the full annotation schema and guidelines.\nThe data is split 80/20 at the sentence level (3,802 train / 951 test sentences), with data augmentation (entity replacement) doubling the relation training instances to 7,604. The split is performed before augmentation to prevent leakage.\n\n\nNegation-Aware Target Construction\nA critical preprocessing step separates three distinct negation signals that would otherwise cause the model to learn spurious correlations:\n\nIndicator base polarity — looked up from the indicator family taxonomy (e.g. verursachen → +, stoppen → −)\nPropositional negation — particles like nicht, kein that neutralize the entire relation (these are dropped from training as they are too sparse for the model to learn reliably)\nObject negation — negation nominals like Verlust, Rückgang in entity spans that invert polarity compositionally: \\text{polarity}_{\\text{final}} = \\text{base} \\times (-1)^{\\text{neg count}}\n\n\n\nHyperparameters\n\n\n\nParameter\nValue\n\n\n\n\nBase model\nEuroBERT-610m\n\n\nLoRA rank / alpha / dropout\n16 / 32 / 0.05\n\n\nLearning rate\n3 \\times 10^{-4} (cosine schedule)\n\n\nWarmup ratio\n0.05\n\n\nEpochs\n7\n\n\nBatch size\n32\n\n\nLoss weights (\\lambda_p, \\lambda_s)\n1.0, 1.0\n\n\nAugmentation\nMode 2 (original + augmented)\n\n\n\nThe total loss is: \\mathcal{L} = \\mathcal{L}_{\\text{role}} + \\lambda_p \\mathcal{L}_{\\text{polarity}} + \\lambda_s \\mathcal{L}_{\\text{salience}}, where all three terms use weighted cross-entropy with inverse-frequency class weights. Polarity and salience losses are masked for NO_RELATION samples."
+  },
+  {
+    "objectID": "extraction/c-bert.html#results",
+    "href": "extraction/c-bert.html#results",
+    "title": "C-BERT",
+    "section": "Results",
+    "text": "Results\n\nFlagship Comparison (seed 456)\n\n\n\nMetric\nUnified (v2)\nFactorized (v3)\nΔ\n\n\n\n\nRole Accuracy\n—\n88.7\n\n\n\nPolarity Accuracy\n—\n92.0\n\n\n\nSalience Accuracy\n—\n92.4\n\n\n\nReconstructed 14-class Accuracy\n75.3\n76.9\n+1.6\n\n\nReconstructed 14-class F1\n61.9\n62.2\n+0.3\n\n\nTotal errors\n248\n234\n−14\n\n\nMulti-head errors (% of total)\n22.6%\n16.2%\n−6.4\n\n\nEntity F1 (strict span match)\n0.691\n0.765\n+0.074\n\n\nIndicator F1 (strict span match)\n0.649\n0.768\n+0.119\n\n\n\nThe factorized model produces fewer total errors and, critically, a qualitatively different error profile: it reduces multi-head error cascades (where role, polarity, and salience are all wrong simultaneously) from 22.6% to 16.2% of errors, concentrating failures in single, interpretable subtasks.\nAn unexpected finding is that factorization substantially improves span detection despite both architectures sharing the same token classification head — suggesting that the factorized relation loss provides gradient signals more compatible with the span detection objective.\n\n\nMulti-Seed Robustness\nAcross five random seeds, the factorized model consistently outperforms the unified model:\n\n\n\n\nUnified (v2)\nFactorized (v3)\n\n\n\n\nMean accuracy\n0.744 \\pm 0.007\n\\mathbf{0.768 \\pm 0.009}\n\n\nBest seed\n0.753\n0.781\n\n\nWorst seed\n0.733\n0.760\n\n\n\nThe factorized model outperforms the unified model on all five seeds tested. Ablation confirms this is a structural advantage — scaling the unified model’s loss to match the factorized model’s gradient budget does not close the gap.\n\n\nWhat the Model Gets Right\nObject negation without explicit span detection. The model correctly inverts polarity from object negation nominals (e.g. Verlust, Vernichtung) even when these are not detected as separate spans — the relation head has learned to attend to negation context in the sentence.\nPassive and non-canonical word order. In Insektensterben wird durch Pestizide verursacht (“insect death is caused by pesticides”), the model correctly assigns roles semantically rather than positionally: Insektensterben (syntactic subject) → EFFECT, Pestizide (syntactic oblique) → CAUSE.\nExplicit coordination. In Pestizide und Klimawandel verursachen Insektensterben, both causes correctly receive MONO salience. This is by design: both are explicitly named, and salience reduction to DIST/PRIO is reserved for implicit co-causes. Normalization happens downstream during graph aggregation.\n\n\nKnown Limitations\nContext-based salience detection. The model reliably detects salience when it is lexicalized in indicator compounds (Hauptursache → PRIO, mitverantwortlich → DIST) but struggles when salience is projected by context markers alone: separated verbs (tragen…bei), indefinite determiners (eine Ursache), and priority adverbials (vor allem) often fail to trigger the correct salience class.\nClass imbalance. The relation label distribution is heavily skewed: MONO_POS_EFFECT and MONO_POS_CAUSE together account for 61% of training instances. Rare classes like PRIO_NEG (1 instance) remain difficult despite inverse-frequency class weighting.\nIntra-sentence scope. The model extracts relations within single sentences only. Cross-sentence causality requires discourse parsing, which is left to future work."
+  },
+  {
+    "objectID": "extraction/c-bert.html#usage",
+    "href": "extraction/c-bert.html#usage",
+    "title": "C-BERT",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\npip install causalbert\n# or from source:\ngit clone https://github.com/padjohn/cbert\ncd cbert && pip install -e .\n\n\nQuick Start\nfrom causalbert.infer import load_model, sentence_analysis, extract_tuples\n\n# Load model\nmodel, tokenizer, config, device = load_model(\"pdjohn/C-EBERT-610m\")\n\n# Analyze sentences\nsentences = [\n    \"Pestizide verursachen Insektensterben.\",\n    \"Naturschutzmaßnahmen stoppen das Artensterben.\",\n]\n\nresults = sentence_analysis(model, tokenizer, config, sentences, device=device)\n\n# Extract (C, E, I) tuples\ntuples = extract_tuples(results, min_confidence=0.5)\n\nfor t in tuples:\n    print(f\"({t['cause']}, {t['effect']}, {t['influence']:.2f})\")\n    # → (Pestizide, Insektensterben, +1.00)\n    # → (Naturschutzmaßnahmen, Artensterben, -1.00)\n\n\nPipeline Steps\nThe sentence_analysis function runs the full extraction pipeline:\n\nToken classification — predicts BIOES tags for each token\nSpan merging — groups tagged tokens into indicator and entity spans\nPair construction — creates all (indicator, entity) combinations\nRelation classification — predicts role, polarity, and salience for each pair\nTuple extraction — extract_tuples() converts results to (C, E, I) dictionaries\n\nEach tuple contains: cause, effect, influence (\\in [-1, +1]), sentence, confidence, and label.\n\n\nInference Performance\nWith LoRA fine-tuning, only 0.6M additional parameters are trained on top of the 610M base model. End-to-end inference (span detection + relation classification) takes approximately 37 ms per sentence on an NVIDIA RTX 4090 (batch size 1). The factorized heads add minimal overhead compared to flat classification.\nAt batch size 32, the full environmental corpus of 22 million sentences was processed in approximately 10 hours on GPU, yielding 1.6 million unique aggregated causal relations across 357,000 distinct entities."
+  },
+  {
+    "objectID": "extraction/c-bert.html#model-variants",
+    "href": "extraction/c-bert.html#model-variants",
+    "title": "C-BERT",
+    "section": "Model Variants",
+    "text": "Model Variants\nBoth architectures are released:\n\n\n\n\n\n\n\n\nVariant\nDescription\nUse case\n\n\n\n\nv3 (factorized)\nThree parallel heads (role, polarity, salience)\nRecommended default — better accuracy, interpretable errors\n\n\nv2 (unified)\nSingle 14-class softmax\nSimpler pipeline, single prediction per pair\n\n\n\nThe architecture version is stored in the model config and automatically detected at load time."
+  },
+  {
+    "objectID": "extraction/c-bert.html#further-reading",
+    "href": "extraction/c-bert.html#further-reading",
+    "title": "C-BERT",
+    "section": "Further Reading",
+    "text": "Further Reading\n\nFor the annotation schema and guidelines that produced the training data, see Annotation\nFor how extracted tuples are transformed into formal (C, E, I) values, see Tuple Construction\nFor a high-level view of the extraction pipeline, see Extraction Overview\nFor the theoretical framework motivating polarity and salience, see Framework"
+  },
+  {
+    "objectID": "processing/tuple-construction.html",
+    "href": "processing/tuple-construction.html",
+    "title": "Tuple Construction",
+    "section": "",
+    "text": "Tuple construction transforms qualitative linguistic annotations (indicators, markers) into quantitative (C, E, I) values through a systematic three-step process:\n\nEntity identification: Extract C and E based on syntactic projection\nPolarity determination: Calculate the sign of I from indicator class and negation\nSalience calculation: Calculate the magnitude |I| from morphological and syntactic markers\n\nThe output is a fully specified triple (C, E, I) where I \\in [-1, +1] represents:\n\nI = \\pm(\\text{polarity}) \\times |\\text{salience}|"
+  },
+  {
+    "objectID": "processing/tuple-construction.html#overview",
+    "href": "processing/tuple-construction.html#overview",
+    "title": "Tuple Construction",
+    "section": "",
+    "text": "Tuple construction transforms qualitative linguistic annotations (indicators, markers) into quantitative (C, E, I) values through a systematic three-step process:\n\nEntity identification: Extract C and E based on syntactic projection\nPolarity determination: Calculate the sign of I from indicator class and negation\nSalience calculation: Calculate the magnitude |I| from morphological and syntactic markers\n\nThe output is a fully specified triple (C, E, I) where I \\in [-1, +1] represents:\n\nI = \\pm(\\text{polarity}) \\times |\\text{salience}|"
+  },
+  {
+    "objectID": "processing/tuple-construction.html#step-1-entity-identification",
+    "href": "processing/tuple-construction.html#step-1-entity-identification",
+    "title": "Tuple Construction",
+    "section": "Step 1: Entity Identification",
+    "text": "Step 1: Entity Identification\nInput: Annotated causal relation with indicator and syntactic dependencies\nOutput: Entity pair (C, E)\nMethod: Syntactic projection according to indicator-specific patterns\nCausal indicators project their arguments through predictable syntactic patterns. The most frequent patterns:\n\nTransitive-Causative Verbs\nIndicators: cause, trigger, produce, stop, prevent\nProjection: Subject → Cause, Direct object → Effect\n\n\n\n\n\n\nNoteExample\n\n\n\nPesticides cause insect mortality.\n\nIndicator: cause (transitive-causative)\nSubject (pesticides) = Cause\nDirect object (insect mortality) = Effect\nResult: (C=\\text{pesticides}, E=\\text{insect mortality})\n\n\n\n\n\nCopula Constructions\nIndicators: cause (noun), consequence, reason\nProjection: Subject → Cause, Prepositional object (for/of) → Effect\n\n\n\n\n\n\nNoteExample\n\n\n\nClimate change is the cause of species extinction.\n\nIndicator: cause (copula construction)\nSubject (climate change) = Cause\n\nPrepositional object (of species extinction) = EFFECT\nResult: (C=\\text{climate change}, E=\\text{species extinction})\n\n\n\n\n\nPrepositional Markers\nIndicators: due to, because of, through\nProjection: Prepositional object → Cause, Matrix clause subject/object → Effect\n\n\n\n\n\n\nNoteExample\n\n\n\nSpecies die out due to habitat loss.\n\nIndicator: due to (prepositional)\nPrepositional object (habitat loss) = Cause\nMatrix subject (species) combined with verb (die out) = Effect\nResult: (C=\\text{habitat loss}, E=\\text{species die out})\n\n\n\n\n\nEntity Minimization\nExtracted entities follow the token minimization principle: attributive modifiers are extracted as separate coefficients, leaving only head tokens as entities.\n\n\n\n\n\n\nTipWhy minimization?\n\n\n\nMinimal entities enable better aggregation. Instead of treating “industrial pesticides” and “agricultural pesticides” as separate causes, we extract:\n\nEntity: pesticides\nCoefficient: industrial / agricultural\n\nThis allows aggregating evidence about pesticides as a general cause while preserving modifier information for detailed analysis."
+  },
+  {
+    "objectID": "processing/tuple-construction.html#step-2-polarity-determination",
+    "href": "processing/tuple-construction.html#step-2-polarity-determination",
+    "title": "Tuple Construction",
+    "section": "Step 2: Polarity Determination",
+    "text": "Step 2: Polarity Determination\nInput: Entity pair (C, E) and annotated indicator with optional negation markers\nOutput: Sign of I (+ or −)\nMethod: Base polarity from indicator class, modified by negation\n\nBase Polarity from Indicator Class\nEach indicator family has an inherent polarity:\nPromoting indicators (I_{\\text{default}} &gt; 0): - Verbs: cause, trigger, lead to, produce, strengthen - Nouns: cause, reason, consequence - Prepositions: due to, because of, through\nInhibiting indicators (I_{\\text{default}} &lt; 0): - Verbs: stop, prevent, reduce, block, curb - Nouns: prevention, barrier, protection against - Prepositions: against, despite\n\n\n\n\n\n\nNoteExample\n\n\n\nMeasures stop insect mortality.\n\nIndicator: stop ∈ STOP family (inhibiting)\nBase polarity: I_{\\text{default}} &lt; 0\n\n\n\n\n\nNegation Modification\nContextual negation markers modify base polarity through two mechanisms:\n\nObject-Based Negation\nNegative nominals (loss, decline, absence) invert polarity with odd numbers of negations:\n\n\\begin{align*}\n\\text{1 negation:} \\quad &I_{\\text{final}} = -I_{\\text{default}} \\\\\n\\text{2 negations:} \\quad &I_{\\text{final}} = I_{\\text{default}} \\\\\n\\text{3 negations:} \\quad &I_{\\text{final}} = -I_{\\text{default}}\n\\end{align*}\n\n\n\n\n\n\n\nNoteExample: Single negation\n\n\n\nLoss of habitats causes bee mortality.\n\nIndicator: causes → I_{\\text{default}} &gt; 0 (promoting)\nObject negation on Cause (loss): 1×\nPolarity inverted: I_{\\text{final}} &lt; 0 (inhibiting)\nInterpretation: Less habitat leads to more bee mortality (inhibiting relation)\n\n\n\n\n\n\n\n\n\nNoteExample: Double negation\n\n\n\nLoss of pesticides prevents loss of bees.\n\nIndicator: prevents → I_{\\text{default}} &lt; 0 (inhibiting)\nObject negations: loss Cause + loss (Effect) = 2×\nPolarity preserved: I_{\\text{final}} &lt; 0 (inhibiting)\nInterpretation: Less pesticides leads to fewer bee deaths (inhibiting relation)\n\n\n\n\n\nPropositional Negation\nPropositional negation (not cause, doesn’t prevent) neutralizes the relation:\n\n\n\n\n\n\nNoteExample\n\n\n\nPesticides do not cause bee mortality.\n\nIndicator: cause → I_{\\text{default}} &gt; 1\nVerbal negation: not\nInfluence neutralized: I_{\\text{final}} = 0\n\n\n\n\n\n\n\n\n\nWarningComplex Negation\n\n\n\nThe framework currently doesn’t differentiate between neutralized positive (e.g. not causing) and neutralized negative (e.g. not preventing) relationships, as both result in 0."
+  },
+  {
+    "objectID": "processing/tuple-construction.html#step-3-salience-calculation",
+    "href": "processing/tuple-construction.html#step-3-salience-calculation",
+    "title": "Tuple Construction",
+    "section": "Step 3: Salience Calculation",
+    "text": "Step 3: Salience Calculation\nInput: Entity pair (C, E) with annotated markers\nOutput: Magnitude |I| \\in [0,1]\nMethod: Combine explicit markers and structural distribution\nSalience emerges from two factors:\n\nExplicit Lexical Markers\nMarkers directly specify relative weight:\nMonocausal (|I| = 1.0): - Determination: the cause (not a cause) - Exclusivity: responsible for, the reason - No competing causes mentioned\nPrioritized (|I| = 0.75): - Emphasis: mainly, primarily, above all - Composition: main cause, key factor\nDistributed (|I| = 0.5): - Contribution: contributes to, plays a role - Composition: partial cause, one factor - Distribution: among other things, also\n\n\nStructural Distribution\nMultiple coordinated causes distribute salience proportionally:\n\n\n\nConstruction\nEach cause gets\n\n\n\n\nX causes Z (alone)\n\\|I\\| = 1.0\n\n\nX and Y cause Z\n\\|I\\| = 0.5\n\n\nA, B, and C cause Z\n\\|I\\| = 0.33\n\n\n\n\n\n\n\n\n\nNoteExample: Explicit + Structural\n\n\n\nX and Y are two main causes of Z.\n\nExplicit marker: main causes → base salience = 0.75\nStructural distribution: 2 causes → divide by 2\nFinal salience: |I| = 0.75 \\div 2 = 0.375 per cause\n\n(In practice, we round to the nearest conventional value: 0.5)\n\n\n\n\nDefault Assumption\nIf no markers and no competing causes: Assume monocausal attribution (|I| = 1.0)\nThis reflects the discourse convention that unmarked causal statements present causes as primary factors unless explicitly qualified."
+  },
+  {
+    "objectID": "processing/tuple-construction.html#integration-computing-final-i",
+    "href": "processing/tuple-construction.html#integration-computing-final-i",
+    "title": "Tuple Construction",
+    "section": "Integration: Computing Final I",
+    "text": "Integration: Computing Final I\nCombining all components:\n\nI = \\text{sign}(\\text{polarity after negation}) \\times |\\text{salience}|\n\n\nComplete Example\n\n“Mainly pesticides and habitat loss contribute to bee mortality.”\n\nStep 1: Entities - Indicator: contribute to (transitive) - C_1 = \\text{pesticides}, C_2 = \\text{habitat loss} - E = \\text{bee mortality}\nStep 2: Polarity - Indicator contribute → I_{\\text{default}} &gt; 0 (promoting) - No negation markers - Final polarity: +\nStep 3: Salience - Explicit marker: mainly → base = 0.75 - Structural: 2 causes → divide by 2 - Salience per cause: |I| = 0.75 \\div 2 \\approx 0.5\nResult: - (C=\\text{pesticides}, E=\\text{bee mortality}, I=+0.5) - (C=\\text{habitat loss}, E=\\text{bee mortality}, I=+0.5)"
+  },
+  {
+    "objectID": "processing/tuple-construction.html#implementation",
+    "href": "processing/tuple-construction.html#implementation",
+    "title": "Tuple Construction",
+    "section": "Implementation",
+    "text": "Implementation\nThe tuple construction algorithm is implemented in Python and processes annotated relations in batch:\ndef construct_tuple(annotation):\n    \"\"\"\n    Transform linguistic annotation into (C,E,I) tuple.\n    \n    annotation: dict with keys 'indicator', 'entities', 'markers'\n    returns: tuple (C, E, I)\n    \"\"\"\n    # Step 1: Extract entities\n    C, E = extract_entities(annotation['indicator'], \n                            annotation['syntax'])\n    \n    # Step 2: Determine polarity\n    base_polarity = get_base_polarity(annotation['indicator'])\n    negation_count = count_negations(annotation['markers'])\n    polarity_sign = apply_negation(base_polarity, negation_count)\n    \n    # Step 3: Calculate salience\n    explicit_salience = get_explicit_salience(annotation['markers'])\n    n_causes = count_coordinated_causes(annotation)\n    salience_magnitude = explicit_salience / n_causes\n    \n    # Combine\n    I = polarity_sign * salience_magnitude\n    \n    return (C, E, I)\nSee the full implementation on GitHub."
+  },
+  {
+    "objectID": "processing/tuple-construction.html#next-steps",
+    "href": "processing/tuple-construction.html#next-steps",
+    "title": "Tuple Construction",
+    "section": "Next Steps",
+    "text": "Next Steps\nOnce tuples are constructed, they can be:\n\nAggregated across multiple texts to build evidence for causal relations\nIntegrated into ACGs for graph-based discourse analysis\nAnalyzed for discourse patterns, temporal dynamics, and argumentation structures\n\nThe systematic transformation from qualitative annotations to quantitative tuples bridges interpretive linguistics and computational analysis, enabling scalable yet semantically rich causal extraction."
+  },
+  {
+    "objectID": "framework/tuples.html",
+    "href": "framework/tuples.html",
+    "title": "(C, E, I) Tuples",
+    "section": "",
+    "text": "Traditional causal extraction systems reduce causal relations to binary pairs: a CAUSE and an EFFECT. This simplification loses important semantic information that speakers encode when making causal attributions:\n\nDirection of influence: Does the cause promote or inhibit the effect?\nStrength of attribution: Is this the sole cause, or one of many factors?\n\nCausal Semantics addresses these limitations by representing causal relations as (C, E, I) tuples."
+  },
+  {
+    "objectID": "framework/tuples.html#motivation",
+    "href": "framework/tuples.html#motivation",
+    "title": "(C, E, I) Tuples",
+    "section": "",
+    "text": "Traditional causal extraction systems reduce causal relations to binary pairs: a CAUSE and an EFFECT. This simplification loses important semantic information that speakers encode when making causal attributions:\n\nDirection of influence: Does the cause promote or inhibit the effect?\nStrength of attribution: Is this the sole cause, or one of many factors?\n\nCausal Semantics addresses these limitations by representing causal relations as (C, E, I) tuples."
+  },
+  {
+    "objectID": "framework/tuples.html#the-triple-structure",
+    "href": "framework/tuples.html#the-triple-structure",
+    "title": "(C, E, I) Tuples",
+    "section": "The Triple Structure",
+    "text": "The Triple Structure\nA causal relation is formalized as:\n\nR = (C, E, I)\n\nwhere:\n\nC (CAUSE)\nThe entity or event that exerts causal influence. This is the “what” that causes or affects something else.\nExamples: climate change, pesticides, conservation measures\n\n\nE (EFFECT)\nThe entity or event that is causally influenced. This is the “what” that is caused, increased, decreased, or prevented.\nExamples: species extinction, bee mortality, forest dieback\n\n\nI (INFLUENCE)\nA signed scalar I \\in [-1, +1] that encodes both the direction and strength of causal influence. This integrates two core dimensions:\n\nI = \\pm(\\text{polarity}) \\times |\\text{salience}|\n\nThe sign encodes polarity (promoting vs. inhibiting), while the magnitude encodes salience (monocausal vs. polycausal)."
+  },
+  {
+    "objectID": "framework/tuples.html#sec-polarity",
+    "href": "framework/tuples.html#sec-polarity",
+    "title": "(C, E, I) Tuples",
+    "section": "Polarity: Direction of Influence",
+    "text": "Polarity: Direction of Influence\nPolarity determines whether a cause promotes or inhibits its effect.\n\nPromoting (+)\nThe cause strengthens, enables, or produces the effect. Conceptually, C increases the probability or intensity of E.\nLinguistic markers: - Verbs: causes, produces, leads to, strengthens - Nouns: cause, reason, trigger - Prepositions: due to, because of\nExamples:\n\n\n\n\n\n\n\nSentence\nTuple\n\n\n\n\nClimate change causes species extinction\n(C=\\text{climate change}, E=\\text{species extinction}, I=+1.0)\n\n\nPesticides contribute to bee mortality\n(C=\\text{pesticides}, E=\\text{bee mortality}, I=+0.5)\n\n\n\n\n\nInhibiting (−)\nThe cause prevents, reduces, or stops the effect. Conceptually, C decreases the probability or intensity of E.\nLinguistic markers: - Verbs: prevents, reduces, stops, inhibits, blocks - Nouns: prevention, reduction, barrier - Prepositions: against, despite\nExamples:\n\n\n\n\n\n\n\nSentence\nTuple\n\n\n\n\nConservation stops species extinction\n(C=\\text{conservation}, E=\\text{species extinction}, I=-1.0)\n\n\nMeasures reduce forest dieback\n(C=\\text{measures}, E=\\text{forest dieback}, I=-0.5)\n\n\n\n\n\nDiscourse Function\nThe polarity distinction is crucial for discourse analysis because it marks relations as constructive vs. destructive:\n\nPromoting relations (X causes Y) often construct problems or explain negative developments\nInhibiting relations (X prevents Y) typically appear in intervention contexts or solution proposals"
+  },
+  {
+    "objectID": "framework/tuples.html#sec-salience",
+    "href": "framework/tuples.html#sec-salience",
+    "title": "(C, E, I) Tuples",
+    "section": "Salience: Strength of Attribution",
+    "text": "Salience: Strength of Attribution\nSalience quantifies the weight or importance of a cause relative to all causal factors affecting an effect. It encodes whether a cause is presented as:\n\nThe sole factor (monocausal framing)\nThe dominant factor (prioritized polycausal framing)\nOne of many factors (distributed polycausal framing)\n\nSalience operates on a continuous spectrum |I| \\in [0, 1], though in practice we use three conventional values.\n\nMonocausal Attribution (|I| = 1.0)\nThe cause is presented as the sole or exclusive factor.\nLinguistic markers: - Determination: the cause (not a cause) - Exclusivity: responsible for, the reason - Implicit: single cause mentioned without qualifiers\nExamples:\n\n\n\nSentence\nSalience\n\n\n\n\nX is the cause of Y\n1.0\n\n\nX is responsible for Y\n1.0\n\n\nX causes Y (no other causes mentioned)\n1.0\n\n\n\n\n\nPolycausal Attribution (|I| &lt; 1.0)\nThe cause is one of multiple factors, with salience reflecting its relative weight:\n\nPrioritized (|I| = 0.75)\nThe cause is dominant but not exclusive.\nLinguistic markers: mainly, primarily, above all, the main cause\n\n\n\nSentence\nSalience\n\n\n\n\nY is mainly caused by X\n0.75\n\n\nX is the main cause of Y\n0.75\n\n\n\n\n\nDistributed (|I| = 0.5)\nThe cause contributes but is not emphasized over others.\nLinguistic markers: contributes to, a cause, among other things, also\n\n\n\nSentence\nSalience\n\n\n\n\nX contributes to Y\n0.5\n\n\nX is a partial cause of Y\n0.5\n\n\nX and Y cause Z\n0.5 each\n\n\n\n\n\n\nStructural Distribution\nWhen multiple causes are coordinated, salience is distributed proportionally:\n\n\n\nConstruction\nDistribution\n\n\n\n\nX and Y cause Z\nEach gets |I| = 0.5\n\n\nA, B, and C cause Y\nEach gets |I| = 0.33\n\n\nX and Y are two main causes of Z\nEach gets |I| = 0.75\n\n\n\n\n\n\n\n\n\nNoteConventional Values\n\n\n\nThe values 0.5, 0.75, and 1.0 are analytical conventions based on empirical observation and proportional reasoning:\n\n1.0 = full attribution (100%)\n0.75 = dominant but not exclusive (75%)\n0.5 = equal contribution (50%)\n\nAlternative weightings are conceptually possible, but these values balance theoretical plausibility with practical interpretability."
+  },
+  {
+    "objectID": "framework/tuples.html#combining-polarity-and-salience",
+    "href": "framework/tuples.html#combining-polarity-and-salience",
+    "title": "(C, E, I) Tuples",
+    "section": "Combining Polarity and Salience",
+    "text": "Combining Polarity and Salience\nThe INFLUENCE scalar integrates both dimensions:\n\nI = \\pm(\\text{polarity}) \\times |\\text{salience}|\n\nThis produces a range of possible values:\n\n\n                            \n                                            \n\n\n\nPrototypical Configurations\n\n\n\nExample\nPolarity\nSalience\nI\n\n\n\n\nClimate change causes species extinction\n+\n1.0\n+1.0\n\n\nMainly climate change causes extinction\n+\n0.75\n+0.75\n\n\nPesticides contribute to bee mortality\n+\n0.5\n+0.5\n\n\nConservation reduces forest dieback\n−\n0.5\n−0.5\n\n\nMeasures mainly stop extinction\n−\n0.75\n−0.75\n\n\nProtection prevents species extinction\n−\n1.0\n−1.0"
+  },
+  {
+    "objectID": "framework/tuples.html#graph-representation",
+    "href": "framework/tuples.html#graph-representation",
+    "title": "(C, E, I) Tuples",
+    "section": "Graph Representation",
+    "text": "Graph Representation\nThe (C, E, I) tuples form the basic units for constructing Attributional Causal Graphs (ACGs):\n\nC and E become nodes\nI becomes the edge weight\nDirection flows from C \\to E\n\nA causal relation (C \\xrightarrow{I} E) represents: “C influences E with strength and direction I”\nGraph properties:\n\nPositive edges (I &gt; 0) indicate promoting factors\nNegative edges (I &lt; 0) indicate inhibiting factors\nEdge weights enable identifying central vs. peripheral causes through aggregation\n\nSee ACG Construction for details on building causal graphs from tuples."
+  },
+  {
+    "objectID": "framework/tuples.html#summary",
+    "href": "framework/tuples.html#summary",
+    "title": "(C, E, I) Tuples",
+    "section": "Summary",
+    "text": "Summary\nThe (C, E, I) representation provides:\n\nSemantic richness: Captures both direction (polarity) and strength (salience) of causal attributions\nComputational tractability: Simple numeric encoding enables aggregation and graph algorithms\nDiscourse sensitivity: Reflects how speakers frame causality (monocausal vs. polycausal, promoting vs. inhibiting)\n\nNext: Learn how these dimensions are extracted from text through causal indicators and context markers."
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Note🤖 C-BERT Model\n\n\n\npadjohn/cbert\nLibrary to create datasets, train and run the Multi-task transformer for causal relation extraction.\n\n\n\n\n\n\n\n\n\n\n\nNote🤗 Hugging Face\n\n\n\npdjohn/c-bert\nPre-trained C-BERT model weights for German causal extraction."
+  },
+  {
+    "objectID": "resources.html#code-models",
+    "href": "resources.html#code-models",
+    "title": "Resources",
+    "section": "",
+    "text": "Note🤖 C-BERT Model\n\n\n\npadjohn/cbert\nLibrary to create datasets, train and run the Multi-task transformer for causal relation extraction.\n\n\n\n\n\n\n\n\n\n\n\nNote🤗 Hugging Face\n\n\n\npdjohn/c-bert\nPre-trained C-BERT model weights for German causal extraction."
+  },
+  {
+    "objectID": "resources.html#publications",
+    "href": "resources.html#publications",
+    "title": "Resources",
+    "section": "Publications",
+    "text": "Publications\n\nThesis\n\n\n\n\n\n\nTip📖 PhD Dissertation\n\n\n\nTitle: Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs\nAuthor: Patrick\nInstitution: Technical University Darmstadt\nYear: 2026\nLink: [coming soon]\nThe thesis introduces the Causal Semantics framework and applies it to analyze responsibility attributions in German environmental discourse (1990-2020).\n\n\n\n\nPapers\n\n\n\n\n\n\nTip📄 C-BERT Paper\n\n\n\nTitle: C-BERT: Factorized Causal Relation Extraction\nAuthors: Patrick Johnson\nYear: 2026\nLink: DOI | PDF\nIntroduces the C-BERT multi-task transformer for extracting (C,E,I) tuples from German text."
+  },
+  {
+    "objectID": "resources.html#data",
+    "href": "resources.html#data",
+    "title": "Resources",
+    "section": "Data",
+    "text": "Data\n\nIndicator Library\nThe framework uses a library of 644 German causal indicators across multiple families:\n\n🔢 Size: 644 indicator forms\n🏷️ Families: 162 semantic families (CAUSE, STOP, THROUGH, etc.)\n📊 Distribution: Annotated with frequency and priority\n🧲 Polarity: Each indicator marked as promoting (+) or inhibiting (−)\n🌟 Salience: Each indicator marked as mono, distributive (0.5) or priority (−)\n\nDownload: indicators.csv\n\n\nAnnotation Corpus\nManual annotations of causal relations in German environmental texts:\n\n📄 Size: 2,391 annotated relations\n📅 Period: 1990-2020\n🌍 Domain: Environmental discourse (forest dieback, species extinction, insect mortality, bee mortality)\n🏷️ Annotations: Indicators, entities, polarity, salience, context markers\n\nAvailability: A subset containing the sentences from the German Bundestag is available on Huggingface."
+  },
+  {
+    "objectID": "resources.html#related-work",
+    "href": "resources.html#related-work",
+    "title": "Resources",
+    "section": "Related Work",
+    "text": "Related Work\n\nCausal Extraction Systems\n\nBECauSE [1]: Corpus of causal and purpose relations\n\n\n\nLinguistic Frameworks\n\nCruse [2]: Lexical semantic analysis of causative verbs\nWolff [3]: Force dynamics in causal reasoning\nTalmy [4]: Force dynamics in language and cognition\n\n\n\nComputational Methods\n\nBERT-based Extraction [5]: Transformer models for causal relation classification\nKnowledge Graphs [6]: Event-Influence Extraction"
+  },
+  {
+    "objectID": "resources.html#tools-libraries",
+    "href": "resources.html#tools-libraries",
+    "title": "Resources",
+    "section": "Tools & Libraries",
+    "text": "Tools & Libraries\nThe framework builds on several open-source tools:\n\nHugging Face Transformers: Base models and training infrastructure\nspaCy: Dependency parsing for syntactic projection\nNetworkX: Graph construction and analysis\nPlotly: Interactive visualizations"
+  },
+  {
+    "objectID": "resources.html#contact-collaboration",
+    "href": "resources.html#contact-collaboration",
+    "title": "Resources",
+    "section": "Contact & Collaboration",
+    "text": "Contact & Collaboration\nInterested in using or extending this framework? We welcome collaborations!\n📧 Email, 🟢 ORCiD, 💼 LinkedIn"
+  },
+  {
+    "objectID": "resources.html#citation",
+    "href": "resources.html#citation",
+    "title": "Resources",
+    "section": "Citation",
+    "text": "Citation\nIf you use this framework in your research, please cite:\n@phdthesis{johnson2026causalsemantics,\n  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},\n  author={Patrick Johnson},\n  school={Technical University of Darmstadt},\n  year={forthcoming}\n}\n@misc{cbert,\n  title={C-BERT: Factorized Causal Relation Extraction},\n  author={Patrick Johnson},\n  doi={10.26083/tuda-7797},\n  year={2026}\n}"
+  },
+  {
+    "objectID": "resources.html#license",
+    "href": "resources.html#license",
+    "title": "Resources",
+    "section": "License",
+    "text": "License\nThe code is released under the MIT License.\nThe documentation is licensed under CC BY 4.0."
+  },
+  {
+    "objectID": "resources.html#acknowledgments",
+    "href": "resources.html#acknowledgments",
+    "title": "Resources",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments\nThis research was funded by the Deutsche Forschungsgemeinschaft (DFG) as part of the project FOR 5182 / “Kontroverse Diskurse. Sprachgeschichte als Zeitgeschichte seit 1990”. The author is deeply grateful for the financial support that made this work possible. I also thank the members of the research group for their invaluable feedback and stimulating discussions throughout the development of the Causal Semantics framework."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Causal Semantics",
+    "section": "",
+    "text": "Causal Semantics (S_C) is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Causal Semantics",
+    "section": "",
+    "text": "Causal Semantics (S_C) is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
+  },
+  {
+    "objectID": "index.html#core-innovation",
+    "href": "index.html#core-innovation",
+    "title": "Causal Semantics",
+    "section": "Core Innovation",
+    "text": "Core Innovation\nThe framework models causal relations as (C, E, I) tuples, where:\n\nC (Cause): The causing entity\nE (Effect): The affected entity\n\nI (Influence): A signed scalar \\in [-1, +1] encoding:\n\nPolarity (sign): Promoting (+) vs. inhibiting (−) influence\nSalience (magnitude): Monocausal (|I|=1.0) vs. polycausal (|I|&lt;1.0) attribution\n\n\nThis representation enables:\n\nSemantic precision: Capturing the direction and strength of a causal attribution\nQuantitative aggregation: Accumulating attributions into weighted causal networks\nGraph-based analysis: Visualizing discourse dynamics as Attributional Causal Graphs (ACGs)"
+  },
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "Causal Semantics",
+    "section": "Example",
+    "text": "Example\nConsider these sentences from environmental discourse:\n\nClimate change causes species extinction.\n(C_\\text{climate change}, E_\\text{species extinction}, I_{+1.0})\n\n\nConservation measures reduce forest dieback.\n(C_\\text{conservation measures}, E_\\text{forest dieback}, I_{-0.5})\n\nThe first example expresses a promoting, monocausal relation (I=+1.0), while the second expresses an inhibiting, contributory relation (I=-0.5)."
+  },
+  {
+    "objectID": "index.html#architecture",
+    "href": "index.html#architecture",
+    "title": "Causal Semantics",
+    "section": "Architecture",
+    "text": "Architecture\nThe framework consists of three main modules:\n\n\n\n\n\ngraph LR\n    A[Text Input] --&gt; B1[Annotation]\n    A[Text Input] --&gt; B2[C-BERT]\n\n    B1 --&gt; C[Tuple-Construction]\n    B2 --&gt; C\n\n    C --&gt; D[Aggregation]\n    D --&gt; E[ACG]\n    \n    E --&gt; D2[Visualization]\n    E --&gt; D3[Analysis]\n\n\n\n\n\n\n\nExtraction: Identifying causal relations in text through indicators, annotation schemes, and the C-BERT transformer\nProcessing: Converting annotations into formal (C,E,I) tuples and aggregating them"
+  },
+  {
+    "objectID": "index.html#applications",
+    "href": "index.html#applications",
+    "title": "Causal Semantics",
+    "section": "Applications",
+    "text": "Applications\nThis framework has been applied to a German Environmental corpus (1990-2022) to:\n\nanalyze responsibility attributions in biodiversity debates [1]\ndisambiguate references to forest diebacks [2]"
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Causal Semantics",
+    "section": "Citation",
+    "text": "Citation\nIf you use this framework in your research, please cite:\n@phdthesis{johnson2026causalsemantics,\n  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},\n  author={Patrick Johnson},\n  school={Technical University of Darmstadt},\n  year={forthcoming}\n}\n@misc{cbert,\n  title={C-BERT: Factorized Causal Relation Extraction},\n  author={Patrick Johnson},\n  doi={10.26083/tuda-7797},\n  year={2026}\n}"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html",
+    "href": "SETUP_SUMMARY.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#what-weve-created",
+    "href": "SETUP_SUMMARY.html#what-weve-created",
+    "title": "",
+    "section": "What We’ve Created",
+    "text": "What We’ve Created\nA complete Quarto website structure for documenting your Causal Semantics framework. The site includes:\n\nCore Pages Created\n\nHomepage (index.qmd)\n\nFramework overview with (C,E,I) explanation\nArchitecture diagram (Mermaid)\nQuick navigation callouts\n\nFramework Section\n\nframework/index.qmd - Overview bridging three research traditions\nframework/tuples.qmd - Complete detailed explanation of (C,E,I) tuples\n\nPolarity section with examples\nSalience section with conventional values\nInteractive Plotly visualization of INFLUENCE values\nGraph representation\n\n\nExtraction Section\n\nextraction/index.qmd - Complete overview of extraction pipeline\n\nIndicator library (644 indicators)\nContext markers\nC-BERT architecture diagram\nPipeline flow (Mermaid)\n\n\nProcessing Section\n\nprocessing/tuple-construction.qmd - Complete algorithmic walkthrough\n\nStep 1: Entity identification with syntactic projection\nStep 2: Polarity determination with negation handling\nStep 3: Salience calculation with explicit/structural markers\nComplete worked examples\nPython pseudocode\n\n\nResources (resources.qmd)\n\nLinks to GitHub, Hugging Face, papers\nCitation information\nContact details\nRelated work section\n\n\n\n\nConfiguration\n\n_quarto.yml - Full site configuration\n\nNavigation structure (navbar + sidebar)\nTheme: Cosmo\nMath rendering: KaTeX\nCode execution settings\n\n\n\n\nProject Files\n\nREADME.md - Complete setup and deployment instructions\nrequirements.txt - Python dependencies\n.gitignore - Proper exclusions for Quarto/Python"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#whats-already-translated",
+    "href": "SETUP_SUMMARY.html#whats-already-translated",
+    "title": "",
+    "section": "What’s Already Translated",
+    "text": "What’s Already Translated\nFrom your thesis (kausalsemantik.tex and verarbeitung.tex), I’ve translated and adapted:\n✅ Core concepts: (C,E,I) tuples, polarity, salience, INFLUENCE scalar\n✅ Semantic dimensions: Full explanation with examples\n✅ Tuple construction: Complete 3-step algorithm\n✅ Negation handling: Object-based and verbal negation\n✅ Salience calculation: Explicit markers + structural distribution\n✅ Example tables: Prototypical INFLUENCE configurations"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#what-still-needs-content",
+    "href": "SETUP_SUMMARY.html#what-still-needs-content",
+    "title": "",
+    "section": "What Still Needs Content",
+    "text": "What Still Needs Content\nThese pages are defined in the structure but need content:\n\nFramework\n\nframework/dimensions.qmd - Could expand polarity & salience with more detail\nframework/acg-theory.qmd - Graph-theoretic foundations\n\n\n\nExtraction\n\nextraction/c-bert.qmd - Model architecture, training details, performance\nextraction/annotation.qmd - Annotation guidelines, IAA\nextraction/indicators.qmd - Interactive exploration of 644 indicators\n\n\n\nProcessing\n\nprocessing/index.qmd - Overview of processing pipeline\nprocessing/aggregation.qmd - Evidence accumulation across texts\n\n\n\nACG\n\nacg/index.qmd - Overview\nacg/construction.qmd - Building graphs from tuples\nacg/visualization.qmd - NetworkX visualizations, examples"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#interactive-features-already-included",
+    "href": "SETUP_SUMMARY.html#interactive-features-already-included",
+    "title": "",
+    "section": "Interactive Features Already Included",
+    "text": "Interactive Features Already Included\n\nPlotly visualization in framework/tuples.qmd showing INFLUENCE values\nMermaid diagrams for architecture and pipelines\nCallouts for examples, notes, warnings\nMath rendering with KaTeX for formulas"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#next-steps-for-you",
+    "href": "SETUP_SUMMARY.html#next-steps-for-you",
+    "title": "",
+    "section": "Next Steps for You",
+    "text": "Next Steps for You\n\n1. Local Setup (in your VSCode project)\n# In your project directory\npython -m venv .venv\nsource .venv/bin/activate  # Windows: .venv\\Scripts\\activate\npip install -r requirements.txt\n\n# Preview the site (requires Quarto installed locally)\nquarto preview\n\n\n2. Content Priorities\nI’d suggest this order:\n\nextraction/indicators.qmd - This could be great with interactive exploration of your 644 indicators\nextraction/c-bert.qmd - Document your model architecture\nprocessing/aggregation.qmd - How multiple evidences combine\nacg/construction.qmd & acg/visualization.qmd - The graph construction\n\n\n\n3. Adding Interactive Content\nFor the indicators page, you could:\nimport pandas as pd\nimport plotly.express as px\n\n# Load your indicators.csv\nindicators = pd.read_csv('data/indicators.csv')\n\n# Create interactive visualizations\nfig = px.bar(indicators.groupby('family').size(), \n             title='Indicators by Family')\nfig.show()\n\n\n4. Deploy to GitHub Pages\nOnce you’re happy with content:\ngit init\ngit add .\ngit commit -m \"Initial documentation\"\ngit remote add origin https://github.com/yourusername/causal-semantics-docs.git\ngit push -u origin main\n\n# Deploy\nquarto publish gh-pages"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#file-locations",
+    "href": "SETUP_SUMMARY.html#file-locations",
+    "title": "",
+    "section": "File Locations",
+    "text": "File Locations\nAll files are in: /mnt/user-data/outputs/causal-semantics-docs/\nKey files to review: - _quarto.yml - Configuration - index.qmd - Homepage - framework/tuples.qmd - Most complete page - processing/tuple-construction.qmd - Complete algorithm walkthrough - extraction/index.qmd - Extraction overview"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#customization-points",
+    "href": "SETUP_SUMMARY.html#customization-points",
+    "title": "",
+    "section": "Customization Points",
+    "text": "Customization Points\nUpdate these placeholders: - GitHub URLs (search for “yourusername”) - Your name, email, affiliation - Citation information in resources.qmd - Thesis title and publication details - Model links on Hugging Face"
+  },
+  {
+    "objectID": "SETUP_SUMMARY.html#questions",
+    "href": "SETUP_SUMMARY.html#questions",
+    "title": "",
+    "section": "Questions?",
+    "text": "Questions?\nThe structure is ready to go! You can: 1. Start filling in the remaining pages 2. Customize styling in _quarto.yml 3. Add your actual data files (indicators.csv to data/ directory) 4. Deploy to GitHub Pages whenever ready\nThe pages I’ve completed (tuples.qmd, tuple-construction.qmd) can serve as templates for the style and depth of the remaining pages."
+  },
+  {
+    "objectID": "framework/framework.html",
+    "href": "framework/framework.html",
+    "title": "Framework",
+    "section": "",
+    "text": "Causal Semantics integrates insights from three research areas that have largely operated independently:\n\n\n\nPhilosophical accounts differentiate between:\n\nMonocausal structures:\n\nA cause is both sufficient and necessary\n\nPolycausal structures:\n\nA cause can be sufficient\n\nWhere there’s fire, there is smoke.\nIf, when\n\nA cause can be necessary\n\nNo smoke without a fire.\nIf and only if, only\n\n\n\nYet these theories remain abstract and haven’t been operationalized for natural language analysis.\nKey references: [1], [2], [3], [4]\n\n\n\nLinguistic analyses identify crucial semantic dimensions:\n\nPolarity: Promoting or inhibiting influences [5]\nModality: Factive or hypothetical causation [6]\nDiscourse functions: Causal attributions as argumentative tool [7]\n\nYet these studies remain limited to small, qualitatively analyzed corpora.\n\n\n\nNLP systems scale to large text collections but typically:\n\nReduce causality to binary Cause-Effect pairs\nIgnore semantic nuances like strength or direction\nLack discourse sensitivity\n\nKey references: [8], [9], [10]"
+  },
+  {
+    "objectID": "framework/framework.html#logic-language-computation",
+    "href": "framework/framework.html#logic-language-computation",
+    "title": "Framework",
+    "section": "",
+    "text": "Causal Semantics integrates insights from three research areas that have largely operated independently:\n\n\n\nPhilosophical accounts differentiate between:\n\nMonocausal structures:\n\nA cause is both sufficient and necessary\n\nPolycausal structures:\n\nA cause can be sufficient\n\nWhere there’s fire, there is smoke.\nIf, when\n\nA cause can be necessary\n\nNo smoke without a fire.\nIf and only if, only\n\n\n\nYet these theories remain abstract and haven’t been operationalized for natural language analysis.\nKey references: [1], [2], [3], [4]\n\n\n\nLinguistic analyses identify crucial semantic dimensions:\n\nPolarity: Promoting or inhibiting influences [5]\nModality: Factive or hypothetical causation [6]\nDiscourse functions: Causal attributions as argumentative tool [7]\n\nYet these studies remain limited to small, qualitatively analyzed corpora.\n\n\n\nNLP systems scale to large text collections but typically:\n\nReduce causality to binary Cause-Effect pairs\nIgnore semantic nuances like strength or direction\nLack discourse sensitivity\n\nKey references: [8], [9], [10]"
+  },
+  {
+    "objectID": "framework/framework.html#the-integration",
+    "href": "framework/framework.html#the-integration",
+    "title": "Framework",
+    "section": "The Integration",
+    "text": "The Integration\nCausal Semantics bridges these traditions by:\n\nFormalizing philosophical distinctions (mono- vs. polycausal) as quantifiable salience values\n\nEnriching computational extraction with semantic dimensions (polarity, salience)\n\nScaling linguistic insights through automated extraction pipelines\n\nThe result is a framework that is:\n\nSemantically enriched: Captures nuanced attributions\n\nComputationally tractable: Scales to millions of sentences"
+  },
+  {
+    "objectID": "framework/framework.html#c-e-i-cause-effect-influence",
+    "href": "framework/framework.html#c-e-i-cause-effect-influence",
+    "title": "Framework",
+    "section": "(C, E, I) Cause, Effect & Influence",
+    "text": "(C, E, I) Cause, Effect & Influence\nThe framework models causal relations as triples:\n\nR = (C, E, I)\n where:\n\nC (Cause): The causing entity\n\nE (Effect): The affected entity\n\nI (Influence): A signed scalar \\in [-1, +1] encoding:\n\n\\pm (Polarity) : promoting (+) or inhibiting (−)\n\n||I|| (Salience): monocausal (1.0) or polycausal (&lt;1.0)\n\n\nSee: Understanding (C,E,I) Tuples for detailed explanation."
+  },
+  {
+    "objectID": "framework/framework.html#two-core-dimensions",
+    "href": "framework/framework.html#two-core-dimensions",
+    "title": "Framework",
+    "section": "Two Core Dimensions",
+    "text": "Two Core Dimensions\n\nPolarity: Direction\nDoes the cause promote or inhibit the effect?\n\nPromoting (+): C increases the probability/intensity of E\n\nClimate change causes species extinction\n\nInhibiting (−): C decreases the probability/intensity of E\n\nConservation prevents species extinction\n\n\nLinguistically realized through:\n\nAntonym verb pairs (increase/reduce, cause/prevent)\nNominal indicators (cause vs. prevention)\nPrepositional markers (for vs. against)\n\nSee: Polarity section for examples and analysis.\n\n\nSalience: Magnitude\nHow strong is this cause relative to all factors?\n\nMonocausal (|I| = 1.0): Sole or exclusive factor\n\nX is the cause of Y\n\nPrioritized (|I| = 0.75): Dominant but not exclusive\n\nMainly X causes Y\n\nDistributed (||I|| = 0.5): One of several equal factors\n\nX contributes to Y, X and Y cause Z\n\n\nLinguistically realized through:\n\nDetermination (the vs. a cause)\nComposition (main cause, partial cause)\nDistribution markers (among others, also)\n\nSee: Salience section for computation methods."
+  },
+  {
+    "objectID": "framework/framework.html#from-tuples-to-graphs",
+    "href": "framework/framework.html#from-tuples-to-graphs",
+    "title": "Framework",
+    "section": "From Tuples to Graphs",
+    "text": "From Tuples to Graphs\nIndividual (C, E, I) tuples aggregate into Attributional Causal Graphs (ACGs):\n\nNodes: Entities (C and E values)\nEdges: Weighted, directed connections with I as weight\nProperties:\n\nPositive edges (I &gt; 0): promoting factors\nNegative edges (I &lt; 0): inhibiting factors\nEdge weights = aggregated evidence across multiple texts\n\n\nACGs enable:\n\nNetwork analysis of discourse structure\nIdentification of central vs. peripheral causes\nTemporal tracking of attribution shifts\n\nSee: ACG Theory for graph-theoretic foundations."
+  },
+  {
+    "objectID": "framework/framework.html#applications",
+    "href": "framework/framework.html#applications",
+    "title": "Framework",
+    "section": "Applications",
+    "text": "Applications\nThe framework reveals:\n\n1. Argumentation Patterns\n\nWhich entities are positioned as causes vs. effects?\nAre attributions monocausal (simplified) or polycausal (nuanced)?\nWhat role do inhibiting relations play (solutions vs. problems)?\n\n\n\n2. Temporal Dynamics\n\nHow do causal attributions shift over time?\nWhen do new causes enter discourse?\nWhen do attributions strengthen or weaken?\n\n\n\n3. Responsibility Distribution\n\nWhich actors are attributed causal agency?\nHow is responsibility distributed across entities?\nWhat patterns of blame or credit emerge?"
+  },
+  {
+    "objectID": "framework/framework.html#implementation-pipeline",
+    "href": "framework/framework.html#implementation-pipeline",
+    "title": "Framework",
+    "section": "Implementation Pipeline",
+    "text": "Implementation Pipeline\n\nWhat patterns of blame or credit emerge?\n\n\n\n\n\n\n\ngraph TB\n    A[Text Input] --&gt; B[Extraction]\n    B --&gt; C[Tuple Construction]\n    C --&gt; D[Aggregation]\n    D --&gt; E[ACG Construction]\n    E --&gt; F[Analysis]\n    \n    B1[Indicators] -.-&gt; B\n    B2[C-BERT Model] -.-&gt; B\n    B3[Annotation] -.-&gt; B\n    \n    C1[Entity ID] -.-&gt; C\n    C2[Polarity] -.-&gt; C\n    C3[Salience] -.-&gt; C\n    \n    D1[Evidence Accumulation] -.-&gt; D\n    D2[Conflict Resolution] -.-&gt; D\n    \n    F1[Network Metrics] -.-&gt; F\n    F2[Visualization] -.-&gt; F\n    F3[Discourse Analysis] -.-&gt; F"
+  },
+  {
+    "objectID": "framework/framework.html#next-steps",
+    "href": "framework/framework.html#next-steps",
+    "title": "Framework",
+    "section": "Next Steps",
+    "text": "Next Steps\nExplore the framework in depth:\n\nUnderstanding Tuples: Deep dive into (C,E,I) representation\nExtraction Methods: How to identify causal relations in text\nProcessing Pipeline: From annotations to tuples to graphs\nACG Analysis: Graph-based discourse analysis\n\nOr jump directly to:\n\nC-BERT Model: Automated extraction with transformers\nCode & Data: GitHub repositories and datasets"
+  },
+  {
+    "objectID": "processing/aggregation.html",
+    "href": "processing/aggregation.html",
+    "title": "Aggregation",
+    "section": "",
+    "text": "While tuple construction formalizes individual attestations, aggregation addresses the scaling problem: how do hundreds or thousands of individual (C, E, I) tuples — extracted from different texts, time periods, and discursive contexts — condense into representative causal patterns?\nThe aggregation pipeline transforms a set of individual tuples into normalized, proportional causal weights through four steps: counting identical tuples, weighting by frequency and salience, summing across attestations for each (C, E) pair, and normalizing to produce proportional influence scores.\n\n\n\n\n\ngraph LR\n    A[\"Individual&lt;br/&gt;(C, E, I) Tuples\"] --&gt; B[\"Count&lt;br/&gt;Identical Tuples\"]\n    B --&gt; C[\"Weight&lt;br/&gt;(frequency × salience)\"]\n    C --&gt; D[\"Sum per&lt;br/&gt;(C, E) Pair\"]\n    D --&gt; E[\"Normalize\"]\n    E --&gt; F[\"Proportional&lt;br/&gt;Influence Scores\"]"
+  },
+  {
+    "objectID": "processing/aggregation.html#overview",
+    "href": "processing/aggregation.html#overview",
+    "title": "Aggregation",
+    "section": "",
+    "text": "While tuple construction formalizes individual attestations, aggregation addresses the scaling problem: how do hundreds or thousands of individual (C, E, I) tuples — extracted from different texts, time periods, and discursive contexts — condense into representative causal patterns?\nThe aggregation pipeline transforms a set of individual tuples into normalized, proportional causal weights through four steps: counting identical tuples, weighting by frequency and salience, summing across attestations for each (C, E) pair, and normalizing to produce proportional influence scores.\n\n\n\n\n\ngraph LR\n    A[\"Individual&lt;br/&gt;(C, E, I) Tuples\"] --&gt; B[\"Count&lt;br/&gt;Identical Tuples\"]\n    B --&gt; C[\"Weight&lt;br/&gt;(frequency × salience)\"]\n    C --&gt; D[\"Sum per&lt;br/&gt;(C, E) Pair\"]\n    D --&gt; E[\"Normalize\"]\n    E --&gt; F[\"Proportional&lt;br/&gt;Influence Scores\"]"
+  },
+  {
+    "objectID": "processing/aggregation.html#step-1-counting-identical-tuples",
+    "href": "processing/aggregation.html#step-1-counting-identical-tuples",
+    "title": "Aggregation",
+    "section": "Step 1: Counting Identical Tuples",
+    "text": "Step 1: Counting Identical Tuples\nTuples with identical (C, E, I) values are grouped and counted. The frequency n quantifies how often a specific tuple configuration occurs in the corpus.\n\n\n\n\n\n\nNoteExample\n\n\n\nInput (5 individual tuples):\n\n\n\nC\nE\nI\n\n\n\n\nPestizide\nInsektensterben\n+1.0\n\n\nPestizide\nInsektensterben\n+0.5\n\n\nPestizide\nInsektensterben\n+0.5\n\n\nKlimawandel\nInsektensterben\n+0.5\n\n\nPestizidverbote\nInsektensterben\n−0.5\n\n\n\nOutput (4 weighted tuples):\n\n\n\nC\nE\nI\nn\n\n\n\n\nPestizide\nInsektensterben\n+1.0\n1\n\n\nPestizide\nInsektensterben\n+0.5\n2\n\n\nKlimawandel\nInsektensterben\n+0.5\n1\n\n\nPestizidverbote\nInsektensterben\n−0.5\n1\n\n\n\n\n\nThis distinction matters: ten attestations of monocausal attribution (Pestizide, Insektensterben, +1.0) carry ten times the weight of a single attestation of polycausal attribution (Pestizide, Insektensterben, +0.5)."
+  },
+  {
+    "objectID": "processing/aggregation.html#step-2-weighted-summation",
+    "href": "processing/aggregation.html#step-2-weighted-summation",
+    "title": "Aggregation",
+    "section": "Step 2: Weighted Summation",
+    "text": "Step 2: Weighted Summation\nTuples sharing the same (C, E) pair but differing in I values are summed into a single aggregated relation. The aggregated influence is:\n\nF_{C,E} = \\sum_{i} I_i \\times n_i\n\nwhere I_i are the individual INFLUENCE values and n_i their frequencies. Polarity-specific counters are tracked separately to capture discursive disagreement.\n\n\n\n\n\n\nNoteExample (continuing from above)\n\n\n\nFor the Pestizide → Insektensterben pair:\nF = (1.0 \\times 1) + (0.5 \\times 2) = +2.0\nPolarity counters: n_{\\text{pos}} = 3, n_{\\text{neg}} = 0, n_{\\text{neutral}} = 0\nFull output:\n\n\n\n\n\n\n\n\n\n\n\nC\nE\nF_{\\text{agg}}\nn_{\\text{pos}}\nn_{\\text{neg}}\nn_{\\text{neutral}}\n\n\n\n\nPestizide\nInsektensterben\n+2.0\n3\n0\n0\n\n\nKlimawandel\nInsektensterben\n+0.5\n1\n0\n0\n\n\nPestizidverbote\nInsektensterben\n−0.5\n0\n1\n0\n\n\n\n\n\nThree properties of this summation are worth noting. Neutralized relations (I = 0, from propositional negation) contribute zero to F_{C,E} but are counted in n_{\\text{neutral}} to document denied causal claims. Opposing polarities partially cancel: if the same entity is attributed as both promoting and inhibiting a given effect (e.g. through contradicting sources or temporal shifts), the aggregated value reflects the net balance, while the polarity counters (n_{\\text{pos}} &gt; 0 and n_{\\text{neg}} &gt; 0 simultaneously) expose the controversy. Salience is already encoded in the I values from tuple construction — a monocausal attestation (I = 1.0) contributes twice the weight of a distributed attestation (I = 0.5), so frequency and salience interact multiplicatively."
+  },
+  {
+    "objectID": "processing/aggregation.html#step-3-normalization",
+    "href": "processing/aggregation.html#step-3-normalization",
+    "title": "Aggregation",
+    "section": "Step 3: Normalization",
+    "text": "Step 3: Normalization\nThe aggregated values F_{C,E} are normalized to produce proportional influence scores I_{\\text{norm}} \\in [-1, +1], where the sum of absolute values across all co-relations equals approximately 1.0. The normalization strategy depends on the analysis context.\n\nBidirectional Normalization (Focus-Term Analysis)\nWhen analyzing a specific term T exhaustively — examining all its incoming causes and outgoing effects — both directions are normalized independently:\n\nI_{\\text{norm}}(C \\to T) = \\text{sgn}(F_{C,T}) \\times \\frac{|F_{C,T}|}{\\sum_{C' \\in \\text{Causes}(T)} |F_{C',T}|}\n\n\nI_{\\text{norm}}(T \\to E) = \\text{sgn}(F_{T,E}) \\times \\frac{|F_{T,E}|}{\\sum_{E' \\in \\text{Effects}(T)} |F_{T,E'}|}\n\nThis is appropriate when the annotation exhaustively covers all relations involving a focal term but does not cover the co-causes of its effects (e.g. all causes of Insektensterben are annotated, but not all causes of Klimawandel).\n\n\nUnidirectional Normalization (ACG Networks)\nFor full causal graph construction, only cause-side normalization is applied — the standard asymmetry of causal graphs:\n\nI_{\\text{norm}}(C \\to E) = \\text{sgn}(F_{C,E}) \\times \\frac{|F_{C,E}|}{\\sum_{C' \\in \\text{Causes}(E)} |F_{C',E}|}\n\nThis ensures that, for any effect E, the absolute influence values of all its causes sum to 1.0.\n\n\n\n\n\n\nNoteNormalization Example (unidirectional)\n\n\n\nInput (from Step 2):\n\n\n\nC → E\nF_{\\text{agg}}\n\n\n\n\nPestizide → Insektensterben\n+2.0\n\n\nKlimawandel → Insektensterben\n+0.5\n\n\nPestizidverbote → Insektensterben\n−0.5\n\n\n\nDenominator: |2.0| + |0.5| + |0.5| = 3.0\nOutput:\n\n\n\n\n\n\n\n\nC → E\nI_{\\text{norm}}\nInterpretation\n\n\n\n\nPestizide → Insektensterben\n+0.667\n66.7% of causal attribution (promoting)\n\n\nKlimawandel → Insektensterben\n+0.167\n16.7% (promoting)\n\n\nPestizidverbote → Insektensterben\n−0.167\n16.7% (inhibiting)\n\n\n\nSum of absolute values: 0.667 + 0.167 + 0.167 = 1.0 ✓\n\n\nNormalization operates on absolute values but preserves the sign via the \\text{sgn} function. Promoting and inhibiting relations are normalized jointly — the sign is re-applied after normalization. The polarity-specific counters (n_{\\text{pos}}, n_{\\text{neg}}, n_{\\text{neutral}}) remain unchanged, since normalization scales only the weights, not the underlying evidence counts."
+  },
+  {
+    "objectID": "processing/aggregation.html#step-4-structuring",
+    "href": "processing/aggregation.html#step-4-structuring",
+    "title": "Aggregation",
+    "section": "Step 4: Structuring",
+    "text": "Step 4: Structuring\nThe normalized relations are stored as a directed graph where each edge (C \\to E) carries:\n\n\n\n\n\n\n\nAttribute\nDescription\n\n\n\n\ninfluence_norm\nNormalized influence I \\in [-1, 1]\n\n\ntuple_count\nTotal underlying tuples (n_{\\text{pos}} + n_{\\text{neg}} + n_{\\text{neutral}})\n\n\ncount_pos\nAttestations with I &gt; 0\n\n\ncount_neg\nAttestations with I &lt; 0\n\n\ncount_neutral\nAttestations with I = 0 (propositional negation)\n\n\n\nThis structure supports two complementary operations: local entity extraction — retrieving all causes and effects of a specific entity for focused analysis — and global centrality measures — comparing the structural role of all entities in the causal discourse network."
+  },
+  {
+    "objectID": "processing/aggregation.html#analysis-modes",
+    "href": "processing/aggregation.html#analysis-modes",
+    "title": "Aggregation",
+    "section": "Analysis Modes",
+    "text": "Analysis Modes\nThe aggregated graph feeds two analysis modes, each with its own normalization strategy:\nFocus-Term Analysis positions a single term as a causal nucleus and examines its incoming causes and outgoing effects with bidirectional normalization. Each causal interactant is characterized by three metrics: normalized influence (I\\%), mean pre-aggregation salience (\\varnothing|I|, indicating whether the interactant is typically framed monocausally or polycausally), and a Gini coefficient measuring concentration of influence across all interactants (0 = evenly distributed, 1 = fully concentrated on one entity).\nACG Construction treats all entities as nodes in a directed graph with unidirectional normalization, enabling network-level analysis: centrality, community detection, and structural comparison across time periods or corpora."
+  },
+  {
+    "objectID": "processing/aggregation.html#compositionality",
+    "href": "processing/aggregation.html#compositionality",
+    "title": "Aggregation",
+    "section": "Compositionality",
+    "text": "Compositionality\nA key design principle is that aggregation is compositional: it takes the tuple values from tuple construction as given. Any refinement to the tuple construction rules (e.g. finer-grained salience computation) flows directly into aggregation without requiring changes to the aggregation pipeline itself. The choice of normalization strategy and the handling of opposing polarities are analytical decisions that depend on the research context."
+  },
+  {
+    "objectID": "processing/aggregation.html#further-reading",
+    "href": "processing/aggregation.html#further-reading",
+    "title": "Aggregation",
+    "section": "Further Reading",
+    "text": "Further Reading\n\nFor how individual tuples are computed from annotations, see Tuple Construction\nFor the annotation schema that produces the inputs, see Annotation Guidelines"
+  },
+  {
+    "objectID": "processing/processing.html",
+    "href": "processing/processing.html",
+    "title": "Processing Overview",
+    "section": "",
+    "text": "The processing module bridges extraction and graph analysis. It takes annotated causal relations — whether produced manually or by C-BERT — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.\n\n\n\n\n\ngraph LR\n    A[\"Annotated Relations&lt;br/&gt;(indicators, entities, markers)\"] --&gt; B[\"Tuple Construction\"]\n    B --&gt; C[\"Individual&lt;br/&gt;(C, E, I) Tuples\"]\n    C --&gt; D[\"Aggregation\"]\n    D --&gt; E[\"Normalized Causal&lt;br/&gt;Patterns\"]\n    E --&gt; F[\"Focus-Term Analysis\"]\n    E --&gt; G[\"ACG Networks\"]\n\n\n\n\n\n\nThis transformation happens in two stages:"
+  },
+  {
+    "objectID": "processing/processing.html#overview",
+    "href": "processing/processing.html#overview",
+    "title": "Processing Overview",
+    "section": "",
+    "text": "The processing module bridges extraction and graph analysis. It takes annotated causal relations — whether produced manually or by C-BERT — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.\n\n\n\n\n\ngraph LR\n    A[\"Annotated Relations&lt;br/&gt;(indicators, entities, markers)\"] --&gt; B[\"Tuple Construction\"]\n    B --&gt; C[\"Individual&lt;br/&gt;(C, E, I) Tuples\"]\n    C --&gt; D[\"Aggregation\"]\n    D --&gt; E[\"Normalized Causal&lt;br/&gt;Patterns\"]\n    E --&gt; F[\"Focus-Term Analysis\"]\n    E --&gt; G[\"ACG Networks\"]\n\n\n\n\n\n\nThis transformation happens in two stages:"
+  },
+  {
+    "objectID": "processing/processing.html#tuple-construction",
+    "href": "processing/processing.html#tuple-construction",
+    "title": "Processing Overview",
+    "section": "Tuple Construction",
+    "text": "Tuple Construction\nIndividual annotated relations are converted into formal (C, E, I) tuples through a deterministic three-step algorithm. Entity identification uses syntactic projection patterns to extract Cause and Effect from the indicator’s argument structure.\nPolarity determination computes the sign of I from the indicator’s inherent class and any negation markers.\nSalience calculation computes the magnitude |I| through a cascading hierarchy of morphological, determiner, and syntactic markers. The output is a fully specified tuple where I = \\pm(\\text{polarity}) \\times |\\text{salience}| \\in [-1, +1].\n→ Tuple Construction: Full algorithm with cascade rules, coordination normalization, and worked examples"
+  },
+  {
+    "objectID": "processing/processing.html#aggregation",
+    "href": "processing/processing.html#aggregation",
+    "title": "Processing Overview",
+    "section": "Aggregation",
+    "text": "Aggregation\nIndividual tuples are condensed into cumulative causal patterns through weighted summation and normalization. Identical tuples are counted; tuples sharing the same (C, E) pair are summed (with frequency × salience weighting); and the aggregated values are normalized to produce proportional influence scores. Two normalization strategies serve different analysis goals: bidirectional normalization for exhaustive focus-term analysis, and unidirectional normalization for full causal graph construction.\n→ Aggregation: Full pipeline with normalization formulas, polarity handling, and the resulting graph data structure"
+  },
+  {
+    "objectID": "processing/processing.html#design-principles",
+    "href": "processing/processing.html#design-principles",
+    "title": "Processing Overview",
+    "section": "Design Principles",
+    "text": "Design Principles\nCompositionality. Aggregation takes tuple values as given — any refinement to the tuple construction rules flows directly into the aggregated output without requiring changes to the aggregation pipeline.\nSeparation of concerns. Tuple construction is a linguistic operation (mapping annotations to formal values); aggregation is a statistical operation (condensing evidence across attestations). The two are cleanly decoupled.\nMetadata preservation. Each tuple carries source metadata (text ID, date, contextual markers). These enable differential analyses — temporal stratification, source-specific filtering — but do not enter the core aggregation computation."
+  },
+  {
+    "objectID": "processing/processing.html#continue",
+    "href": "processing/processing.html#continue",
+    "title": "Processing Overview",
+    "section": "Continue",
+    "text": "Continue\n\nTuple Construction — the formal algorithm for computing (C, E, I) values\nAggregation — weighting, summation, and normalization across attestations\nBack to Extraction — how annotations are produced\nForward to ACG — graph-level analysis of aggregated relations"
+  },
+  {
+    "objectID": "extraction/annotation.html",
+    "href": "extraction/annotation.html",
+    "title": "Annotation Guidelines",
+    "section": "",
+    "text": "This page documents the annotation schema and guidelines used to produce the training data for C-BERT and the underlying (C, E, I) tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.\nThe annotation was developed over three iterations (2024–2025) using the INCEpTION platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations."
+  },
+  {
+    "objectID": "extraction/annotation.html#overview",
+    "href": "extraction/annotation.html#overview",
+    "title": "Annotation Guidelines",
+    "section": "",
+    "text": "This page documents the annotation schema and guidelines used to produce the training data for C-BERT and the underlying (C, E, I) tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.\nThe annotation was developed over three iterations (2024–2025) using the INCEpTION platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations."
+  },
+  {
+    "objectID": "extraction/annotation.html#annotation-schema",
+    "href": "extraction/annotation.html#annotation-schema",
+    "title": "Annotation Guidelines",
+    "section": "Annotation Schema",
+    "text": "Annotation Schema\nThe schema consists of two layers: span annotations that mark causal components in text, and relation annotations that link them into structured causal relations.\n\nSpans\nEach token or token sequence in a sentence receives at most one span label. There are two span categories:\nRole marks the primary causal components:\n\nIndicator — the lexical marker that projects the causal relation (e.g. verursachen, ist Ursache, weil, stoppen)\nEntity — a cause or effect entity involved in the relation (e.g. Klimawandel, Pestizide, Artensterben)\n\nCoefficient captures semantic modifiers:\n\n\n\n\n\n\n\n\nCoefficient\nFunction\nExamples\n\n\n\n\nNegation\nNegates or inverts the causal relation\nnicht, kein, Verlust, Schwund\n\n\nTemporality\nTemporal framing\nseit, bereits, künftig, Jahre\n\n\nSpatiality\nSpatial framing\nglobal, lokal, weltweit, Deutschland\n\n\nUncertainty\nModality and hedging\nmöglicherweise, könnte, vermutlich\n\n\nQuality\nQualitative modification\nindustrielle, parasitischer, schwefelhaltiger\n\n\nQuantity\nQuantitative modification\ngroßes, fünftausend, zwölf\n\n\nRepresentation\nEvidentiality marker\nlaut, sagt, sei\n\n\nRepresentation Entity\nSource/provenance\nStudie, Bericht, Forscher\n\n\n\n\n\nRelations\nAnnotated spans are linked by directed relations:\n\nCause: Indicator → Entity (the entity fills the Cause role)\nEffect: Indicator → Entity (the entity fills the Effect role)\nConstraint: Entity or Indicator → Coefficient (the coefficient modifies its governor)\n\n\n\nWorked Example\nConsider the sentence:\n\nKlimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.\n(Climate change and intensive agriculture possibly intensify global species extinction.)\n\n\n\n\nSpan\nType\nRelation\n\n\n\n\nKlimawandel\nEntity\nverstärken → Cause\n\n\nLandwirtschaft\nEntity\nverstärken → Cause\n\n\nverstärken\nIndicator\n—\n\n\nmöglicherweise\nUncertainty\nverstärken → Constraint\n\n\nweltweite\nSpatiality\nArtensterben → Constraint\n\n\nArtensterben\nEntity\nverstärken → Effect\n\n\n\nKey points illustrated here: coordinated entities (Klimawandel und Landwirtschaft) are annotated separately with parallel Cause relations; the attributive adjective intensive is extracted as a Quality coefficient (token minimization principle); the sentence adverb möglicherweise is linked to the indicator since it modifies the causal proposition."
+  },
+  {
+    "objectID": "extraction/annotation.html#annotation-principles",
+    "href": "extraction/annotation.html#annotation-principles",
+    "title": "Annotation Guidelines",
+    "section": "Annotation Principles",
+    "text": "Annotation Principles\nFour principles guide annotation decisions in ambiguous cases.\n\nMinimal Principle\nOnly explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g. verursacht) and a functional marker (e.g. durch) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.\nFor light verb constructions, only the semantically loaded element is annotated (e.g. hat etwas mit X zu tun → Indicator: tun).\n\n\nToken Minimization\nEntities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:\n\nindustrielle Landwirtschaft → Entity: Landwirtschaft, Coefficient: industrielle (Quality)\nEinsatz von Pestiziden → Entity: Pestiziden\nException: named entities (Europäische Union) and fixed multi-word expressions (saurer Regen) are annotated as single units.\n\nThis prevents proliferation of marginal entity variants and facilitates downstream aggregation.\n\n\nSyntactic Proximity\nWhen multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.\n\n\nCoefficient Conservatism\nCoefficients (other than Representation) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity."
+  },
+  {
+    "objectID": "extraction/annotation.html#indicators",
+    "href": "extraction/annotation.html#indicators",
+    "title": "Annotation Guidelines",
+    "section": "Indicators",
+    "text": "Indicators\nIndicators are the lexical or syntactic markers that project causal relations and establish (C, E, I) tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.\nThe annotation corpus contains 642 distinct indicator forms, grouped into 192 indicator families by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g. the Ursache family includes verursachen, ist Ursache, Ursache sein, Teilursache sein).\n\nTop 10 Indicator Families\n\n\n\n\n\n\n\n\n\n\n\n\nFamily\nForms\nInstances\n\nFamily\nForms\nInstances\n\n\n\n\nUrsache\n21\n167\n\nBeitrag\n10\n70\n\n\nVerantwortung\n11\n122\n\nFolge\n6\n69\n\n\nStoppen\n3\n111\n\nKampf\n8\n69\n\n\nGegen\n3\n95\n\nFühren\n9\n59\n\n\nDurch\n2\n70\n\nGrund\n7\n57\n\n\n\n\n\nPolarity and Salience\nEach indicator family carries an inherent polarity (promoting + or inhibiting −) and a default salience class:\n\n\n\n\n\n\n\n\n\nFamily\nPolarity\nDefault Salience\nDiscourse Function\n\n\n\n\nUrsache\n+\nvariable\nPrototype; full salience spectrum\n\n\nVerantwortung\n+\nvariable\nCausal-moral attribution\n\n\nFolge\n+\nmonocausal\nEffect-centered perspective\n\n\nBeitrag\n+\npolycausal\nDistributional attribution\n\n\nDurch\n+\nmonocausal\nGrammaticalized preposition\n\n\nStoppen\n−\nmonocausal\nIntervention framing\n\n\nGegen\n−\nmonocausal\nVariable condensation (Kampf gegen, Protest gegen)\n\n\n\n\n\nSyntactic Projection Patterns\nThe syntactic realization of each indicator family determines how Cause and Effect roles are projected:\n\n\n\n\n\n\n\n\n\nFamily\nExample\nCause Projection\nEffect Projection\n\n\n\n\nUrsache\nX ist Ursache für Y\nSubject\nPP (für)\n\n\nFolge\nY ist Folge von X\nPP (von)\nSubject\n\n\nVerursachen\nX verursacht Y\nSubject\nAccusative object\n\n\nBeitragen\nX trägt zu Y bei\nSubject\nPP (zu)\n\n\nStoppen\nX stoppt Y\nSubject\nAccusative object\n\n\nDurch\nY durch X\nPP complement\nHead noun\n\n\nGegen\nX gegen Y\nSubject/Agent\nPP complement"
+  },
+  {
+    "objectID": "extraction/annotation.html#context-markers",
+    "href": "extraction/annotation.html#context-markers",
+    "title": "Annotation Guidelines",
+    "section": "Context Markers",
+    "text": "Context Markers\nContext markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:\n\nDivision\nDivision markers signal polycausal structures with implicit co-causes. Typical realizations include unter anderem (“among other things”), auch (“also”), ebenfalls (“likewise”), and the composite nicht nur (“not only”).\nDivision markers reduce the salience to |I| = 0.5 regardless of the indicator’s default.\n\n\nPriority\nPriority markers establish asymmetric weighting within polycausal sets: vor allem (“above all”), hauptsächlich (“mainly”), maßgeblich (“significantly”). They set |I| = 0.75 for the prioritized cause.\nBoth marker types affect only the salience (|I|), leaving polarity (\\pm) unchanged.\n\n\nNegation\nNegation is the structurally most influential marker. Two types are distinguished:\nObject-based negation operates at the entity level through markers like Verlust (“loss”), Schwund (“decline”), Rückgang (“decrease”). These invert the polarity when the count of negations is odd:\n\nVerlust von Lebensräumen verursacht Bienensterben.\nIndicator verursachen: default I &gt; 0; object negation on Cause (Verlust) → polarity inverted: I &lt; 0.\n\nPropositional negation operates at the relation level (nicht, kein) and neutralizes the entire causal relationship (I = 0):\n\nPestizide verursachen nicht Insektensterben.\nIndicator verursachen: default I &gt; 0; propositional negation → I = 0."
+  },
+  {
+    "objectID": "extraction/annotation.html#from-annotations-to-influence",
+    "href": "extraction/annotation.html#from-annotations-to-influence",
+    "title": "Annotation Guidelines",
+    "section": "From Annotations to INFLUENCE",
+    "text": "From Annotations to INFLUENCE\nThe annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value I \\in [-1, +1]. In brief: entity identification follows the indicator’s syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.\nFor the full formal specification — including the cascade rules, coordination normalization, and worked examples — see Tuple Construction."
+  },
+  {
+    "objectID": "extraction/annotation.html#data-format",
+    "href": "extraction/annotation.html#data-format",
+    "title": "Annotation Guidelines",
+    "section": "Data Format",
+    "text": "Data Format\nAnnotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.\n\nSchema\n{\n  \"subfolder\": \"Artensterben_oa\",\n  \"global_sentence_id\": 1148482,\n  \"text_id\": \"FAZ_200204_384209\",\n  \"text_date\": \"2002-04\",\n  \"sentence_id\": \"12\",\n  \"sentence\": \"...\",\n  \"relations\": [\n    {\n      \"indicator\": \"Folge\",\n      \"entities\": [\n        {\n          \"entity\": \"Kleinplanet\",\n          \"relation\": \"Cause\",\n          \"dependent_coefficients\": [\n            {\"coefficient_text\": \"Jahren\", \"coefficient\": \"Temporality\"},\n            {\"coefficient_text\": \"Mexikos\", \"coefficient\": \"Spatiality\"}\n          ]\n        },\n        {\n          \"entity\": \"Artensterben\",\n          \"relation\": \"Effect\"\n        }\n      ],\n      \"coefficient\": \"Division\",\n      \"dependent_coefficients\": [\n        {\"coefficient_text\": \"könnte\", \"coefficient\": \"Uncertainty\"}\n      ],\n      \"representation\": \"berieten\",\n      \"representation_entities\": [\n        {\n          \"entity\": \"Teilnehmer\",\n          \"relation\": \"Constraint\",\n          \"dependent_coefficients\": [\n            {\"coefficient_text\": \"fünftausend\", \"coefficient\": \"Quantity\"}\n          ]\n        }\n      ]\n    }\n  ]\n}\n\n\nField Reference\nSentence-level fields:\n\n\n\n\n\n\n\nField\nDescription\n\n\n\n\nsubfolder\nWABI subcorpus and syntactic position (e.g. Artensterben_oa = accusative object)\n\n\nglobal_sentence_id\nUnique sentence identifier across the full corpus\n\n\ntext_id\nSource document identifier (format: SOURCE_YYYYMM_ID)\n\n\ntext_date\nPublication date (YYYY-MM)\n\n\nsentence\nFull sentence text\n\n\nrelations\nArray of causal relations found in this sentence (empty if none)\n\n\n\nRelation-level fields:\n\n\n\n\n\n\n\nField\nDescription\n\n\n\n\nindicator\nThe causal indicator lexeme\n\n\nentities\nArray of entities with their causal role (Cause or Effect)\n\n\ncoefficient\nStructural marker on the relation level (Negation, Division)\n\n\ndependent_coefficients\nContextual coefficients attached to the indicator\n\n\nrepresentation\nEvidentiality/speech-act verb (if present)\n\n\nrepresentation_entities\nSource entities for reported speech\n\n\n\nEntity-level fields:\n\n\n\n\n\n\n\nField\nDescription\n\n\n\n\nentity\nHead token of the entity (token-minimized)\n\n\nrelation\nCausal role: Cause, Effect, or Constraint\n\n\ndependent_coefficients\nArray of coefficients modifying this entity\n\n\n\n\n\nSentences Without Relations\nSentences where no explicit causal relation was identified have an empty relations array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle."
+  },
+  {
+    "objectID": "extraction/annotation.html#corpus-statistics",
+    "href": "extraction/annotation.html#corpus-statistics",
+    "title": "Annotation Guidelines",
+    "section": "Corpus Statistics",
+    "text": "Corpus Statistics\n\n\n\nTotal sentences\n4,753\n\n\nSentences with ≥1 WABI relation\n1,797 (37.8%)\n\n\nTotal WABI-relevant relations\n1,867\n\n\nDistinct indicator forms\n642\n\n\nIndicator families\n192\n\n\nMean relations per sentence\n0.39\n\n\n\nPer WABI term:\n\n\n\nTerm\nSentences\nRelations\nRel./Sent.\n\n\n\n\nWaldsterben\n1,818\n633\n0.35\n\n\nArtensterben\n1,854\n744\n0.40\n\n\nBienensterben\n536\n257\n0.48\n\n\nInsektensterben\n545\n233\n0.43"
+  },
+  {
+    "objectID": "extraction/annotation.html#further-reading",
+    "href": "extraction/annotation.html#further-reading",
+    "title": "Annotation Guidelines",
+    "section": "Further Reading",
+    "text": "Further Reading\n\nFor the theoretical motivation behind polarity and salience, see Framework\nFor how annotations are transformed into (C, E, I) tuples, see Tuple Construction\nFor the C-BERT model trained on this data, see C-BERT\nFull annotation data (Bundestag subset): HuggingFace Dataset"
+  }
+]

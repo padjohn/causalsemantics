@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Annotation Guidelines – Causal Semantics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-69b602dbcb39a5128bb15a5fa6480f34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Causal Semantics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extraction" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extraction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extraction">    
+        <li>
+    <a class="dropdown-item" href="../extraction/extraction.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/c-bert.html">
+ <span class="dropdown-text">C-BERT</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/annotation.html">
+ <span class="dropdown-text">Annotation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Processing</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-processing">    
+        <li>
+    <a class="dropdown-item" href="../processing/processing.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../processing/tuple-construction.html">
+ <span class="dropdown-text">Tuple Construction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../processing/aggregation.html">
+ <span class="dropdown-text">Aggregation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/padjohn/causalsemantics"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Annotation Guidelines</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#annotation-schema" id="toc-annotation-schema" class="nav-link" data-scroll-target="#annotation-schema">Annotation Schema</a>
+  <ul class="collapse">
+  <li><a href="#spans" id="toc-spans" class="nav-link" data-scroll-target="#spans">Spans</a></li>
+  <li><a href="#relations" id="toc-relations" class="nav-link" data-scroll-target="#relations">Relations</a></li>
+  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked Example</a></li>
+  </ul></li>
+  <li><a href="#annotation-principles" id="toc-annotation-principles" class="nav-link" data-scroll-target="#annotation-principles">Annotation Principles</a>
+  <ul class="collapse">
+  <li><a href="#minimal-principle" id="toc-minimal-principle" class="nav-link" data-scroll-target="#minimal-principle">Minimal Principle</a></li>
+  <li><a href="#token-minimization" id="toc-token-minimization" class="nav-link" data-scroll-target="#token-minimization">Token Minimization</a></li>
+  <li><a href="#syntactic-proximity" id="toc-syntactic-proximity" class="nav-link" data-scroll-target="#syntactic-proximity">Syntactic Proximity</a></li>
+  <li><a href="#coefficient-conservatism" id="toc-coefficient-conservatism" class="nav-link" data-scroll-target="#coefficient-conservatism">Coefficient Conservatism</a></li>
+  </ul></li>
+  <li><a href="#indicators" id="toc-indicators" class="nav-link" data-scroll-target="#indicators">Indicators</a>
+  <ul class="collapse">
+  <li><a href="#top-10-indicator-families" id="toc-top-10-indicator-families" class="nav-link" data-scroll-target="#top-10-indicator-families">Top 10 Indicator Families</a></li>
+  <li><a href="#polarity-and-salience" id="toc-polarity-and-salience" class="nav-link" data-scroll-target="#polarity-and-salience">Polarity and Salience</a></li>
+  <li><a href="#syntactic-projection-patterns" id="toc-syntactic-projection-patterns" class="nav-link" data-scroll-target="#syntactic-projection-patterns">Syntactic Projection Patterns</a></li>
+  </ul></li>
+  <li><a href="#context-markers" id="toc-context-markers" class="nav-link" data-scroll-target="#context-markers">Context Markers</a>
+  <ul class="collapse">
+  <li><a href="#division" id="toc-division" class="nav-link" data-scroll-target="#division">Division</a></li>
+  <li><a href="#priority" id="toc-priority" class="nav-link" data-scroll-target="#priority">Priority</a></li>
+  <li><a href="#negation" id="toc-negation" class="nav-link" data-scroll-target="#negation">Negation</a></li>
+  </ul></li>
+  <li><a href="#from-annotations-to-influence" id="toc-from-annotations-to-influence" class="nav-link" data-scroll-target="#from-annotations-to-influence">From Annotations to INFLUENCE</a></li>
+  <li><a href="#data-format" id="toc-data-format" class="nav-link" data-scroll-target="#data-format">Data Format</a>
+  <ul class="collapse">
+  <li><a href="#schema" id="toc-schema" class="nav-link" data-scroll-target="#schema">Schema</a></li>
+  <li><a href="#field-reference" id="toc-field-reference" class="nav-link" data-scroll-target="#field-reference">Field Reference</a></li>
+  <li><a href="#sentences-without-relations" id="toc-sentences-without-relations" class="nav-link" data-scroll-target="#sentences-without-relations">Sentences Without Relations</a></li>
+  </ul></li>
+  <li><a href="#corpus-statistics" id="toc-corpus-statistics" class="nav-link" data-scroll-target="#corpus-statistics">Corpus Statistics</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Annotation Guidelines</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">How causal relations are annotated in the Causal Semantics framework</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This page documents the annotation schema and guidelines used to produce the training data for <a href="extraction/c-bert.qmd">C-BERT</a> and the underlying <span class="math inline">(C, E, I)</span> tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.</p>
+<p>The annotation was developed over three iterations (2024–2025) using the <a href="https://inception-project.github.io/">INCEpTION</a> platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.</p>
+</section>
+<section id="annotation-schema" class="level2">
+<h2 class="anchored" data-anchor-id="annotation-schema">Annotation Schema</h2>
+<p>The schema consists of two layers: <strong>span annotations</strong> that mark causal components in text, and <strong>relation annotations</strong> that link them into structured causal relations.</p>
+<section id="spans" class="level3">
+<h3 class="anchored" data-anchor-id="spans">Spans</h3>
+<p>Each token or token sequence in a sentence receives at most one span label. There are two span categories:</p>
+<p><strong>Role</strong> marks the primary causal components:</p>
+<ul>
+<li><code>Indicator</code> — the lexical marker that projects the causal relation (e.g.&nbsp;<em>verursachen</em>, <em>ist Ursache</em>, <em>weil</em>, <em>stoppen</em>)</li>
+<li><code>Entity</code> — a cause or effect entity involved in the relation (e.g.&nbsp;<em>Klimawandel</em>, <em>Pestizide</em>, <em>Artensterben</em>)</li>
+</ul>
+<p><strong>Coefficient</strong> captures semantic modifiers:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Coefficient</th>
+<th>Function</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Negation</code></td>
+<td>Negates or inverts the causal relation</td>
+<td><em>nicht</em>, <em>kein</em>, <em>Verlust</em>, <em>Schwund</em></td>
+</tr>
+<tr class="even">
+<td><code>Temporality</code></td>
+<td>Temporal framing</td>
+<td><em>seit</em>, <em>bereits</em>, <em>künftig</em>, <em>Jahre</em></td>
+</tr>
+<tr class="odd">
+<td><code>Spatiality</code></td>
+<td>Spatial framing</td>
+<td><em>global</em>, <em>lokal</em>, <em>weltweit</em>, <em>Deutschland</em></td>
+</tr>
+<tr class="even">
+<td><code>Uncertainty</code></td>
+<td>Modality and hedging</td>
+<td><em>möglicherweise</em>, <em>könnte</em>, <em>vermutlich</em></td>
+</tr>
+<tr class="odd">
+<td><code>Quality</code></td>
+<td>Qualitative modification</td>
+<td><em>industrielle</em>, <em>parasitischer</em>, <em>schwefelhaltiger</em></td>
+</tr>
+<tr class="even">
+<td><code>Quantity</code></td>
+<td>Quantitative modification</td>
+<td><em>großes</em>, <em>fünftausend</em>, <em>zwölf</em></td>
+</tr>
+<tr class="odd">
+<td><code>Representation</code></td>
+<td>Evidentiality marker</td>
+<td><em>laut</em>, <em>sagt</em>, <em>sei</em></td>
+</tr>
+<tr class="even">
+<td><code>Representation Entity</code></td>
+<td>Source/provenance</td>
+<td><em>Studie</em>, <em>Bericht</em>, <em>Forscher</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relations" class="level3">
+<h3 class="anchored" data-anchor-id="relations">Relations</h3>
+<p>Annotated spans are linked by directed relations:</p>
+<ul>
+<li><code>Cause</code>: Indicator → Entity (the entity fills the <span class="smallcaps">Cause</span> role)</li>
+<li><code>Effect</code>: Indicator → Entity (the entity fills the <span class="smallcaps">Effect</span> role)</li>
+<li><code>Constraint</code>: Entity or Indicator → Coefficient (the coefficient modifies its governor)</li>
+</ul>
+</section>
+<section id="worked-example" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example">Worked Example</h3>
+<p>Consider the sentence:</p>
+<blockquote class="blockquote">
+<p><em>Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.</em></p>
+<p>(<em>Climate change and intensive agriculture possibly intensify global species extinction.</em>)</p>
+</blockquote>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Span</th>
+<th>Type</th>
+<th>Relation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Klimawandel</td>
+<td><code>Entity</code></td>
+<td>verstärken → <code>Cause</code></td>
+</tr>
+<tr class="even">
+<td>Landwirtschaft</td>
+<td><code>Entity</code></td>
+<td>verstärken → <code>Cause</code></td>
+</tr>
+<tr class="odd">
+<td>verstärken</td>
+<td><code>Indicator</code></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>möglicherweise</td>
+<td><code>Uncertainty</code></td>
+<td>verstärken → <code>Constraint</code></td>
+</tr>
+<tr class="odd">
+<td>weltweite</td>
+<td><code>Spatiality</code></td>
+<td>Artensterben → <code>Constraint</code></td>
+</tr>
+<tr class="even">
+<td>Artensterben</td>
+<td><code>Entity</code></td>
+<td>verstärken → <code>Effect</code></td>
+</tr>
+</tbody>
+</table>
+<p>Key points illustrated here: coordinated entities (<em>Klimawandel und Landwirtschaft</em>) are annotated separately with parallel <code>Cause</code> relations; the attributive adjective <em>intensive</em> is extracted as a <code>Quality</code> coefficient (token minimization principle); the sentence adverb <em>möglicherweise</em> is linked to the indicator since it modifies the causal proposition.</p>
+</section>
+</section>
+<section id="annotation-principles" class="level2">
+<h2 class="anchored" data-anchor-id="annotation-principles">Annotation Principles</h2>
+<p>Four principles guide annotation decisions in ambiguous cases.</p>
+<section id="minimal-principle" class="level3">
+<h3 class="anchored" data-anchor-id="minimal-principle">Minimal Principle</h3>
+<p>Only explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g.&nbsp;<em>verursacht</em>) and a functional marker (e.g.&nbsp;<em>durch</em>) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.</p>
+<p>For light verb constructions, only the semantically loaded element is annotated (e.g.&nbsp;<em>hat etwas mit X <strong>zu tun</strong></em> → Indicator: <em>tun</em>).</p>
+</section>
+<section id="token-minimization" class="level3">
+<h3 class="anchored" data-anchor-id="token-minimization">Token Minimization</h3>
+<p>Entities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:</p>
+<ul>
+<li><em>industrielle Landwirtschaft</em> → Entity: <code>Landwirtschaft</code>, Coefficient: <code>industrielle</code> (Quality)</li>
+<li><em>Einsatz von Pestiziden</em> → Entity: <code>Pestiziden</code></li>
+<li>Exception: named entities (<em>Europäische Union</em>) and fixed multi-word expressions (<em>saurer Regen</em>) are annotated as single units.</li>
+</ul>
+<p>This prevents proliferation of marginal entity variants and facilitates downstream aggregation.</p>
+</section>
+<section id="syntactic-proximity" class="level3">
+<h3 class="anchored" data-anchor-id="syntactic-proximity">Syntactic Proximity</h3>
+<p>When multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.</p>
+</section>
+<section id="coefficient-conservatism" class="level3">
+<h3 class="anchored" data-anchor-id="coefficient-conservatism">Coefficient Conservatism</h3>
+<p>Coefficients (other than <code>Representation</code>) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity.</p>
+</section>
+</section>
+<section id="indicators" class="level2">
+<h2 class="anchored" data-anchor-id="indicators">Indicators</h2>
+<p>Indicators are the lexical or syntactic markers that project causal relations and establish <span class="math inline">(C, E, I)</span> tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.</p>
+<p>The annotation corpus contains <strong>642 distinct indicator forms</strong>, grouped into <strong>192 indicator families</strong> by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g.&nbsp;the <span class="smallcaps">Ursache</span> family includes <em>verursachen</em>, <em>ist Ursache</em>, <em>Ursache sein</em>, <em>Teilursache sein</em>).</p>
+<section id="top-10-indicator-families" class="level3">
+<h3 class="anchored" data-anchor-id="top-10-indicator-families">Top 10 Indicator Families</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Forms</th>
+<th>Instances</th>
+<th></th>
+<th>Family</th>
+<th>Forms</th>
+<th>Instances</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Ursache</span></td>
+<td>21</td>
+<td>167</td>
+<td></td>
+<td><span class="smallcaps">Beitrag</span></td>
+<td>10</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Verantwortung</span></td>
+<td>11</td>
+<td>122</td>
+<td></td>
+<td><span class="smallcaps">Folge</span></td>
+<td>6</td>
+<td>69</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Stoppen</span></td>
+<td>3</td>
+<td>111</td>
+<td></td>
+<td><span class="smallcaps">Kampf</span></td>
+<td>8</td>
+<td>69</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Gegen</span></td>
+<td>3</td>
+<td>95</td>
+<td></td>
+<td><span class="smallcaps">Führen</span></td>
+<td>9</td>
+<td>59</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Durch</span></td>
+<td>2</td>
+<td>70</td>
+<td></td>
+<td><span class="smallcaps">Grund</span></td>
+<td>7</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="polarity-and-salience" class="level3">
+<h3 class="anchored" data-anchor-id="polarity-and-salience">Polarity and Salience</h3>
+<p>Each indicator family carries an inherent <strong>polarity</strong> (promoting <code>+</code> or inhibiting <code>−</code>) and a default <strong>salience</strong> class:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Polarity</th>
+<th>Default Salience</th>
+<th>Discourse Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Ursache</span></td>
+<td>+</td>
+<td>variable</td>
+<td>Prototype; full salience spectrum</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Verantwortung</span></td>
+<td>+</td>
+<td>variable</td>
+<td>Causal-moral attribution</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Folge</span></td>
+<td>+</td>
+<td>monocausal</td>
+<td>Effect-centered perspective</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Beitrag</span></td>
+<td>+</td>
+<td>polycausal</td>
+<td>Distributional attribution</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Durch</span></td>
+<td>+</td>
+<td>monocausal</td>
+<td>Grammaticalized preposition</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Stoppen</span></td>
+<td>−</td>
+<td>monocausal</td>
+<td>Intervention framing</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Gegen</span></td>
+<td>−</td>
+<td>monocausal</td>
+<td>Variable condensation (<em>Kampf gegen</em>, <em>Protest gegen</em>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="syntactic-projection-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="syntactic-projection-patterns">Syntactic Projection Patterns</h3>
+<p>The syntactic realization of each indicator family determines how <span class="smallcaps">Cause</span> and <span class="smallcaps">Effect</span> roles are projected:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Example</th>
+<th>Cause Projection</th>
+<th>Effect Projection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Ursache</span></td>
+<td><em>X ist Ursache für Y</em></td>
+<td>Subject</td>
+<td>PP (<em>für</em>)</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Folge</span></td>
+<td><em>Y ist Folge von X</em></td>
+<td>PP (<em>von</em>)</td>
+<td>Subject</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Verursachen</span></td>
+<td><em>X verursacht Y</em></td>
+<td>Subject</td>
+<td>Accusative object</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Beitragen</span></td>
+<td><em>X trägt zu Y bei</em></td>
+<td>Subject</td>
+<td>PP (<em>zu</em>)</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Stoppen</span></td>
+<td><em>X stoppt Y</em></td>
+<td>Subject</td>
+<td>Accusative object</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Durch</span></td>
+<td><em>Y durch X</em></td>
+<td>PP complement</td>
+<td>Head noun</td>
+</tr>
+<tr class="odd">
+<td><span class="smallcaps">Gegen</span></td>
+<td><em>X gegen Y</em></td>
+<td>Subject/Agent</td>
+<td>PP complement</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="context-markers" class="level2">
+<h2 class="anchored" data-anchor-id="context-markers">Context Markers</h2>
+<p>Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:</p>
+<section id="division" class="level3">
+<h3 class="anchored" data-anchor-id="division">Division</h3>
+<p>Division markers signal polycausal structures with implicit co-causes. Typical realizations include <em>unter anderem</em> (“among other things”), <em>auch</em> (“also”), <em>ebenfalls</em> (“likewise”), and the composite <em>nicht nur</em> (“not only”).</p>
+<p>Division markers reduce the salience to <span class="math inline">|I| = 0.5</span> regardless of the indicator’s default.</p>
+</section>
+<section id="priority" class="level3">
+<h3 class="anchored" data-anchor-id="priority">Priority</h3>
+<p>Priority markers establish asymmetric weighting within polycausal sets: <em>vor allem</em> (“above all”), <em>hauptsächlich</em> (“mainly”), <em>maßgeblich</em> (“significantly”). They set <span class="math inline">|I| = 0.75</span> for the prioritized cause.</p>
+<p>Both marker types affect only the salience (<span class="math inline">|I|</span>), leaving polarity (<span class="math inline">\pm</span>) unchanged.</p>
+</section>
+<section id="negation" class="level3">
+<h3 class="anchored" data-anchor-id="negation">Negation</h3>
+<p>Negation is the structurally most influential marker. Two types are distinguished:</p>
+<p><strong>Object-based negation</strong> operates at the entity level through markers like <em>Verlust</em> (“loss”), <em>Schwund</em> (“decline”), <em>Rückgang</em> (“decrease”). These invert the polarity when the count of negations is odd:</p>
+<blockquote class="blockquote">
+<p><em>Verlust von Lebensräumen verursacht Bienensterben.</em></p>
+<p>Indicator <em>verursachen</em>: default <span class="math inline">I &gt; 0</span>; object negation on <span class="smallcaps">Cause</span> (<em>Verlust</em>) → polarity inverted: <span class="math inline">I &lt; 0</span>.</p>
+</blockquote>
+<p><strong>Propositional negation</strong> operates at the relation level (<em>nicht</em>, <em>kein</em>) and neutralizes the entire causal relationship (<span class="math inline">I = 0</span>):</p>
+<blockquote class="blockquote">
+<p><em>Pestizide verursachen <strong>nicht</strong> Insektensterben.</em></p>
+<p>Indicator <em>verursachen</em>: default <span class="math inline">I &gt; 0</span>; propositional negation → <span class="math inline">I = 0</span>.</p>
+</blockquote>
+</section>
+</section>
+<section id="from-annotations-to-influence" class="level2">
+<h2 class="anchored" data-anchor-id="from-annotations-to-influence">From Annotations to INFLUENCE</h2>
+<p>The annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value <span class="math inline">I \in [-1, +1]</span>. In brief: entity identification follows the indicator’s syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.</p>
+<p>For the full formal specification — including the cascade rules, coordination normalization, and worked examples — see <a href="../processing/tuple-construction.html">Tuple Construction</a>.</p>
+</section>
+<section id="data-format" class="level2">
+<h2 class="anchored" data-anchor-id="data-format">Data Format</h2>
+<p>Annotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.</p>
+<section id="schema" class="level3">
+<h3 class="anchored" data-anchor-id="schema">Schema</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"subfolder"</span><span class="fu">:</span> <span class="st">"Artensterben_oa"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"global_sentence_id"</span><span class="fu">:</span> <span class="dv">1148482</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"text_id"</span><span class="fu">:</span> <span class="st">"FAZ_200204_384209"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"text_date"</span><span class="fu">:</span> <span class="st">"2002-04"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sentence_id"</span><span class="fu">:</span> <span class="st">"12"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sentence"</span><span class="fu">:</span> <span class="st">"..."</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"relations"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"indicator"</span><span class="fu">:</span> <span class="st">"Folge"</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"entities"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"entity"</span><span class="fu">:</span> <span class="st">"Kleinplanet"</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"relation"</span><span class="fu">:</span> <span class="st">"Cause"</span><span class="fu">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"dependent_coefficients"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">"coefficient_text"</span><span class="fu">:</span> <span class="st">"Jahren"</span><span class="fu">,</span> <span class="dt">"coefficient"</span><span class="fu">:</span> <span class="st">"Temporality"</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">"coefficient_text"</span><span class="fu">:</span> <span class="st">"Mexikos"</span><span class="fu">,</span> <span class="dt">"coefficient"</span><span class="fu">:</span> <span class="st">"Spatiality"</span><span class="fu">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"entity"</span><span class="fu">:</span> <span class="st">"Artensterben"</span><span class="fu">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"relation"</span><span class="fu">:</span> <span class="st">"Effect"</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"coefficient"</span><span class="fu">:</span> <span class="st">"Division"</span><span class="fu">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"dependent_coefficients"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"coefficient_text"</span><span class="fu">:</span> <span class="st">"könnte"</span><span class="fu">,</span> <span class="dt">"coefficient"</span><span class="fu">:</span> <span class="st">"Uncertainty"</span><span class="fu">}</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"representation"</span><span class="fu">:</span> <span class="st">"berieten"</span><span class="fu">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"representation_entities"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"entity"</span><span class="fu">:</span> <span class="st">"Teilnehmer"</span><span class="fu">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"relation"</span><span class="fu">:</span> <span class="st">"Constraint"</span><span class="fu">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"dependent_coefficients"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">"coefficient_text"</span><span class="fu">:</span> <span class="st">"fünftausend"</span><span class="fu">,</span> <span class="dt">"coefficient"</span><span class="fu">:</span> <span class="st">"Quantity"</span><span class="fu">}</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="field-reference" class="level3">
+<h3 class="anchored" data-anchor-id="field-reference">Field Reference</h3>
+<p><strong>Sentence-level fields:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>subfolder</code></td>
+<td>WABI subcorpus and syntactic position (e.g.&nbsp;<code>Artensterben_oa</code> = accusative object)</td>
+</tr>
+<tr class="even">
+<td><code>global_sentence_id</code></td>
+<td>Unique sentence identifier across the full corpus</td>
+</tr>
+<tr class="odd">
+<td><code>text_id</code></td>
+<td>Source document identifier (format: <code>SOURCE_YYYYMM_ID</code>)</td>
+</tr>
+<tr class="even">
+<td><code>text_date</code></td>
+<td>Publication date (YYYY-MM)</td>
+</tr>
+<tr class="odd">
+<td><code>sentence</code></td>
+<td>Full sentence text</td>
+</tr>
+<tr class="even">
+<td><code>relations</code></td>
+<td>Array of causal relations found in this sentence (empty if none)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relation-level fields:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>indicator</code></td>
+<td>The causal indicator lexeme</td>
+</tr>
+<tr class="even">
+<td><code>entities</code></td>
+<td>Array of entities with their causal role (<code>Cause</code> or <code>Effect</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>coefficient</code></td>
+<td>Structural marker on the relation level (<code>Negation</code>, <code>Division</code>)</td>
+</tr>
+<tr class="even">
+<td><code>dependent_coefficients</code></td>
+<td>Contextual coefficients attached to the indicator</td>
+</tr>
+<tr class="odd">
+<td><code>representation</code></td>
+<td>Evidentiality/speech-act verb (if present)</td>
+</tr>
+<tr class="even">
+<td><code>representation_entities</code></td>
+<td>Source entities for reported speech</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Entity-level fields:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>entity</code></td>
+<td>Head token of the entity (token-minimized)</td>
+</tr>
+<tr class="even">
+<td><code>relation</code></td>
+<td>Causal role: <code>Cause</code>, <code>Effect</code>, or <code>Constraint</code></td>
+</tr>
+<tr class="odd">
+<td><code>dependent_coefficients</code></td>
+<td>Array of coefficients modifying this entity</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sentences-without-relations" class="level3">
+<h3 class="anchored" data-anchor-id="sentences-without-relations">Sentences Without Relations</h3>
+<p>Sentences where no explicit causal relation was identified have an empty <code>relations</code> array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle.</p>
+</section>
+</section>
+<section id="corpus-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="corpus-statistics">Corpus Statistics</h2>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><strong>Total sentences</strong></td>
+<td>4,753</td>
+</tr>
+<tr class="even">
+<td><strong>Sentences with ≥1 WABI relation</strong></td>
+<td>1,797 (37.8%)</td>
+</tr>
+<tr class="odd">
+<td><strong>Total WABI-relevant relations</strong></td>
+<td>1,867</td>
+</tr>
+<tr class="even">
+<td><strong>Distinct indicator forms</strong></td>
+<td>642</td>
+</tr>
+<tr class="odd">
+<td><strong>Indicator families</strong></td>
+<td>192</td>
+</tr>
+<tr class="even">
+<td><strong>Mean relations per sentence</strong></td>
+<td>0.39</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Per WABI term:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Sentences</th>
+<th>Relations</th>
+<th>Rel./Sent.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Waldsterben</td>
+<td>1,818</td>
+<td>633</td>
+<td>0.35</td>
+</tr>
+<tr class="even">
+<td>Artensterben</td>
+<td>1,854</td>
+<td>744</td>
+<td>0.40</td>
+</tr>
+<tr class="odd">
+<td>Bienensterben</td>
+<td>536</td>
+<td>257</td>
+<td>0.48</td>
+</tr>
+<tr class="even">
+<td>Insektensterben</td>
+<td>545</td>
+<td>233</td>
+<td>0.43</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
+<ul>
+<li>For the theoretical motivation behind polarity and salience, see <a href="framework/index.qmd">Framework</a></li>
+<li>For how annotations are transformed into <span class="math inline">(C, E, I)</span> tuples, see <a href="processing/tuple-construction.qmd">Tuple Construction</a></li>
+<li>For the C-BERT model trained on this data, see <a href="extraction/c-bert.qmd">C-BERT</a></li>
+<li>Full annotation data (Bundestag subset): <a href="https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution">HuggingFace Dataset</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/padjohn\.github\.io\/causalsemantics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Annotation Guidelines"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "How causal relations are annotated in the Causal Semantics framework"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>This page documents the annotation schema and guidelines used to produce the training data for <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](extraction/c-bert.qmd)</span> and the underlying $(C, E, I)$ tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>The annotation was developed over three iterations (2024–2025) using the <span class="co">[</span><span class="ot">INCEpTION</span><span class="co">](https://inception-project.github.io/)</span> platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Annotation Schema</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>The schema consists of two layers: **span annotations** that mark causal components in text, and **relation annotations** that link them into structured causal relations.</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Spans</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Each token or token sequence in a sentence receives at most one span label. There are two span categories:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>**Role** marks the primary causal components:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Indicator`</span> — the lexical marker that projects the causal relation (e.g. *verursachen*, *ist Ursache*, *weil*, *stoppen*)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Entity`</span> — a cause or effect entity involved in the relation (e.g. *Klimawandel*, *Pestizide*, *Artensterben*)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>**Coefficient** captures semantic modifiers:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient <span class="pp">|</span> Function <span class="pp">|</span> Examples <span class="pp">|</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Negation`</span> <span class="pp">|</span> Negates or inverts the causal relation <span class="pp">|</span> *nicht*, *kein*, *Verlust*, *Schwund* <span class="pp">|</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Temporality`</span> <span class="pp">|</span> Temporal framing <span class="pp">|</span> *seit*, *bereits*, *künftig*, *Jahre* <span class="pp">|</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Spatiality`</span> <span class="pp">|</span> Spatial framing <span class="pp">|</span> *global*, *lokal*, *weltweit*, *Deutschland* <span class="pp">|</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Uncertainty`</span> <span class="pp">|</span> Modality and hedging <span class="pp">|</span> *möglicherweise*, *könnte*, *vermutlich* <span class="pp">|</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quality`</span> <span class="pp">|</span> Qualitative modification <span class="pp">|</span> *industrielle*, *parasitischer*, *schwefelhaltiger* <span class="pp">|</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quantity`</span> <span class="pp">|</span> Quantitative modification <span class="pp">|</span> *großes*, *fünftausend*, *zwölf* <span class="pp">|</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation`</span> <span class="pp">|</span> Evidentiality marker <span class="pp">|</span> *laut*, *sagt*, *sei* <span class="pp">|</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation Entity`</span> <span class="pp">|</span> Source/provenance <span class="pp">|</span> *Studie*, *Bericht*, *Forscher* <span class="pp">|</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Relations</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Annotated spans are linked by directed relations:</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Cause`</span>: Indicator → Entity (the entity fills the <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} role)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Effect`</span>: Indicator → Entity (the entity fills the <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} role)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Constraint`</span>: Entity or Indicator → Coefficient (the coefficient modifies its governor)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Worked Example</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>Consider the sentence:</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.*</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; (*Climate change and intensive agriculture possibly intensify global species extinction.*)</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Span <span class="pp">|</span> Type <span class="pp">|</span> Relation <span class="pp">|</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Cause`</span> <span class="pp">|</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Landwirtschaft <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Cause`</span> <span class="pp">|</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verstärken <span class="pp">|</span> <span class="in">`Indicator`</span> <span class="pp">|</span> — <span class="pp">|</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> möglicherweise <span class="pp">|</span> <span class="in">`Uncertainty`</span> <span class="pp">|</span> verstärken → <span class="in">`Constraint`</span> <span class="pp">|</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> weltweite <span class="pp">|</span> <span class="in">`Spatiality`</span> <span class="pp">|</span> Artensterben → <span class="in">`Constraint`</span> <span class="pp">|</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Artensterben <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Effect`</span> <span class="pp">|</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>Key points illustrated here: coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel `Cause` relations; the attributive adjective *intensive* is extracted as a `Quality` coefficient (token minimization principle); the sentence adverb *möglicherweise* is linked to the indicator since it modifies the causal proposition.</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Annotation Principles</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>Four principles guide annotation decisions in ambiguous cases.</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Minimal Principle</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>Only explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g. *verursacht*) and a functional marker (e.g. *durch*) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>For light verb constructions, only the semantically loaded element is annotated (e.g. *hat etwas mit X **zu tun*** → Indicator: *tun*).</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### Token Minimization</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>Entities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*industrielle Landwirtschaft* → Entity: <span class="in">`Landwirtschaft`</span>, Coefficient: <span class="in">`industrielle`</span> (Quality)</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Einsatz von Pestiziden* → Entity: <span class="in">`Pestiziden`</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Exception: named entities (*Europäische Union*) and fixed multi-word expressions (*saurer Regen*) are annotated as single units.</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>This prevents proliferation of marginal entity variants and facilitates downstream aggregation.</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Proximity</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>When multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Coefficient Conservatism</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>Coefficients (other than <span class="in">`Representation`</span>) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity.</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Indicators</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>Indicators are the lexical or syntactic markers that project causal relations and establish $(C, E, I)$ tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g. the <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} family includes *verursachen*, *ist Ursache*, *Ursache sein*, *Teilursache sein*).</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Top 10 Indicator Families</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span> <span class="pp">|</span> Family <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|---|</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 21 <span class="pp">|</span> 167 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 10 <span class="pp">|</span> 70 <span class="pp">|</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verantwortung</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 11 <span class="pp">|</span> 122 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 6 <span class="pp">|</span> 69 <span class="pp">|</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 3 <span class="pp">|</span> 111 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Kampf</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 8 <span class="pp">|</span> 69 <span class="pp">|</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 3 <span class="pp">|</span> 95 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Führen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 9 <span class="pp">|</span> 59 <span class="pp">|</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 2 <span class="pp">|</span> 70 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Grund</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 7 <span class="pp">|</span> 57 <span class="pp">|</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Polarity and Salience</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>Each indicator family carries an inherent **polarity** (promoting `+` or inhibiting `−`) and a default **salience** class:</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Polarity <span class="pp">|</span> Default Salience <span class="pp">|</span> Discourse Function <span class="pp">|</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> variable <span class="pp">|</span> Prototype; full salience spectrum <span class="pp">|</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verantwortung</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> variable <span class="pp">|</span> Causal-moral attribution <span class="pp">|</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> monocausal <span class="pp">|</span> Effect-centered perspective <span class="pp">|</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> polycausal <span class="pp">|</span> Distributional attribution <span class="pp">|</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> monocausal <span class="pp">|</span> Grammaticalized preposition <span class="pp">|</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> − <span class="pp">|</span> monocausal <span class="pp">|</span> Intervention framing <span class="pp">|</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> − <span class="pp">|</span> monocausal <span class="pp">|</span> Variable condensation (*Kampf gegen*, *Protest gegen*) <span class="pp">|</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Projection Patterns</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>The syntactic realization of each indicator family determines how <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} and <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} roles are projected:</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Example <span class="pp">|</span> Cause Projection <span class="pp">|</span> Effect Projection <span class="pp">|</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X ist Ursache für Y* | Subject | PP (*für*) <span class="pp">|</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *Y ist Folge von X* | PP (*von*) <span class="pp">|</span> Subject <span class="pp">|</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verursachen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X verursacht Y* <span class="pp">|</span> Subject <span class="pp">|</span> Accusative object <span class="pp">|</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitragen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X trägt zu Y bei* | Subject | PP (*zu*) <span class="pp">|</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X stoppt Y* <span class="pp">|</span> Subject <span class="pp">|</span> Accusative object <span class="pp">|</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *Y durch X* <span class="pp">|</span> PP complement <span class="pp">|</span> Head noun <span class="pp">|</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X gegen Y* <span class="pp">|</span> Subject/Agent <span class="pp">|</span> PP complement <span class="pp">|</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context Markers</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Division</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ("among other things"), *auch* ("also"), *ebenfalls* ("likewise"), and the composite *nicht nur* ("not only").</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>Division markers reduce the salience to $|I| = 0.5$ regardless of the indicator's default.</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Priority</span></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ("mainly"), *maßgeblich* ("significantly"). They set $|I| = 0.75$ for the prioritized cause.</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>Both marker types affect only the salience ($|I|$), leaving polarity ($\pm$) unchanged.</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negation</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>Negation is the structurally most influential marker. Two types are distinguished:</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>**Object-based negation** operates at the entity level through markers like *Verlust* ("loss"), *Schwund* ("decline"), *Rückgang* ("decrease"). These invert the polarity when the count of negations is odd:</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Verlust von Lebensräumen verursacht Bienensterben.*</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; object negation on [Cause]{.smallcaps} (*Verlust*) → polarity inverted: $I &lt; 0$.</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>**Propositional negation** operates at the relation level (*nicht*, *kein*) and neutralizes the entire causal relationship ($I = 0$):</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Pestizide verursachen **nicht** Insektensterben.*</span></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; propositional negation → $I = 0$.</span></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## From Annotations to INFLUENCE</span></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>The annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value $I \in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$. In brief: entity identification follows the indicator's syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>For the full formal specification — including the cascade rules, coordination normalization, and worked examples — see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](../processing/tuple-construction.qmd)</span>.</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Format {#data-format}</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>Annotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Schema</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>  <span class="st">"subfolder"</span><span class="op">:</span> <span class="st">"Artensterben_oa"</span><span class="op">,</span></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  <span class="st">"global_sentence_id"</span><span class="op">:</span> <span class="dv">1148482</span><span class="op">,</span></span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_id"</span><span class="op">:</span> <span class="st">"FAZ_200204_384209"</span><span class="op">,</span></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_date"</span><span class="op">:</span> <span class="st">"2002-04"</span><span class="op">,</span></span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence_id"</span><span class="op">:</span> <span class="st">"12"</span><span class="op">,</span></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence"</span><span class="op">:</span> <span class="st">"..."</span><span class="op">,</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  <span class="st">"relations"</span><span class="op">:</span> [</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>      <span class="st">"indicator"</span><span class="op">:</span> <span class="st">"Folge"</span><span class="op">,</span></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>      <span class="st">"entities"</span><span class="op">:</span> [</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Kleinplanet"</span><span class="op">,</span></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Cause"</span><span class="op">,</span></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Jahren"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Temporality"</span>}<span class="op">,</span></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Mexikos"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Spatiality"</span>}</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Artensterben"</span><span class="op">,</span></span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Effect"</span></span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>      <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Division"</span><span class="op">,</span></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"könnte"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Uncertainty"</span>}</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation"</span><span class="op">:</span> <span class="st">"berieten"</span><span class="op">,</span></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation_entities"</span><span class="op">:</span> [</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Teilnehmer"</span><span class="op">,</span></span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Constraint"</span><span class="op">,</span></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"fünftausend"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Quantity"</span>}</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Field Reference</span></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>**Sentence-level fields:**</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`subfolder`</span> <span class="pp">|</span> WABI subcorpus and syntactic position (e.g. <span class="in">`Artensterben_oa`</span> = accusative object) <span class="pp">|</span></span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`global_sentence_id`</span> <span class="pp">|</span> Unique sentence identifier across the full corpus <span class="pp">|</span></span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_id`</span> <span class="pp">|</span> Source document identifier (format: <span class="in">`SOURCE_YYYYMM_ID`</span>) <span class="pp">|</span></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_date`</span> <span class="pp">|</span> Publication date (YYYY-MM) <span class="pp">|</span></span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`sentence`</span> <span class="pp">|</span> Full sentence text <span class="pp">|</span></span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relations`</span> <span class="pp">|</span> Array of causal relations found in this sentence (empty if none) <span class="pp">|</span></span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>**Relation-level fields:**</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`indicator`</span> <span class="pp">|</span> The causal indicator lexeme <span class="pp">|</span></span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entities`</span> <span class="pp">|</span> Array of entities with their causal role (<span class="in">`Cause`</span> or <span class="in">`Effect`</span>) <span class="pp">|</span></span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`coefficient`</span> <span class="pp">|</span> Structural marker on the relation level (<span class="in">`Negation`</span>, <span class="in">`Division`</span>) <span class="pp">|</span></span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Contextual coefficients attached to the indicator <span class="pp">|</span></span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation`</span> <span class="pp">|</span> Evidentiality/speech-act verb (if present) <span class="pp">|</span></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation_entities`</span> <span class="pp">|</span> Source entities for reported speech <span class="pp">|</span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>**Entity-level fields:**</span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entity`</span> <span class="pp">|</span> Head token of the entity (token-minimized) <span class="pp">|</span></span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relation`</span> <span class="pp">|</span> Causal role: <span class="in">`Cause`</span>, <span class="in">`Effect`</span>, or <span class="in">`Constraint`</span> <span class="pp">|</span></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Array of coefficients modifying this entity <span class="pp">|</span></span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sentences Without Relations</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>Sentences where no explicit causal relation was identified have an empty <span class="in">`relations`</span> array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle.</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corpus Statistics</span></span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total sentences** <span class="pp">|</span> 4,753 <span class="pp">|</span></span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Sentences with ≥1 WABI relation** <span class="pp">|</span> 1,797 (37.8%) <span class="pp">|</span></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total WABI-relevant relations** <span class="pp">|</span> 1,867 <span class="pp">|</span></span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Distinct indicator forms** <span class="pp">|</span> 642 <span class="pp">|</span></span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Indicator families** <span class="pp">|</span> 192 <span class="pp">|</span></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Mean relations per sentence** <span class="pp">|</span> 0.39 <span class="pp">|</span></span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>**Per WABI term:**</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Term <span class="pp">|</span> Sentences <span class="pp">|</span> Relations <span class="pp">|</span> Rel./Sent. <span class="pp">|</span></span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Waldsterben <span class="pp">|</span> 1,818 <span class="pp">|</span> 633 <span class="pp">|</span> 0.35 <span class="pp">|</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Artensterben <span class="pp">|</span> 1,854 <span class="pp">|</span> 744 <span class="pp">|</span> 0.40 <span class="pp">|</span></span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bienensterben <span class="pp">|</span> 536 <span class="pp">|</span> 257 <span class="pp">|</span> 0.48 <span class="pp">|</span></span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Insektensterben <span class="pp">|</span> 545 <span class="pp">|</span> 233 <span class="pp">|</span> 0.43 <span class="pp">|</span></span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the theoretical motivation behind polarity and salience, see <span class="co">[</span><span class="ot">Framework</span><span class="co">](framework/index.qmd)</span></span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how annotations are transformed into $(C, E, I)$ tuples, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](processing/tuple-construction.qmd)</span></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the C-BERT model trained on this data, see <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](extraction/c-bert.qmd)</span></span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full annotation data (Bundestag subset): <span class="co">[</span><span class="ot">HuggingFace Dataset</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Causal Semantics</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ License: CC BY 4.0
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
