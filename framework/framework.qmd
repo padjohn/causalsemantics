@@ -83,7 +83,7 @@ where:
     + $\pm$ ([**Polarity**]{.smallcaps}) : promoting ($+$) or inhibiting ($−$)  
     + $||I||$ ([**Salience**]{.smallcaps}): monocausal ($1.0$) or polycausal ($<1.0$)
 
-**See**: [Understanding (C,E,I) Tuples](tuples.qmd) for detailed explanation.
+<!-- **See**: [Understanding (C,E,I) Tuples](tuples.qmd) for detailed explanation. -->
 
 ## Two Core Dimensions
 
@@ -102,7 +102,7 @@ Linguistically realized through:
 - Nominal indicators (*cause* vs. *prevention*)
 - Prepositional markers (*for* vs. *against*)
 
-**See**: [Polarity section](tuples.qmd#sec-polarity) for examples and analysis.
+<!-- **See**: [Polarity section](tuples.qmd#sec-polarity) for examples and analysis. -->
 
 ### Salience: Magnitude
 
@@ -121,7 +121,7 @@ Linguistically realized through:
 - Composition (*main cause*, *partial cause*)
 - Distribution markers (*among others*, *also*)
 
-**See**: [Salience section](tuples.qmd#sec-salience) for computation methods.
+<!-- **See**: [Salience section](tuples.qmd#sec-salience) for computation methods. -->
 
 ## From Tuples to Graphs
 
@@ -140,7 +140,7 @@ ACGs enable:
 - Identification of central vs. peripheral causes
 - Temporal tracking of attribution shifts
 
-**See**: [ACG Theory](acg-theory.qmd) for graph-theoretic foundations.
+<!-- **See**: [ACG Theory](acg-theory.qmd) for graph-theoretic foundations. -->
 
 ## Applications
 
@@ -194,10 +194,10 @@ graph TB
 
 Explore the framework in depth:
 
-1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation
+<!-- 1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation -->
 2. **[Extraction Methods](../extraction/index.qmd)**: How to identify causal relations in text
 3. **[Processing Pipeline](../processing/index.qmd)**: From annotations to tuples to graphs
-4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis
+<!-- 4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis -->
 
 Or jump directly to:
 

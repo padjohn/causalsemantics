@@ -255,46 +255,12 @@ $$
 - $(C=\text{pesticides}, E=\text{bee mortality}, I=+0.5)$
 - $(C=\text{habitat loss}, E=\text{bee mortality}, I=+0.5)$
 
-## Implementation
-
-The tuple construction algorithm is implemented in Python and processes annotated relations in batch:
-
-```python
-def construct_tuple(annotation):
-    """
-    Transform linguistic annotation into (C,E,I) tuple.
-    
-    annotation: dict with keys 'indicator', 'entities', 'markers'
-    returns: tuple (C, E, I)
-    """
-    # Step 1: Extract entities
-    C, E = extract_entities(annotation['indicator'], 
-                            annotation['syntax'])
-    
-    # Step 2: Determine polarity
-    base_polarity = get_base_polarity(annotation['indicator'])
-    negation_count = count_negations(annotation['markers'])
-    polarity_sign = apply_negation(base_polarity, negation_count)
-    
-    # Step 3: Calculate salience
-    explicit_salience = get_explicit_salience(annotation['markers'])
-    n_causes = count_coordinated_causes(annotation)
-    salience_magnitude = explicit_salience / n_causes
-    
-    # Combine
-    I = polarity_sign * salience_magnitude
-    
-    return (C, E, I)
-```
-
-See the [full implementation](https://github.com/yourusername/causal-semantics/blob/main/src/tuple_construction.py) on GitHub.
-
 ## Next Steps
 
 Once tuples are constructed, they can be:
 
 1. **[Aggregated](aggregation.qmd)** across multiple texts to build evidence for causal relations
-2. **Integrated into [ACGs](../acg/construction.qmd)** for graph-based discourse analysis
+2. **Integrated into ACGs** for graph-based discourse analysis
 3. **Analyzed** for discourse patterns, temporal dynamics, and argumentation structures
 
 The systematic transformation from qualitative annotations to quantitative tuples bridges interpretive linguistics and computational analysis, enabling scalable yet semantically rich causal extraction.

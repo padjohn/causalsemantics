@@ -1,11 +1,11 @@
 ---
-title: "Causal Semantics"
+title: "Causal Semantics ($S_C$)"
 subtitle: "A framework for extracting and analyzing causal attributions"
 ---
 
 ## Overview
 
-Causal Semantics ($S_C$) is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:
+Causal Semantics is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:
 
 - **Logical theories** differentiating between monocausal and polycausal structures
 - **Linguistic analyses** identifying semantic dimensions like promoting vs. inhibiting influences

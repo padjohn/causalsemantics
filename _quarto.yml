@@ -9,7 +9,7 @@ bibliography: references.bib
 csl: elsevier-vancouver.csl
 
 website:
-  title: "Causal Semantics"
+  title: "$S_C$"
   description: "A framework for extracting and analyzing causal attributions"
   
   navbar:

@@ -258,7 +258,7 @@ A causal relation $(C \xrightarrow{I} E)$ represents: *"C influences E with stre
 - **Negative edges** ($I < 0$) indicate inhibiting factors
 - **Edge weights** enable identifying central vs. peripheral causes through aggregation
 
-See [ACG Construction](../acg/construction.qmd) for details on building causal graphs from tuples.
+<!-- See [ACG Construction](../acg/construction.qmd) for details on building causal graphs from tuples. -->
 
 ## Summary
 
@@ -268,4 +268,4 @@ The $(C, E, I)$ representation provides:
 2. **Computational tractability**: Simple numeric encoding enables aggregation and graph algorithms
 3. **Discourse sensitivity**: Reflects how speakers frame causality (monocausal vs. polycausal, promoting vs. inhibiting)
 
-Next: Learn how these dimensions are [extracted from text](../extraction/indicators.qmd) through causal indicators and context markers.
+<!-- Next: Learn how these dimensions are [extracted from text](../extraction/indicators.qmd) through causal indicators and context markers. -->
