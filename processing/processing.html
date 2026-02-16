@@ -286,7 +286,7 @@ window.Quarto = {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The processing module bridges <a href="../extraction/index.qmd">extraction</a> and <a href="../acg/index.qmd">graph analysis</a>. It takes annotated causal relations — whether produced manually or by <a href="../extraction/c-bert.html">C-BERT</a> — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.</p>
+<p>The processing module takes annotated causal relations — whether produced <a href="../extraction/annotation.html">manually</a> or by <a href="../extraction/c-bert.html">C-BERT</a> — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -330,8 +330,7 @@ window.Quarto = {
 <ul>
 <li><strong><a href="../processing/tuple-construction.html">Tuple Construction</a></strong> — the formal algorithm for computing <span class="math inline">(C, E, I)</span> values</li>
 <li><strong><a href="../processing/aggregation.html">Aggregation</a></strong> — weighting, summation, and normalization across attestations</li>
-<li>Back to <strong><a href="../extraction/index.qmd">Extraction</a></strong> — how annotations are produced</li>
-<li>Forward to <strong><a href="../acg/index.qmd">ACG</a></strong> — graph-level analysis of aggregated relations</li>
+<li>Back to <strong><a href="../extraction/extraction.html">Extraction</a></strong> — how annotations are produced <!-- - Forward to **[ACG](../acg/index.qmd)** — graph-level analysis of aggregated relations --></li>
 </ul>
 
 
@@ -464,7 +463,7 @@ window.Quarto = {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/padjohn\.github\.io\/causalsemantics\/");
+        var filterRegex = new RegExp("https:\/\/causalsemantics\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -798,7 +797,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>The processing module bridges <span class="co">[</span><span class="ot">extraction</span><span class="co">](../extraction/index.qmd)</span> and <span class="co">[</span><span class="ot">graph analysis</span><span class="co">](../acg/index.qmd)</span>. It takes annotated causal relations — whether produced manually or by <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](../extraction/c-bert.qmd)</span> — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>The processing module takes annotated causal relations — whether produced <span class="co">[</span><span class="ot">manually</span><span class="co">](../extraction/annotation.qmd)</span> or by <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](../extraction/c-bert.qmd)</span> — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>graph LR</span>
@@ -840,8 +839,8 @@ window.Quarto = {
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[Tuple Construction](tuple-construction.qmd)** — the formal algorithm for computing $(C, E, I)$ values</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[Aggregation](aggregation.qmd)** — weighting, summation, and normalization across attestations</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Back to **[Extraction](../extraction/index.qmd)** — how annotations are produced</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Forward to **[ACG](../acg/index.qmd)** — graph-level analysis of aggregated relations</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Back to **[Extraction](../extraction/extraction.qmd)** — how annotations are produced</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Forward to **[ACG](../acg/index.qmd)** — graph-level analysis of aggregated relations --&gt;</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

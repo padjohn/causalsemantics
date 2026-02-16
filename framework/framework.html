@@ -413,7 +413,7 @@ R = (C, E, I)
 <li><span class="math inline">||I||</span> (<span class="smallcaps"><strong>Salience</strong></span>): monocausal (<span class="math inline">1.0</span>) or polycausal (<span class="math inline">&lt;1.0</span>)</li>
 </ul></li>
 </ul>
-<p><strong>See</strong>: <a href="../framework/tuples.html">Understanding (C,E,I) Tuples</a> for detailed explanation.</p>
+<!-- **See**: [Understanding (C,E,I) Tuples](tuples.qmd) for detailed explanation. -->
 </section>
 <section id="two-core-dimensions" class="level2">
 <h2 class="anchored" data-anchor-id="two-core-dimensions">Two Core Dimensions</h2>
@@ -436,7 +436,7 @@ R = (C, E, I)
 <li>Nominal indicators (<em>cause</em> vs.&nbsp;<em>prevention</em>)</li>
 <li>Prepositional markers (<em>for</em> vs.&nbsp;<em>against</em>)</li>
 </ul>
-<p><strong>See</strong>: <a href="../framework/tuples.html#sec-polarity">Polarity section</a> for examples and analysis.</p>
+<!-- **See**: [Polarity section](tuples.qmd#sec-polarity) for examples and analysis. -->
 </section>
 <section id="salience-magnitude" class="level3">
 <h3 class="anchored" data-anchor-id="salience-magnitude">Salience: Magnitude</h3>
@@ -461,7 +461,7 @@ R = (C, E, I)
 <li>Composition (<em>main cause</em>, <em>partial cause</em>)</li>
 <li>Distribution markers (<em>among others</em>, <em>also</em>)</li>
 </ul>
-<p><strong>See</strong>: <a href="../framework/tuples.html#sec-salience">Salience section</a> for computation methods.</p>
+<!-- **See**: [Salience section](tuples.qmd#sec-salience) for computation methods. -->
 </section>
 </section>
 <section id="from-tuples-to-graphs" class="level2">
@@ -483,7 +483,7 @@ R = (C, E, I)
 <li>Identification of central vs.&nbsp;peripheral causes</li>
 <li>Temporal tracking of attribution shifts</li>
 </ul>
-<p><strong>See</strong>: <a href="acg-theory.qmd">ACG Theory</a> for graph-theoretic foundations.</p>
+<!-- **See**: [ACG Theory](acg-theory.qmd) for graph-theoretic foundations. -->
 </section>
 <section id="applications" class="level2">
 <h2 class="anchored" data-anchor-id="applications">Applications</h2>
@@ -555,11 +555,10 @@ R = (C, E, I)
 <section id="next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
 <p>Explore the framework in depth:</p>
-<ol type="1">
-<li><strong><a href="../framework/tuples.html">Understanding Tuples</a></strong>: Deep dive into <span class="math inline">(C,E,I)</span> representation</li>
+<!-- 1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation -->
+<ol start="2" type="1">
 <li><strong><a href="../extraction/index.qmd">Extraction Methods</a></strong>: How to identify causal relations in text</li>
-<li><strong><a href="../processing/index.qmd">Processing Pipeline</a></strong>: From annotations to tuples to graphs</li>
-<li><strong><a href="../acg/index.qmd">ACG Analysis</a></strong>: Graph-based discourse analysis</li>
+<li><strong><a href="../processing/index.qmd">Processing Pipeline</a></strong>: From annotations to tuples to graphs <!-- 4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis --></li>
 </ol>
 <p>Or jump directly to:</p>
 <ul>
@@ -729,7 +728,7 @@ R = (C, E, I)
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/padjohn\.github\.io\/causalsemantics\/");
+        var filterRegex = new RegExp("https:\/\/causalsemantics\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1141,7 +1140,7 @@ R = (C, E, I)
 <span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="ss">    + </span>$\pm$ (<span class="co">[</span><span class="ot">**Polarity**</span><span class="co">]</span>{.smallcaps}) : promoting ($+$) or inhibiting ($−$)  </span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="ss">    + </span>$||I||$ (<span class="co">[</span><span class="ot">**Salience**</span><span class="co">]</span>{.smallcaps}): monocausal ($1.0$) or polycausal ($&lt;1.0$)</span>
 <span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>**See**: <span class="co">[</span><span class="ot">Understanding (C,E,I) Tuples</span><span class="co">](tuples.qmd)</span> for detailed explanation.</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- **See**: [Understanding (C,E,I) Tuples](tuples.qmd) for detailed explanation. --&gt;</span></span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two Core Dimensions</span></span>
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
@@ -1160,7 +1159,7 @@ R = (C, E, I)
 <span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nominal indicators (*cause* vs. *prevention*)</span>
 <span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prepositional markers (*for* vs. *against*)</span>
 <span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>**See**: <span class="co">[</span><span class="ot">Polarity section</span><span class="co">](tuples.qmd#sec-polarity)</span> for examples and analysis.</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- **See**: [Polarity section](tuples.qmd#sec-polarity) for examples and analysis. --&gt;</span></span>
 <span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Salience: Magnitude</span></span>
 <span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
@@ -1179,7 +1178,7 @@ R = (C, E, I)
 <span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Composition (*main cause*, *partial cause*)</span>
 <span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distribution markers (*among others*, *also*)</span>
 <span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>**See**: <span class="co">[</span><span class="ot">Salience section</span><span class="co">](tuples.qmd#sec-salience)</span> for computation methods.</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- **See**: [Salience section](tuples.qmd#sec-salience) for computation methods. --&gt;</span></span>
 <span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## From Tuples to Graphs</span></span>
 <span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
@@ -1198,7 +1197,7 @@ R = (C, E, I)
 <span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Identification of central vs. peripheral causes</span>
 <span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temporal tracking of attribution shifts</span>
 <span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>**See**: <span class="co">[</span><span class="ot">ACG Theory</span><span class="co">](acg-theory.qmd)</span> for graph-theoretic foundations.</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- **See**: [ACG Theory](acg-theory.qmd) for graph-theoretic foundations. --&gt;</span></span>
 <span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Applications</span></span>
 <span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
@@ -1252,10 +1251,10 @@ R = (C, E, I)
 <span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>Explore the framework in depth:</span>
 <span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation --&gt;</span></span>
 <span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**[Extraction Methods](../extraction/index.qmd)**: How to identify causal relations in text</span>
 <span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**[Processing Pipeline](../processing/index.qmd)**: From annotations to tuples to graphs</span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis --&gt;</span></span>
 <span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>Or jump directly to:</span>
 <span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>

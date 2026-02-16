@@ -1,1 +1,1 @@
-Sitemap: https://padjohn.github.io/causalsemantics/sitemap.xml
+Sitemap: https://causalsemantics.com/sitemap.xml
