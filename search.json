@@ -133,13 +133,6 @@
     "text": "Integration: Computing Final I\nCombining all components:\n\nI = \\text{sign}(\\text{polarity after negation}) \\times |\\text{salience}|\n\n\nComplete Example\n\n“Mainly pesticides and habitat loss contribute to bee mortality.”\n\nStep 1: Entities - Indicator: contribute to (transitive) - C_1 = \\text{pesticides}, C_2 = \\text{habitat loss} - E = \\text{bee mortality}\nStep 2: Polarity - Indicator contribute → I_{\\text{default}} &gt; 0 (promoting) - No negation markers - Final polarity: +\nStep 3: Salience - Explicit marker: mainly → base = 0.75 - Structural: 2 causes → divide by 2 - Salience per cause: |I| = 0.75 \\div 2 \\approx 0.5\nResult: - (C=\\text{pesticides}, E=\\text{bee mortality}, I=+0.5) - (C=\\text{habitat loss}, E=\\text{bee mortality}, I=+0.5)"
   },
   {
-    "objectID": "processing/tuple-construction.html#implementation",
-    "href": "processing/tuple-construction.html#implementation",
-    "title": "Tuple Construction",
-    "section": "Implementation",
-    "text": "Implementation\nThe tuple construction algorithm is implemented in Python and processes annotated relations in batch:\ndef construct_tuple(annotation):\n    \"\"\"\n    Transform linguistic annotation into (C,E,I) tuple.\n    \n    annotation: dict with keys 'indicator', 'entities', 'markers'\n    returns: tuple (C, E, I)\n    \"\"\"\n    # Step 1: Extract entities\n    C, E = extract_entities(annotation['indicator'], \n                            annotation['syntax'])\n    \n    # Step 2: Determine polarity\n    base_polarity = get_base_polarity(annotation['indicator'])\n    negation_count = count_negations(annotation['markers'])\n    polarity_sign = apply_negation(base_polarity, negation_count)\n    \n    # Step 3: Calculate salience\n    explicit_salience = get_explicit_salience(annotation['markers'])\n    n_causes = count_coordinated_causes(annotation)\n    salience_magnitude = explicit_salience / n_causes\n    \n    # Combine\n    I = polarity_sign * salience_magnitude\n    \n    return (C, E, I)\nSee the full implementation on GitHub."
-  },
-  {
     "objectID": "processing/tuple-construction.html#next-steps",
     "href": "processing/tuple-construction.html#next-steps",
     "title": "Tuple Construction",
