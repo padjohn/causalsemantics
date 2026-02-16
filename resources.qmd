@@ -1,0 +1,138 @@
+---
+title: "Resources"
+---
+
+## Code & Models
+
+### GitHub Repositories
+
+<!-- ::: {.callout-note icon="false"}
+## 📦 Main Repository
+**[causal-semantics](https://github.com/yourusername/causal-semantics)**  
+Core framework implementation including tuple construction, aggregation, and ACG visualization.
+::: -->
+
+::: {.callout-note icon="false"}
+## 🤖 C-BERT Model
+**[padjohn/cbert](https://github.com/padjohn/cbert)**  
+Library to create datasets, train and run the Multi-task transformer for causal relation extraction.
+:::
+
+### Model Weights
+
+::: {.callout-note icon="false"}
+## 🤗 Hugging Face
+**[pdjohn/c-bert](https://huggingface.co/collections/pdjohn/causalbert)**  
+Pre-trained C-BERT model weights for German causal extraction.
+:::
+
+## Publications
+
+### Thesis
+
+::: {.callout-tip icon="false"}
+## 📖 PhD Dissertation
+**Title**: Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs  
+**Author**: Patrick  
+**Institution**: Technical University Darmstadt  
+**Year**: 2026  
+**Link**: [coming soon]
+
+The thesis introduces the Causal Semantics framework and applies it to analyze responsibility attributions in German environmental discourse (1990-2020).
+:::
+
+### Papers
+
+::: {.callout-tip icon="false"}
+## 📄 C-BERT Paper
+**Title**: C-BERT: Factorized Causal Relation Extraction  
+**Authors**: Patrick Johnson  
+**Year**: 2026  
+**Link**: [DOI](https://doi.org/10.26083/tuda-7797) | [PDF](link-to-pdf)
+
+Introduces the C-BERT multi-task transformer for extracting $(C,E,I)$ tuples from German text.
+:::
+
+## Data
+
+### Indicator Library
+
+The framework uses a library of 644 German causal indicators across multiple families:
+
+- 🔢 **Size**: 644 indicator forms
+- 🏷️ **Families**: 162 semantic families (CAUSE, STOP, THROUGH, etc.)
+- 📊 **Distribution**: Annotated with frequency and priority
+- 🧲 **Polarity**: Each indicator marked as promoting (+) or inhibiting (−)
+- 🌟 **Salience**: Each indicator marked as mono, distributive (0.5) or priority (−)
+
+**Download**: [indicators.csv](https://github.com/padjohn/cbert/data/indicators.csv)
+
+### Annotation Corpus
+
+Manual annotations of causal relations in German environmental texts:
+
+- 📄 **Size**: 2,391 annotated relations
+- 📅 **Period**: 1990-2020
+- 🌍 **Domain**: Environmental discourse (forest dieback, species extinction, insect mortality, bee mortality)
+- 🏷️ **Annotations**: Indicators, entities, polarity, salience, context markers
+
+**Availability**: A subset containing the sentences from the German Bundestag is available on [Huggingface](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution).
+
+## Related Work
+
+### Causal Extraction Systems
+- **BECauSE** [@dunietz-etal-2017-because]: Corpus of causal and purpose relations
+
+### Linguistic Frameworks
+
+- **Cruse [@cruse1986]**: Lexical semantic analysis of causative verbs
+- **Wolff [@wolff2005expressing]**: Force dynamics in causal reasoning
+- **Talmy [@talmy1988forcedynamics]**: Force dynamics in language and cognition
+
+### Computational Methods
+
+- **BERT-based Extraction** [@li2021]: Transformer models for causal relation classification
+- **Knowledge Graphs** [@wu2025ckgeie]: Event-Influence Extraction
+
+## Tools & Libraries
+
+The framework builds on several open-source tools:
+
+- **[Hugging Face Transformers](https://huggingface.co/transformers)**: Base models and training infrastructure
+- **[spaCy](https://spacy.io)**: Dependency parsing for syntactic projection
+- **[NetworkX](https://networkx.org)**: Graph construction and analysis
+- **[Plotly](https://plotly.com/python/)**: Interactive visualizations
+
+## Contact & Collaboration
+
+Interested in using or extending this framework? We welcome collaborations!  
+📧 [Email](patrick_david.johnson@tu-darmstadt.de), 🟢 [**ORCiD**](https://orcid.org/0009-0005-7745-6561), 💼 [**LinkedIn**](https://www.linkedin.com/in/patrick-johnson-5b4bbb114/)
+
+## Citation
+
+If you use this framework in your research, please cite:
+
+```bibtex
+@phdthesis{johnson2026causalsemantics,
+  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},
+  author={Patrick Johnson},
+  school={Technical University of Darmstadt},
+  year={forthcoming}
+}
+```
+```bibtex
+@misc{cbert,
+  title={C-BERT: Factorized Causal Relation Extraction},
+  author={Patrick Johnson},
+  doi={10.26083/tuda-7797},
+  year={2026}
+}
+```
+
+## License
+
+The code is released under the [MIT License](https://opensource.org/licenses/MIT).  
+The documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+## Acknowledgments
+This research was funded by the Deutsche Forschungsgemeinschaft (DFG) as part of the project FOR 5182 / “Kontroverse Diskurse. Sprachgeschichte als Zeitgeschichte seit 1990”. The author is deeply grateful for the financial support that made this work possible. I also thank the members of the research group for their invaluable feedback and stimulating discussions throughout the development of the Causal Semantics framework.

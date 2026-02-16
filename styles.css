@@ -1,0 +1,57 @@
+/*-- scss:defaults --*/
+
+// Background and Text (from your --md-default colors)
+$body-bg: #101010;
+$body-color: rgb(227, 227, 227);
+
+// Primary and Accents
+$primary: hsl(212, 65%, 57%);    // Mapped from your --md-typeset-a-color
+$link-color: hsl(215, 52%, 62%); // Mapped from your --md-accent-fg-color
+$navbar-bg: #131313;           // Mapped from your --md-primary-fg-color
+
+// Sidebar and Footer
+$sidebar-bg: #131313;
+$footer-bg: #131313;
+
+/*-- scss:rules --*/
+
+// This ensures the main Quarto containers use your dark background
+.quarto-container, 
+#quarto-content, 
+.sidebar, 
+footer {
+  background-color: $body-bg !important;
+  color: $body-color !important;
+}
+
+// Targeting the top navbar specifically to match your primary-fg-color
+.navbar {
+  background-color: $navbar-bg !important;
+}
+
+// Styling links to use your accent color
+a {
+  color: $link-color;
+  &:hover {
+    color: $primary;
+  }
+}
+
+/* 1. Kill the gray box behind the text label */
+[id^="mermaid-"] .edgeLabel p,
+[id^="mermaid-"] .edgeLabel span,
+[id^="mermaid-"] .labelBkg {
+  background-color: #101010 !important;
+  padding: 0px 4px 0px 4px !important;
+  // background: none !important;
+  color: #ffffff !important; /* Force white text */
+}
+
+/* 2. Remove the node boxes (Alternative to classDef) */
+[id^="mermaid-"] .node rect,
+[id^="mermaid-"] .node polygon,
+[id^="mermaid-"] .node circle {
+  fill: #101010 !important;
+  stroke: #101010 !important;
+}
+

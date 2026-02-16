@@ -1,0 +1,300 @@
+---
+title: "Tuple Construction"
+subtitle: "From linguistic annotations to (C,E,I) tuples"
+---
+
+## Overview
+
+Tuple construction transforms qualitative linguistic annotations (indicators, markers) into quantitative $(C, E, I)$ values through a systematic three-step process:
+
+1. **Entity identification**: Extract $C$ and $E$ based on syntactic projection
+2. **Polarity determination**: Calculate the sign of $I$ from indicator class and negation
+3. **Salience calculation**: Calculate the magnitude $|I|$ from morphological and syntactic markers
+
+The output is a fully specified triple $(C, E, I)$ where $I \in [-1, +1]$ represents:
+
+$$
+I = \pm(\text{polarity}) \times |\text{salience}|
+$$
+
+## Step 1: Entity Identification
+
+**Input**: Annotated causal relation with indicator and syntactic dependencies  
+**Output**: Entity pair $(C, E)$  
+**Method**: Syntactic projection according to indicator-specific patterns
+
+Causal indicators project their arguments through predictable syntactic patterns. The most frequent patterns:
+
+### Transitive-Causative Verbs
+
+**Indicators**: *cause*, *trigger*, *produce*, *stop*, *prevent*
+
+**Projection**: Subject → [Cause]{.smallcaps}, Direct object → [Effect]{.smallcaps}
+
+::: {.callout-note appearance="simple"}
+### Example
+*Pesticides cause insect mortality.*
+
+- Indicator: *cause* (transitive-causative)
+- Subject (*pesticides*) = [Cause]{.smallcaps}
+- Direct object (*insect mortality*) = [Effect]{.smallcaps}
+- Result: $(C=\text{pesticides}, E=\text{insect mortality})$
+:::
+
+### Copula Constructions
+
+**Indicators**: *cause* (noun), *consequence*, *reason*
+
+**Projection**: Subject → [Cause]{.smallcaps}, Prepositional object (*for*/*of*) → [Effect]{.smallcaps}
+
+::: {.callout-note appearance="simple"}
+### Example
+*Climate change is the cause of species extinction.*
+
+- Indicator: *cause* (copula construction)
+- Subject (*climate change*) = [Cause]{.smallcaps}  
+- Prepositional object (*of species extinction*) = EFFECT
+- Result: $(C=\text{climate change}, E=\text{species extinction})$
+:::
+
+### Prepositional Markers
+
+**Indicators**: *due to*, *because of*, *through*
+
+**Projection**: Prepositional object → [Cause]{.smallcaps}, Matrix clause subject/object → [Effect]{.smallcaps}
+
+::: {.callout-note appearance="simple"}
+### Example
+*Species die out due to habitat loss.*
+
+- Indicator: *due to* (prepositional)
+- Prepositional object (*habitat loss*) = [Cause]{.smallcaps}
+- Matrix subject (*species*) combined with verb (*die out*) = [Effect]{.smallcaps}
+- Result: $(C=\text{habitat loss}, E=\text{species die out})$
+:::
+
+### Entity Minimization
+
+Extracted entities follow the **token minimization principle**: attributive modifiers are extracted as separate coefficients, leaving only head tokens as entities.
+
+::: {.callout-tip}
+## Why minimization?
+
+Minimal entities enable better aggregation. Instead of treating *"industrial pesticides"* and *"agricultural pesticides"* as separate causes, we extract:
+
+- Entity: *pesticides*
+- Coefficient: *industrial* / *agricultural*
+
+This allows aggregating evidence about *pesticides* as a general cause while preserving modifier information for detailed analysis.
+:::
+
+## Step 2: Polarity Determination
+
+**Input**: Entity pair $(C, E)$ and annotated indicator with optional negation markers  
+**Output**: Sign of $I$ (+ or −)  
+**Method**: Base polarity from indicator class, modified by negation
+
+### Base Polarity from Indicator Class
+
+Each indicator family has an inherent polarity:
+
+**Promoting indicators** ($I_{\text{default}} > 0$):
+- Verbs: *cause*, *trigger*, *lead to*, *produce*, *strengthen*
+- Nouns: *cause*, *reason*, *consequence*
+- Prepositions: *due to*, *because of*, *through*
+
+**Inhibiting indicators** ($I_{\text{default}} < 0$):
+- Verbs: *stop*, *prevent*, *reduce*, *block*, *curb*
+- Nouns: *prevention*, *barrier*, *protection against*
+- Prepositions: *against*, *despite*
+
+::: {.callout-note appearance="simple"}
+### Example
+*Measures stop insect mortality.*
+
+- Indicator: *stop* ∈ STOP family (inhibiting)
+- Base polarity: $I_{\text{default}} < 0$
+:::
+
+### Negation Modification
+
+Contextual negation markers modify base polarity through two mechanisms:
+
+#### Object-Based Negation
+
+Negative nominals (*loss*, *decline*, *absence*) invert polarity with odd numbers of negations:
+
+$$
+\begin{align*}
+\text{1 negation:} \quad &I_{\text{final}} = -I_{\text{default}} \\
+\text{2 negations:} \quad &I_{\text{final}} = I_{\text{default}} \\
+\text{3 negations:} \quad &I_{\text{final}} = -I_{\text{default}}
+\end{align*}
+$$
+
+::: {.callout-note appearance="simple"}
+### Example: Single negation
+*Loss of habitats causes bee mortality.*
+
+- Indicator: *causes* → $I_{\text{default}} > 0$ (promoting)
+- Object negation on [Cause]{.smallcaps} (*loss*): 1×
+- Polarity inverted: $I_{\text{final}} < 0$ (inhibiting)
+- **Interpretation**: *Less habitat leads to more bee mortality* (inhibiting relation)
+:::
+
+::: {.callout-note appearance="simple"}
+### Example: Double negation
+*Loss of pesticides prevents loss of bees.*
+
+- Indicator: *prevents* → $I_{\text{default}} < 0$ (inhibiting)
+- Object negations: *loss* [Cause]{.smallcaps} + *loss* ([Effect]{.smallcaps}) = 2×
+- Polarity preserved: $I_{\text{final}} < 0$ (inhibiting)
+- **Interpretation**: *Less pesticides leads to fewer bee deaths* (inhibiting relation)
+:::
+
+#### Propositional Negation
+
+Propositional negation (*not cause*, *doesn't prevent*) neutralizes the relation:
+
+::: {.callout-note appearance="simple"}
+### Example
+*Pesticides do not cause bee mortality.*
+
+- Indicator: *cause* → $I_{\text{default}} > 1$
+- Verbal negation: *not*
+- Influence neutralized: $I_{\text{final}} = 0$
+:::
+
+::: {.callout-warning}
+## Complex Negation
+
+The framework currently doesn't differentiate between neutralized positive (e.g. *not causing*) and neutralized negative (e.g. *not preventing*) relationships, as both result in $0$. 
+:::
+
+## Step 3: Salience Calculation
+
+**Input**: Entity pair $(C, E)$ with annotated markers  
+**Output**: Magnitude $|I| \in [0,1]$  
+**Method**: Combine explicit markers and structural distribution
+
+Salience emerges from two factors:
+
+### Explicit Lexical Markers
+
+Markers directly specify relative weight:
+
+**Monocausal (|I| = 1.0)**:
+- Determination: *the cause* (not *a cause*)
+- Exclusivity: *responsible for*, *the reason*
+- No competing causes mentioned
+
+**Prioritized (|I| = 0.75)**:
+- Emphasis: *mainly*, *primarily*, *above all*
+- Composition: *main cause*, *key factor*
+
+**Distributed (|I| = 0.5)**:
+- Contribution: *contributes to*, *plays a role*
+- Composition: *partial cause*, *one factor*
+- Distribution: *among other things*, *also*
+
+### Structural Distribution
+
+Multiple coordinated causes distribute salience proportionally:
+
+| Construction | Each cause gets |
+|--------------|----------------|
+| *X causes Z* (alone) | $\|I\| = 1.0$ |
+| *X and Y cause Z* | $\|I\| = 0.5$ |
+| *A, B, and C cause Z* | $\|I\| = 0.33$ |
+
+::: {.callout-note appearance="simple"}
+### Example: Explicit + Structural
+*X and Y are two main causes of Z.*
+
+1. Explicit marker: *main causes* → base salience = 0.75
+2. Structural distribution: 2 causes → divide by 2
+3. Final salience: $|I| = 0.75 \div 2 = 0.375$ per cause
+
+(In practice, we round to the nearest conventional value: 0.5)
+:::
+
+### Default Assumption
+
+**If no markers and no competing causes**: Assume monocausal attribution ($|I| = 1.0$)
+
+This reflects the discourse convention that unmarked causal statements present causes as primary factors unless explicitly qualified.
+
+## Integration: Computing Final $I$
+
+Combining all components:
+
+$$
+I = \text{sign}(\text{polarity after negation}) \times |\text{salience}|
+$$
+
+### Complete Example
+
+> *"Mainly pesticides and habitat loss contribute to bee mortality."*
+
+**Step 1: Entities**
+- Indicator: *contribute to* (transitive)
+- $C_1 = \text{pesticides}$, $C_2 = \text{habitat loss}$
+- $E = \text{bee mortality}$
+
+**Step 2: Polarity**
+- Indicator *contribute* → $I_{\text{default}} > 0$ (promoting)
+- No negation markers
+- Final polarity: $+$
+
+**Step 3: Salience**
+- Explicit marker: *mainly* → base = 0.75
+- Structural: 2 causes → divide by 2
+- Salience per cause: $|I| = 0.75 \div 2 \approx 0.5$
+
+**Result**:
+- $(C=\text{pesticides}, E=\text{bee mortality}, I=+0.5)$
+- $(C=\text{habitat loss}, E=\text{bee mortality}, I=+0.5)$
+
+## Implementation
+
+The tuple construction algorithm is implemented in Python and processes annotated relations in batch:
+
+```python
+def construct_tuple(annotation):
+    """
+    Transform linguistic annotation into (C,E,I) tuple.
+    
+    annotation: dict with keys 'indicator', 'entities', 'markers'
+    returns: tuple (C, E, I)
+    """
+    # Step 1: Extract entities
+    C, E = extract_entities(annotation['indicator'], 
+                            annotation['syntax'])
+    
+    # Step 2: Determine polarity
+    base_polarity = get_base_polarity(annotation['indicator'])
+    negation_count = count_negations(annotation['markers'])
+    polarity_sign = apply_negation(base_polarity, negation_count)
+    
+    # Step 3: Calculate salience
+    explicit_salience = get_explicit_salience(annotation['markers'])
+    n_causes = count_coordinated_causes(annotation)
+    salience_magnitude = explicit_salience / n_causes
+    
+    # Combine
+    I = polarity_sign * salience_magnitude
+    
+    return (C, E, I)
+```
+
+See the [full implementation](https://github.com/yourusername/causal-semantics/blob/main/src/tuple_construction.py) on GitHub.
+
+## Next Steps
+
+Once tuples are constructed, they can be:
+
+1. **[Aggregated](aggregation.qmd)** across multiple texts to build evidence for causal relations
+2. **Integrated into [ACGs](../acg/construction.qmd)** for graph-based discourse analysis
+3. **Analyzed** for discourse patterns, temporal dynamics, and argumentation structures
+
+The systematic transformation from qualitative annotations to quantitative tuples bridges interpretive linguistics and computational analysis, enabling scalable yet semantically rich causal extraction.

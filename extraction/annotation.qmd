@@ -1,0 +1,286 @@
+---
+title: "Annotation Guidelines"
+subtitle: "How causal relations are annotated in the Causal Semantics framework"
+---
+
+## Overview
+
+This page documents the annotation schema and guidelines used to produce the training data for [C-BERT](extraction/c-bert.qmd) and the underlying $(C, E, I)$ tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.
+
+The annotation was developed over three iterations (2024–2025) using the [INCEpTION](https://inception-project.github.io/) platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.
+
+## Annotation Schema
+
+The schema consists of two layers: **span annotations** that mark causal components in text, and **relation annotations** that link them into structured causal relations.
+
+### Spans
+
+Each token or token sequence in a sentence receives at most one span label. There are two span categories:
+
+**Role** marks the primary causal components:
+
+- `Indicator` — the lexical marker that projects the causal relation (e.g. *verursachen*, *ist Ursache*, *weil*, *stoppen*)
+- `Entity` — a cause or effect entity involved in the relation (e.g. *Klimawandel*, *Pestizide*, *Artensterben*)
+
+**Coefficient** captures semantic modifiers:
+
+| Coefficient | Function | Examples |
+|---|---|---|
+| `Negation` | Negates or inverts the causal relation | *nicht*, *kein*, *Verlust*, *Schwund* |
+| `Temporality` | Temporal framing | *seit*, *bereits*, *künftig*, *Jahre* |
+| `Spatiality` | Spatial framing | *global*, *lokal*, *weltweit*, *Deutschland* |
+| `Uncertainty` | Modality and hedging | *möglicherweise*, *könnte*, *vermutlich* |
+| `Quality` | Qualitative modification | *industrielle*, *parasitischer*, *schwefelhaltiger* |
+| `Quantity` | Quantitative modification | *großes*, *fünftausend*, *zwölf* |
+| `Representation` | Evidentiality marker | *laut*, *sagt*, *sei* |
+| `Representation Entity` | Source/provenance | *Studie*, *Bericht*, *Forscher* |
+
+### Relations
+
+Annotated spans are linked by directed relations:
+
+- `Cause`: Indicator → Entity (the entity fills the [Cause]{.smallcaps} role)
+- `Effect`: Indicator → Entity (the entity fills the [Effect]{.smallcaps} role)
+- `Constraint`: Entity or Indicator → Coefficient (the coefficient modifies its governor)
+
+### Worked Example
+
+Consider the sentence:
+
+> *Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.*
+>
+> (*Climate change and intensive agriculture possibly intensify global species extinction.*)
+
+| Span | Type | Relation |
+|---|---|---|
+| Klimawandel | `Entity` | verstärken → `Cause` |
+| Landwirtschaft | `Entity` | verstärken → `Cause` |
+| verstärken | `Indicator` | — |
+| möglicherweise | `Uncertainty` | verstärken → `Constraint` |
+| weltweite | `Spatiality` | Artensterben → `Constraint` |
+| Artensterben | `Entity` | verstärken → `Effect` |
+
+Key points illustrated here: coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel `Cause` relations; the attributive adjective *intensive* is extracted as a `Quality` coefficient (token minimization principle); the sentence adverb *möglicherweise* is linked to the indicator since it modifies the causal proposition.
+
+## Annotation Principles
+
+Four principles guide annotation decisions in ambiguous cases.
+
+### Minimal Principle
+
+Only explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g. *verursacht*) and a functional marker (e.g. *durch*) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.
+
+For light verb constructions, only the semantically loaded element is annotated (e.g. *hat etwas mit X **zu tun*** → Indicator: *tun*).
+
+### Token Minimization
+
+Entities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:
+
+- *industrielle Landwirtschaft* → Entity: `Landwirtschaft`, Coefficient: `industrielle` (Quality)
+- *Einsatz von Pestiziden* → Entity: `Pestiziden`
+- Exception: named entities (*Europäische Union*) and fixed multi-word expressions (*saurer Regen*) are annotated as single units.
+
+This prevents proliferation of marginal entity variants and facilitates downstream aggregation.
+
+### Syntactic Proximity
+
+When multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.
+
+### Coefficient Conservatism
+
+Coefficients (other than `Representation`) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity.
+
+## Indicators
+
+Indicators are the lexical or syntactic markers that project causal relations and establish $(C, E, I)$ tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.
+
+The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g. the [Ursache]{.smallcaps} family includes *verursachen*, *ist Ursache*, *Ursache sein*, *Teilursache sein*).
+
+### Top 10 Indicator Families
+
+| Family | Forms | Instances | | Family | Forms | Instances |
+|---|---|---|---|---|---|---|
+| [Ursache]{.smallcaps} | 21 | 167 | | [Beitrag]{.smallcaps} | 10 | 70 |
+| [Verantwortung]{.smallcaps} | 11 | 122 | | [Folge]{.smallcaps} | 6 | 69 |
+| [Stoppen]{.smallcaps} | 3 | 111 | | [Kampf]{.smallcaps} | 8 | 69 |
+| [Gegen]{.smallcaps} | 3 | 95 | | [Führen]{.smallcaps} | 9 | 59 |
+| [Durch]{.smallcaps} | 2 | 70 | | [Grund]{.smallcaps} | 7 | 57 |
+
+### Polarity and Salience
+
+Each indicator family carries an inherent **polarity** (promoting `+` or inhibiting `−`) and a default **salience** class:
+
+| Family | Polarity | Default Salience | Discourse Function |
+|---|---|---|---|
+| [Ursache]{.smallcaps} | + | variable | Prototype; full salience spectrum |
+| [Verantwortung]{.smallcaps} | + | variable | Causal-moral attribution |
+| [Folge]{.smallcaps} | + | monocausal | Effect-centered perspective |
+| [Beitrag]{.smallcaps} | + | polycausal | Distributional attribution |
+| [Durch]{.smallcaps} | + | monocausal | Grammaticalized preposition |
+| [Stoppen]{.smallcaps} | − | monocausal | Intervention framing |
+| [Gegen]{.smallcaps} | − | monocausal | Variable condensation (*Kampf gegen*, *Protest gegen*) |
+
+### Syntactic Projection Patterns
+
+The syntactic realization of each indicator family determines how [Cause]{.smallcaps} and [Effect]{.smallcaps} roles are projected:
+
+| Family | Example | Cause Projection | Effect Projection |
+|---|---|---|---|
+| [Ursache]{.smallcaps} | *X ist Ursache für Y* | Subject | PP (*für*) |
+| [Folge]{.smallcaps} | *Y ist Folge von X* | PP (*von*) | Subject |
+| [Verursachen]{.smallcaps} | *X verursacht Y* | Subject | Accusative object |
+| [Beitragen]{.smallcaps} | *X trägt zu Y bei* | Subject | PP (*zu*) |
+| [Stoppen]{.smallcaps} | *X stoppt Y* | Subject | Accusative object |
+| [Durch]{.smallcaps} | *Y durch X* | PP complement | Head noun |
+| [Gegen]{.smallcaps} | *X gegen Y* | Subject/Agent | PP complement |
+
+## Context Markers
+
+Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:
+
+### Division
+
+Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ("among other things"), *auch* ("also"), *ebenfalls* ("likewise"), and the composite *nicht nur* ("not only").
+
+Division markers reduce the salience to $|I| = 0.5$ regardless of the indicator's default.
+
+### Priority
+
+Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ("mainly"), *maßgeblich* ("significantly"). They set $|I| = 0.75$ for the prioritized cause.
+
+Both marker types affect only the salience ($|I|$), leaving polarity ($\pm$) unchanged.
+
+### Negation
+
+Negation is the structurally most influential marker. Two types are distinguished:
+
+**Object-based negation** operates at the entity level through markers like *Verlust* ("loss"), *Schwund* ("decline"), *Rückgang* ("decrease"). These invert the polarity when the count of negations is odd:
+
+> *Verlust von Lebensräumen verursacht Bienensterben.*
+>
+> Indicator *verursachen*: default $I > 0$; object negation on [Cause]{.smallcaps} (*Verlust*) → polarity inverted: $I < 0$.
+
+**Propositional negation** operates at the relation level (*nicht*, *kein*) and neutralizes the entire causal relationship ($I = 0$):
+
+> *Pestizide verursachen **nicht** Insektensterben.*
+>
+> Indicator *verursachen*: default $I > 0$; propositional negation → $I = 0$.
+
+## From Annotations to INFLUENCE
+
+The annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value $I \in [-1, +1]$. In brief: entity identification follows the indicator's syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.
+
+For the full formal specification — including the cascade rules, coordination normalization, and worked examples — see [Tuple Construction](../processing/tuple-construction.qmd).
+
+## Data Format {#data-format}
+
+Annotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.
+
+### Schema
+
+```json
+{
+  "subfolder": "Artensterben_oa",
+  "global_sentence_id": 1148482,
+  "text_id": "FAZ_200204_384209",
+  "text_date": "2002-04",
+  "sentence_id": "12",
+  "sentence": "...",
+  "relations": [
+    {
+      "indicator": "Folge",
+      "entities": [
+        {
+          "entity": "Kleinplanet",
+          "relation": "Cause",
+          "dependent_coefficients": [
+            {"coefficient_text": "Jahren", "coefficient": "Temporality"},
+            {"coefficient_text": "Mexikos", "coefficient": "Spatiality"}
+          ]
+        },
+        {
+          "entity": "Artensterben",
+          "relation": "Effect"
+        }
+      ],
+      "coefficient": "Division",
+      "dependent_coefficients": [
+        {"coefficient_text": "könnte", "coefficient": "Uncertainty"}
+      ],
+      "representation": "berieten",
+      "representation_entities": [
+        {
+          "entity": "Teilnehmer",
+          "relation": "Constraint",
+          "dependent_coefficients": [
+            {"coefficient_text": "fünftausend", "coefficient": "Quantity"}
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Field Reference
+
+**Sentence-level fields:**
+
+| Field | Description |
+|---|---|
+| `subfolder` | WABI subcorpus and syntactic position (e.g. `Artensterben_oa` = accusative object) |
+| `global_sentence_id` | Unique sentence identifier across the full corpus |
+| `text_id` | Source document identifier (format: `SOURCE_YYYYMM_ID`) |
+| `text_date` | Publication date (YYYY-MM) |
+| `sentence` | Full sentence text |
+| `relations` | Array of causal relations found in this sentence (empty if none) |
+
+**Relation-level fields:**
+
+| Field | Description |
+|---|---|
+| `indicator` | The causal indicator lexeme |
+| `entities` | Array of entities with their causal role (`Cause` or `Effect`) |
+| `coefficient` | Structural marker on the relation level (`Negation`, `Division`) |
+| `dependent_coefficients` | Contextual coefficients attached to the indicator |
+| `representation` | Evidentiality/speech-act verb (if present) |
+| `representation_entities` | Source entities for reported speech |
+
+**Entity-level fields:**
+
+| Field | Description |
+|---|---|
+| `entity` | Head token of the entity (token-minimized) |
+| `relation` | Causal role: `Cause`, `Effect`, or `Constraint` |
+| `dependent_coefficients` | Array of coefficients modifying this entity |
+
+### Sentences Without Relations
+
+Sentences where no explicit causal relation was identified have an empty `relations` array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle.
+
+## Corpus Statistics
+
+| | |
+|---|---|
+| **Total sentences** | 4,753 |
+| **Sentences with ≥1 WABI relation** | 1,797 (37.8%) |
+| **Total WABI-relevant relations** | 1,867 |
+| **Distinct indicator forms** | 642 |
+| **Indicator families** | 192 |
+| **Mean relations per sentence** | 0.39 |
+
+**Per WABI term:**
+
+| Term | Sentences | Relations | Rel./Sent. |
+|---|---|---|---|
+| Waldsterben | 1,818 | 633 | 0.35 |
+| Artensterben | 1,854 | 744 | 0.40 |
+| Bienensterben | 536 | 257 | 0.48 |
+| Insektensterben | 545 | 233 | 0.43 |
+
+## Further Reading
+
+- For the theoretical motivation behind polarity and salience, see [Framework](framework/index.qmd)
+- For how annotations are transformed into $(C, E, I)$ tuples, see [Tuple Construction](processing/tuple-construction.qmd)
+- For the C-BERT model trained on this data, see [C-BERT](extraction/c-bert.qmd)
+- Full annotation data (Bundestag subset): [HuggingFace Dataset](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)

@@ -1,0 +1,91 @@
+project:
+  type: website
+  output-dir: _site
+
+editor:
+  render-on-save: true
+
+bibliography: references.bib
+csl: elsevier-vancouver.csl
+
+website:
+  title: "Causal Semantics"
+  description: "A framework for extracting and analyzing causal attributions"
+  
+  navbar:
+    left:
+      - text: "Home"
+        file: index.qmd
+      # - text: "Framework"
+      #   menu: 
+      #     - text: "Overview"
+      #       file: framework/framework.qmd
+      #     - text: "(C,E,I) Tuples"
+      #       file: framework/tuples.qmd
+      #     - text: "Polarity & Salience"
+      #       file: framework/dimensions.qmd
+      #     - text: "ACG Theory"
+      #       file: framework/acg-theory.qmd
+      - text: "Extraction"
+        menu:
+          - text: "Overview"
+            file: extraction/extraction.qmd
+          - text: "C-BERT"
+            file: extraction/c-bert.qmd
+          - text: "Annotation"
+            file: extraction/annotation.qmd
+      - text: "Processing"
+        menu:
+          - text: "Overview"
+            file: processing/processing.qmd
+          - text: "Tuple Construction"
+            file: processing/tuple-construction.qmd
+          - text: "Aggregation"
+            file: processing/aggregation.qmd
+      # - text: "ACG"
+      #   menu:
+      #     - text: "Overview"
+      #       file: acg/acg.qmd
+      #     - text: "Construction"
+      #       file: acg/construction.qmd
+      #     - text: "Visualization"
+      #       file: acg/visualization.qmd
+      - text: "Resources"
+        file: resources.qmd
+    right:
+      - icon: github
+        href: https://github.com/padjohn/causalsemantics
+        aria-label: GitHub
+
+  sidebar:
+    style: "floating"
+    
+  page-footer:
+    left: "Causal Semantics"
+    right: 
+      - text: "License: CC BY 4.0"
+
+format:
+  html:
+    theme: 
+      - darkly
+      - styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: true
+    html-math-method: katex
+    highlight-style: github
+    mermaid:
+      theme: dark
+      config:
+        themeVariables:
+          edgeLabelBackground: "#101010"
+          lineColor: '#666'
+          nodeBorder: 'rgba(0,0,0,0)'
+          mainBkg: 'rgba(0,0,0,0)'
+          nodeBkg: 'rgba(0,0,0,0)'
+    
+execute:
+  freeze: auto
+  cache: true

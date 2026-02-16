@@ -1,0 +1,110 @@
+---
+title: "Causal Semantics"
+subtitle: "A framework for extracting and analyzing causal attributions"
+---
+
+## Overview
+
+Causal Semantics ($S_C$) is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:
+
+- **Logical theories** differentiating between monocausal and polycausal structures
+- **Linguistic analyses** identifying semantic dimensions like promoting vs. inhibiting influences
+- **Computational methods** that scale, but tend to reduce relations to binary cause-effect pairs
+
+In short, $S_C$ aims to extract and represent causal attributions:
+
+> *Climate change causes species extinction.*  
+
+and represent them as graphs:
+
+$$ \text{Climate change} \xrightarrow{+1} \text{Species extinction} $$
+
+## Core Innovation
+
+The framework models causal relations as **$(C, E, I)$ tuples**, where:
+
+- $C$ ([Cause]{.smallcaps}): The causing entity
+- $E$ ([Effect]{.smallcaps}): The affected entity  
+- $I$ ([Influence]{.smallcaps}): A signed scalar $\in [-1, +1]$ encoding:
+  - **Polarity** (sign): Promoting ($+$) vs. inhibiting ($−$) influence
+  - **Salience** (magnitude): Monocausal ($|I|=1.0$) vs. polycausal ($|I|<1.0$) attribution
+
+This representation enables:
+
+1. **Semantic precision**: Capturing the direction and strength of a causal attribution
+2. **Quantitative aggregation**: Accumulating attributions into weighted causal networks
+3. **Graph-based analysis**: Visualizing discourse dynamics as Attributional Causal Graphs (ACGs)
+
+## Example
+
+Consider these sentences from environmental discourse:
+
+> *Climate change causes species extinction.*  
+> $(C_\text{climate change}, E_\text{species extinction}, I_{+1.0})$
+
+> *Conservation measures reduce forest dieback.*  
+> $(C_\text{conservation measures}, E_\text{forest dieback}, I_{-0.5})$
+
+The first example expresses a promoting, monocausal relation ($I=+1.0$), while the second expresses an inhibiting, contributory relation ($I=-0.5$).
+
+## Architecture
+
+The framework consists of three main modules:
+
+```{mermaid}
+graph LR
+    A[Text Input] --> B1[Annotation]
+    A[Text Input] --> B2[C-BERT]
+
+    B1 --> C[Tuple-Construction]
+    B2 --> C
+
+    C --> D[Aggregation]
+    D --> E[ACG]
+    
+    E --> D2[Visualization]
+    E --> D3[Analysis]
+```
+
+1. **[Extraction](extraction/extraction.qmd)**: Identifying causal relations in text through indicators, annotation schemes, and the C-BERT transformer
+2. **[Processing](processing/processing.qmd)**: Converting annotations into formal $(C,E,I)$ tuples and aggregating them
+<!-- 3. **[ACG](acg/index.qmd)**: Constructing and analyzing Attributional Causal Graphs for discourse-level insights -->
+
+<!-- ## Getting Started
+
+::: {.callout-note}
+## Quick Navigation
+
+- New to the framework? Start with [Understanding (C,E,I) Tuples](framework/tuples.qmd)
+- Want to extract relations? See [Annotation](extraction/annotation.qmd) or [C-BERT Model](extraction/c-bert.qmd)
+- Aggregate relations? See [Processing](extraction/processing.qmd)
+- Reading the research? See [Resources](resources.qmd) for papers and thesis
+::: -->
+
+## Applications
+
+This framework has been applied to a German **Environmental corpus** (1990-2022) to:
+
+- analyze responsibility attributions in biodiversity debates [@johnson2026causalsemantics]
+- disambiguate references to *forest diebacks* [@johnson2026waldsterben2]
+
+## Citation
+
+If you use this framework in your research, please cite:
+
+```bibtex
+@phdthesis{johnson2026causalsemantics,
+  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},
+  author={Patrick Johnson},
+  school={Technical University of Darmstadt},
+  year={forthcoming}
+}
+```
+```bibtex
+@misc{cbert,
+  title={C-BERT: Factorized Causal Relation Extraction},
+  author={Patrick Johnson},
+  doi={10.26083/tuda-7797},
+  year={2026}
+}
+```

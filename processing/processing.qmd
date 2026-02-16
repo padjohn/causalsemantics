@@ -1,0 +1,51 @@
+---
+title: "Processing Overview"
+subtitle: "From linguistic annotations to quantitative causal patterns"
+---
+
+## Overview
+
+The processing module bridges [extraction](../extraction/index.qmd) and [graph analysis](../acg/index.qmd). It takes annotated causal relations — whether produced manually or by [C-BERT](../extraction/c-bert.qmd) — and transforms them into quantitative, aggregated representations suitable for corpus-level analysis.
+
+```{mermaid}
+graph LR
+    A["Annotated Relations<br/>(indicators, entities, markers)"] --> B["Tuple Construction"]
+    B --> C["Individual<br/>(C, E, I) Tuples"]
+    C --> D["Aggregation"]
+    D --> E["Normalized Causal<br/>Patterns"]
+    E --> F["Focus-Term Analysis"]
+    E --> G["ACG Networks"]
+```
+
+This transformation happens in two stages:
+
+## Tuple Construction
+
+Individual annotated relations are converted into formal $(C, E, I)$ tuples through a deterministic three-step algorithm. Entity identification uses syntactic projection patterns to extract [Cause]{.smallcaps} and [Effect]{.smallcaps} from the indicator's argument structure. 
+
+Polarity determination computes the sign of $I$ from the indicator's inherent class and any negation markers. 
+
+Salience calculation computes the magnitude $|I|$ through a cascading hierarchy of morphological, determiner, and syntactic markers. The output is a fully specified tuple where $I = \pm(\text{polarity}) \times |\text{salience}| \in [-1, +1]$.
+
+→ **[Tuple Construction](tuple-construction.qmd)**: Full algorithm with cascade rules, coordination normalization, and worked examples
+
+## Aggregation
+
+Individual tuples are condensed into cumulative causal patterns through weighted summation and normalization. Identical tuples are counted; tuples sharing the same $(C, E)$ pair are summed (with frequency × salience weighting); and the aggregated values are normalized to produce proportional influence scores. Two normalization strategies serve different analysis goals: bidirectional normalization for exhaustive focus-term analysis, and unidirectional normalization for full causal graph construction.
+
+→ **[Aggregation](aggregation.qmd)**: Full pipeline with normalization formulas, polarity handling, and the resulting graph data structure
+
+## Design Principles
+
+**Compositionality.** Aggregation takes tuple values as given — any refinement to the tuple construction rules flows directly into the aggregated output without requiring changes to the aggregation pipeline.
+
+**Separation of concerns.** Tuple construction is a linguistic operation (mapping annotations to formal values); aggregation is a statistical operation (condensing evidence across attestations). The two are cleanly decoupled.
+
+**Metadata preservation.** Each tuple carries source metadata (text ID, date, contextual markers). These enable differential analyses — temporal stratification, source-specific filtering — but do not enter the core aggregation computation.
+
+## Continue
+
+- **[Tuple Construction](tuple-construction.qmd)** — the formal algorithm for computing $(C, E, I)$ values
+- **[Aggregation](aggregation.qmd)** — weighting, summation, and normalization across attestations
+- Back to **[Extraction](../extraction/index.qmd)** — how annotations are produced
+- Forward to **[ACG](../acg/index.qmd)** — graph-level analysis of aggregated relations

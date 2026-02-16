@@ -1,0 +1,271 @@
+---
+title: "(C, E, I) Tuples"
+subtitle: "The core representation of causal relations"
+---
+
+## Motivation
+
+Traditional causal extraction systems reduce causal relations to binary pairs: a CAUSE and an EFFECT. This simplification loses important semantic information that speakers encode when making causal attributions:
+
+- **Direction of influence**: Does the cause promote or inhibit the effect?
+- **Strength of attribution**: Is this the sole cause, or one of many factors?
+
+Causal Semantics addresses these limitations by representing causal relations as **$(C, E, I)$ tuples**.
+
+## The Triple Structure
+
+A causal relation is formalized as:
+
+$$
+R = (C, E, I)
+$$
+
+where:
+
+### $C$ (CAUSE)
+The entity or event that exerts causal influence. This is the "what" that causes or affects something else.
+
+**Examples**: *climate change*, *pesticides*, *conservation measures*
+
+### $E$ (EFFECT)
+The entity or event that is causally influenced. This is the "what" that is caused, increased, decreased, or prevented.
+
+**Examples**: *species extinction*, *bee mortality*, *forest dieback*
+
+### $I$ (INFLUENCE)
+A signed scalar $I \in [-1, +1]$ that encodes **both** the direction and strength of causal influence. This integrates two core dimensions:
+
+$$
+I = \pm(\text{polarity}) \times |\text{salience}|
+$$
+
+The **sign** encodes polarity (promoting vs. inhibiting), while the **magnitude** encodes salience (monocausal vs. polycausal).
+
+## Polarity: Direction of Influence {#sec-polarity}
+
+Polarity determines whether a cause **promotes** or **inhibits** its effect.
+
+### Promoting (+)
+
+The cause strengthens, enables, or produces the effect. Conceptually, $C$ increases the probability or intensity of $E$.
+
+**Linguistic markers**: 
+- Verbs: *causes*, *produces*, *leads to*, *strengthens*
+- Nouns: *cause*, *reason*, *trigger*
+- Prepositions: *due to*, *because of*
+
+**Examples**:
+
+| Sentence | Tuple |
+|----------|-------|
+| *Climate change causes species extinction* | $(C=\text{climate change}, E=\text{species extinction}, I=+1.0)$ |
+| *Pesticides contribute to bee mortality* | $(C=\text{pesticides}, E=\text{bee mortality}, I=+0.5)$ |
+
+### Inhibiting (−)
+
+The cause prevents, reduces, or stops the effect. Conceptually, $C$ decreases the probability or intensity of $E$.
+
+**Linguistic markers**:
+- Verbs: *prevents*, *reduces*, *stops*, *inhibits*, *blocks*
+- Nouns: *prevention*, *reduction*, *barrier*
+- Prepositions: *against*, *despite*
+
+**Examples**:
+
+| Sentence | Tuple |
+|----------|-------|
+| *Conservation stops species extinction* | $(C=\text{conservation}, E=\text{species extinction}, I=-1.0)$ |
+| *Measures reduce forest dieback* | $(C=\text{measures}, E=\text{forest dieback}, I=-0.5)$ |
+
+### Discourse Function
+
+The polarity distinction is crucial for discourse analysis because it marks relations as **constructive vs. destructive**:
+
+- **Promoting relations** (*X causes Y*) often construct problems or explain negative developments
+- **Inhibiting relations** (*X prevents Y*) typically appear in intervention contexts or solution proposals
+
+## Salience: Strength of Attribution {#sec-salience}
+
+Salience quantifies the **weight** or **importance** of a cause relative to all causal factors affecting an effect. It encodes whether a cause is presented as:
+
+- The **sole** factor (monocausal framing)
+- The **dominant** factor (prioritized polycausal framing)
+- **One of many** factors (distributed polycausal framing)
+
+Salience operates on a continuous spectrum $|I| \in [0, 1]$, though in practice we use three conventional values.
+
+### Monocausal Attribution (|I| = 1.0)
+
+The cause is presented as the sole or exclusive factor.
+
+**Linguistic markers**:
+- Determination: *the cause* (not *a cause*)
+- Exclusivity: *responsible for*, *the reason*
+- Implicit: single cause mentioned without qualifiers
+
+**Examples**:
+
+| Sentence | Salience |
+|----------|----------|
+| *X is the cause of Y* | 1.0 |
+| *X is responsible for Y* | 1.0 |
+| *X causes Y* (no other causes mentioned) | 1.0 |
+
+### Polycausal Attribution (|I| < 1.0)
+
+The cause is one of multiple factors, with salience reflecting its relative weight:
+
+#### Prioritized (|I| = 0.75)
+The cause is dominant but not exclusive.
+
+**Linguistic markers**: *mainly*, *primarily*, *above all*, *the main cause*
+
+| Sentence | Salience |
+|----------|----------|
+| *Y is mainly caused by X* | 0.75 |
+| *X is the main cause of Y* | 0.75 |
+
+#### Distributed (|I| = 0.5)
+The cause contributes but is not emphasized over others.
+
+**Linguistic markers**: *contributes to*, *a cause*, *among other things*, *also*
+
+| Sentence | Salience |
+|----------|----------|
+| *X contributes to Y* | 0.5 |
+| *X is a partial cause of Y* | 0.5 |
+| *X and Y cause Z* | 0.5 each |
+
+### Structural Distribution
+
+When multiple causes are coordinated, salience is distributed proportionally:
+
+| Construction | Distribution |
+|--------------|--------------|
+| *X and Y cause Z* | Each gets $|I| = 0.5$ |
+| *A, B, and C cause Y* | Each gets $|I| = 0.33$ |
+| *X and Y are two main causes of Z* | Each gets $|I| = 0.75$ |
+
+::: {.callout-note}
+## Conventional Values
+
+The values 0.5, 0.75, and 1.0 are analytical conventions based on empirical observation and proportional reasoning:
+
+- 1.0 = full attribution (100%)
+- 0.75 = dominant but not exclusive (75%)
+- 0.5 = equal contribution (50%)
+
+Alternative weightings are conceptually possible, but these values balance theoretical plausibility with practical interpretability.
+:::
+
+## Combining Polarity and Salience
+
+The INFLUENCE scalar integrates both dimensions:
+
+$$
+I = \pm(\text{polarity}) \times |\text{salience}|
+$$
+
+This produces a range of possible values:
+
+```{python}
+#| echo: false
+#| warning: false
+import pandas as pd
+import plotly.graph_objects as go
+
+# Create example data
+examples = [
+    ("Climate change causes species extinction", "+", 1.0, 1.0),
+    ("Mainly climate change causes extinction", "+", 0.75, 0.75),
+    ("Pesticides contribute to bee mortality", "+", 0.5, 0.5),
+    ("Conservation reduces forest dieback", "−", 0.5, -0.5),
+    ("Measures mainly stop species extinction", "−", 0.75, -0.75),
+    ("Protection prevents species extinction", "−", 1.0, -1.0),
+]
+
+df = pd.DataFrame(examples, columns=["Example", "Polarity", "Salience", "I"])
+
+# Create figure
+fig = go.Figure()
+
+# Add promoting examples
+promoting = df[df["Polarity"] == "+"]
+fig.add_trace(go.Scatter(
+    x=promoting["I"],
+    y=promoting.index,
+    mode='markers+text',
+    marker=dict(size=12, color='green'),
+    text=promoting["I"],
+    textposition="middle right",
+    name="Promoting",
+    showlegend=True
+))
+
+# Add inhibiting examples
+inhibiting = df[df["Polarity"] == "−"]
+fig.add_trace(go.Scatter(
+    x=inhibiting["I"],
+    y=inhibiting.index,
+    mode='markers+text',
+    marker=dict(size=12, color='red'),
+    text=inhibiting["I"],
+    textposition="middle left",
+    name="Inhibiting",
+    showlegend=True
+))
+
+fig.update_layout(
+    title="INFLUENCE Values: Combining Polarity and Salience",
+    xaxis_title="I (INFLUENCE)",
+    yaxis=dict(
+        tickmode='array',
+        tickvals=list(range(len(df))),
+        ticktext=df["Example"].tolist()
+    ),
+    height=400,
+    showlegend=True,
+    xaxis=dict(range=[-1.1, 1.1], zeroline=True, zerolinewidth=2)
+)
+
+fig.show()
+```
+
+### Prototypical Configurations
+
+| Example | Polarity | Salience | I |
+|---------|----------|----------|---|
+| *Climate change causes species extinction* | + | 1.0 | +1.0 |
+| *Mainly climate change causes extinction* | + | 0.75 | +0.75 |
+| *Pesticides contribute to bee mortality* | + | 0.5 | +0.5 |
+| *Conservation reduces forest dieback* | − | 0.5 | −0.5 |
+| *Measures mainly stop extinction* | − | 0.75 | −0.75 |
+| *Protection prevents species extinction* | − | 1.0 | −1.0 |
+
+## Graph Representation
+
+The $(C, E, I)$ tuples form the basic units for constructing **Attributional Causal Graphs** (ACGs):
+
+- $C$ and $E$ become **nodes**
+- $I$ becomes the **edge weight**
+- Direction flows from $C \to E$
+
+A causal relation $(C \xrightarrow{I} E)$ represents: *"C influences E with strength and direction I"*
+
+**Graph properties**:
+
+- **Positive edges** ($I > 0$) indicate promoting factors
+- **Negative edges** ($I < 0$) indicate inhibiting factors
+- **Edge weights** enable identifying central vs. peripheral causes through aggregation
+
+See [ACG Construction](../acg/construction.qmd) for details on building causal graphs from tuples.
+
+## Summary
+
+The $(C, E, I)$ representation provides:
+
+1. **Semantic richness**: Captures both direction (polarity) and strength (salience) of causal attributions
+2. **Computational tractability**: Simple numeric encoding enables aggregation and graph algorithms
+3. **Discourse sensitivity**: Reflects how speakers frame causality (monocausal vs. polycausal, promoting vs. inhibiting)
+
+Next: Learn how these dimensions are [extracted from text](../extraction/indicators.qmd) through causal indicators and context markers.

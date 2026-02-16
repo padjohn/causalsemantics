@@ -1,0 +1,205 @@
+---
+title: "Framework"
+subtitle: "Conceptual foundations of Causal Semantics ($S_C$)"
+---
+
+## Logic, Language & Computation
+
+Causal Semantics integrates insights from three research areas that have largely operated independently:
+
+<!-- ```{=html}
+<iframe
+	src="https://nimaboscarino-hotdog-gradio.hf.space"
+	frameborder="0"
+	width="780"
+	height="500"
+></iframe>
+``` -->
+
+
+### 1. Philosophical Causal Theories
+
+Philosophical accounts differentiate between:  
+
+- **Monocausal structures**:
+  - A cause is both *sufficient* and *necessary* 
+- **Polycausal structures**:
+  - A cause can be *sufficient*
+    - *Where there's fire, there is smoke.*
+    - *If*, *when*
+  - A cause can be *necessary*
+    - *No smoke without a fire.*
+    - *If and only if*, *only*
+
+Yet these theories remain abstract and haven't been operationalized for natural language analysis.
+
+**Key references**: [@Mackie1965], [@Lewis1973Causation], [@pearl2000], [@halpern2016]  
+ 
+### 2. Linguistic Semantics
+
+Linguistic analyses identify crucial semantic dimensions:  
+
+- **Polarity**: Promoting or inhibiting influences [@cruse1986]
+- **Modality**: Factive or hypothetical causation [@fabricius2000]
+- **Discourse functions**: Causal attributions as argumentative tool [@toulmin1958]
+
+Yet these studies remain limited to small, qualitatively analyzed corpora. 
+
+### 3. Computational Causal Extraction  
+
+NLP systems scale to large text collections but typically:
+
+- Reduce causality to binary [Cause]{.smallcaps}-[Effect]{.smallcaps} pairs
+- Ignore semantic nuances like strength or direction
+- Lack discourse sensitivity
+
+**Key references**: [@dunietz-etal-2017-because], [@rehbein2017], [@wu2025ckgeie]
+
+## The Integration
+
+Causal Semantics bridges these traditions by:
+
+1. **Formalizing** philosophical distinctions (mono- vs. polycausal) as quantifiable salience values  
+2. **Enriching** computational extraction with semantic dimensions (polarity, salience)  
+3. **Scaling** linguistic insights through automated extraction pipelines  
+
+The result is a framework that is:
+
+- **Semantically enriched**: Captures nuanced attributions  
+- **Computationally tractable**: Scales to millions of sentences  
+
+## $(C, E, I)$ Cause, Effect & Influence
+
+The framework models causal relations as triples:
+
+$$
+R = (C, E, I)
+$$
+where:  
+
+* $C$ ([**Cause**]{.smallcaps}): The causing entity  
+* $E$ ([**Effect**]{.smallcaps}): The affected entity  
+* $I$ ([**Influence**]{.smallcaps}): A signed scalar $\in [-1, +1]$ encoding:  
+    + $\pm$ ([**Polarity**]{.smallcaps}) : promoting ($+$) or inhibiting ($−$)  
+    + $||I||$ ([**Salience**]{.smallcaps}): monocausal ($1.0$) or polycausal ($<1.0$)
+
+**See**: [Understanding (C,E,I) Tuples](tuples.qmd) for detailed explanation.
+
+## Two Core Dimensions
+
+### Polarity: Direction
+
+Does the cause promote or inhibit the effect?
+
+- **Promoting** ($+$): $C$ increases the probability/intensity of $E$
+  - *Climate change causes species extinction*
+- **Inhibiting** ($−$): $C$ decreases the probability/intensity of $E$
+  - *Conservation prevents species extinction*
+
+Linguistically realized through:
+
+- Antonym verb pairs (*increase/reduce*, *cause/prevent*)
+- Nominal indicators (*cause* vs. *prevention*)
+- Prepositional markers (*for* vs. *against*)
+
+**See**: [Polarity section](tuples.qmd#sec-polarity) for examples and analysis.
+
+### Salience: Magnitude
+
+How strong is this cause relative to all factors?
+
+- **Monocausal** ($|I| = 1.0$): Sole or exclusive factor
+  - *X is the cause of Y*
+- **Prioritized** ($|I| = 0.75$): Dominant but not exclusive
+  - *Mainly X causes Y*
+- **Distributed** ($||I|| = 0.5$): One of several equal factors
+  - *X contributes to Y*, *X and Y cause Z*
+
+Linguistically realized through:
+
+- Determination (*the* vs. *a* cause)
+- Composition (*main cause*, *partial cause*)
+- Distribution markers (*among others*, *also*)
+
+**See**: [Salience section](tuples.qmd#sec-salience) for computation methods.
+
+## From Tuples to Graphs
+
+Individual $(C, E, I)$ tuples aggregate into **Attributional Causal Graphs** (ACGs):
+
+- **Nodes**: Entities ($C$ and $E$ values)
+- **Edges**: Weighted, directed connections with $I$ as weight
+- **Properties**: 
+  - Positive edges ($I > 0$): promoting factors
+  - Negative edges ($I < 0$): inhibiting factors
+  - Edge weights = aggregated evidence across multiple texts
+
+ACGs enable:
+
+- Network analysis of discourse structure
+- Identification of central vs. peripheral causes
+- Temporal tracking of attribution shifts
+
+**See**: [ACG Theory](acg-theory.qmd) for graph-theoretic foundations.
+
+## Applications
+
+The framework reveals:
+
+### 1. Argumentation Patterns
+- Which entities are positioned as causes vs. effects?
+- Are attributions monocausal (simplified) or polycausal (nuanced)?
+- What role do inhibiting relations play (solutions vs. problems)?
+
+### 2. Temporal Dynamics
+- How do causal attributions shift over time?
+- When do new causes enter discourse?
+- When do attributions strengthen or weaken?
+
+### 3. Responsibility Distribution
+- Which actors are attributed causal agency?
+- How is responsibility distributed across entities?
+- What patterns of blame or credit emerge?
+
+## Implementation Pipeline
+- What patterns of blame or credit emerge?
+
+```{mermaid}
+```
+```{mermaid}
+graph TB
+    A[Text Input] --> B[Extraction]
+    B --> C[Tuple Construction]
+    C --> D[Aggregation]
+    D --> E[ACG Construction]
+    E --> F[Analysis]
+    
+    B1[Indicators] -.-> B
+    B2[C-BERT Model] -.-> B
+    B3[Annotation] -.-> B
+    
+    C1[Entity ID] -.-> C
+    C2[Polarity] -.-> C
+    C3[Salience] -.-> C
+    
+    D1[Evidence Accumulation] -.-> D
+    D2[Conflict Resolution] -.-> D
+    
+    F1[Network Metrics] -.-> F
+    F2[Visualization] -.-> F
+    F3[Discourse Analysis] -.-> F
+```
+
+## Next Steps
+
+Explore the framework in depth:
+
+1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation
+2. **[Extraction Methods](../extraction/index.qmd)**: How to identify causal relations in text
+3. **[Processing Pipeline](../processing/index.qmd)**: From annotations to tuples to graphs
+4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis
+
+Or jump directly to:
+
+- **[C-BERT Model](../extraction/c-bert.qmd)**: Automated extraction with transformers
+- **[Code & Data](../resources.qmd)**: GitHub repositories and datasets

@@ -1,0 +1,245 @@
+---
+title: "C-BERT"
+subtitle: "Factorized causal relation extraction with a multi-task transformer"
+---
+
+## Overview
+
+C-BERT [@cbert] is a multi-task transformer for extracting fine-grained causal relations as $(C, E, I)$ tuples from German text. Its key design choice is a **factorized architecture** that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label. 
+
+This factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.
+
+The model is built on EuroBERT-610m [@boizard2025eurobertscalingmultilingualencoders] with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).
+
+::: {.callout-note}
+## Resources
+
+- **Model weights**: [HuggingFace — pdjohn/C-EBERT-610m](https://huggingface.co/pdjohn/C-EBERT-610m)
+- **Code**: [GitHub — padjohn/cbert](https://github.com/padjohn/cbert)
+- **Data subset**: [HuggingFace — pdjohn/bundestag-causal-attribution](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution) (487 relations from German parliamentary debates)
+- **Paper**: Johnson (2025), *C-BERT: Factorized Causal Relation Extraction*
+- **Annotation guidelines**: [Annotation](annotation.qmd)
+:::
+
+## Architecture
+
+C-BERT performs two tasks on a shared encoder:
+
+```{mermaid}
+graph TB
+    Input["Input Sentence"] --> Encoder["EuroBERT-610m + LoRA"]
+
+    Encoder --> T1["Task 1: Span Recognition"]
+    Encoder --> T2["Task 2: Relation Classification"]
+
+    T1 --> BIOES["BIOES Tags<br/>(INDICATOR, ENTITY)"]
+
+    T2 --> Role["Role Head<br/>(CAUSE, EFFECT, NO_RELATION)"]
+    T2 --> Pol["Polarity Head<br/>(POS, NEG)"]
+    T2 --> Sal["Salience Head<br/>(MONO, PRIO, DIST)"]
+
+    BIOES --> Pipeline["Tuple Construction"]
+    Role --> Pipeline
+    Pol --> Pipeline
+    Sal --> Pipeline
+    Pipeline --> Tuples["(C, E, I) Tuples"]
+```
+
+### Task 1: Span Recognition
+
+A token classification head assigns BIOES tags to identify causal indicators and entities in the input sentence:
+
+| Tag | Meaning |
+|---|---|
+| `B-INDICATOR` | Beginning of a causal indicator span |
+| `I-INDICATOR` | Inside a causal indicator span |
+| `E-INDICATOR` | End of a causal indicator span |
+| `S-INDICATOR` | Single-token indicator |
+| `B-ENTITY` | Beginning of a causal entity span |
+| `I-ENTITY` / `E-ENTITY` / `S-ENTITY` | (analogous) |
+| `O` | Outside any causal span |
+
+### Task 2: Relation Classification
+
+For each (indicator, entity) pair extracted from Task 1, the relation head determines the causal relationship. The input is formatted as:
+
+```
+[indicator] <|parallel_sep|> [entity] <|parallel_sep|> [sentence]
+```
+
+The CLS representation passes through **three parallel heads**:
+
+**Role** (3-class) determines whether the entity is a [Cause]{.smallcaps}, [Effect]{.smallcaps}, or unrelated to the indicator. This depends primarily on syntactic position and indicator projection patterns.
+
+**Polarity** (2-class, masked for `NO_RELATION`) determines whether the causal influence is promoting (`POS`) or inhibiting (`NEG`). This is driven by indicator lexical class and negation context.
+
+**Salience** (3-class, masked for `NO_RELATION`, applied to `CAUSE` only) determines causal strength:
+
+| Class | $|I|$ | Meaning |
+|---|---|---|
+| `MONO` | 1.0 | Monocausal — sole or primary cause |
+| `PRIO` | 0.75 | Prioritized — highlighted among multiple factors |
+| `DIST` | 0.5 | Distributed — one of several contributing factors |
+
+Effect entities inherit salience from their associated indicator–cause relation. The final influence value is reconstructed as $I = \text{sign}(\text{polarity}) \times s_{\text{salience}}$, or $0$ for `NO_RELATION`.
+
+### Why Factorize?
+
+The full combinatorial label space has 14 classes: $\{$MONO, PRIO, DIST$\} \times \{$POS, NEG$\} \times \{$CAUSE, EFFECT$\}$ = 12, plus NO_RELATION and INTERDEPENDENCY. Flat classification over this space suffers from class sparsity (several classes have fewer than 10 training instances) and conflates signals governed by different linguistic cues.
+
+Factorization addresses both problems. It reduces per-head complexity (3-class and 2-class instead of 14-class), eliminates class sparsity within each head, and allows each head to learn from its own loss signal. In practice, the factorized model consistently outperforms unified classification across all random seeds tested.
+
+Two intermediate architectures were explored and abandoned during development. A role + influence regression head ($\tanh \to [-1,1]$) could not jointly learn sign and magnitude, causing outputs to cluster near zero when negation markers were present. A discrete role/polarity + continuous salience variant defaulted to safe intermediate values (~0.85) rather than learning the categorical distinction between MONO, PRIO, and DIST. Both failures motivated the fully discretized three-head design.
+
+
+## Training
+
+### Data
+
+The model is trained on 2,391 manually annotated causal relations from German environmental discourse (1990–2022), covering four focal terms: *Waldsterben* (forest dieback), *Artensterben* (species extinction), *Bienensterben* (bee death), and *Insektensterben* (insect death). See [Annotation](annotation.qmd) for the full annotation schema and guidelines.
+
+The data is split 80/20 at the sentence level (3,802 train / 951 test sentences), with data augmentation (entity replacement) doubling the relation training instances to 7,604. The split is performed *before* augmentation to prevent leakage.
+
+### Negation-Aware Target Construction
+
+A critical preprocessing step separates three distinct negation signals that would otherwise cause the model to learn spurious correlations:
+
+1. **Indicator base polarity** — looked up from the indicator family taxonomy (e.g. *verursachen* → `+`, *stoppen* → `−`)
+2. **Propositional negation** — particles like *nicht*, *kein* that neutralize the entire relation (these are dropped from training as they are too sparse for the model to learn reliably)
+3. **Object negation** — negation nominals like *Verlust*, *Rückgang* in entity spans that invert polarity compositionally: $\text{polarity}_{\text{final}} = \text{base} \times (-1)^{\text{neg count}}$
+
+### Hyperparameters
+
+| Parameter | Value |
+|---|---|
+| Base model | EuroBERT-610m |
+| LoRA rank / alpha / dropout | 16 / 32 / 0.05 |
+| Learning rate | $3 \times 10^{-4}$ (cosine schedule) |
+| Warmup ratio | 0.05 |
+| Epochs | 7 |
+| Batch size | 32 |
+| Loss weights ($\lambda_p$, $\lambda_s$) | 1.0, 1.0 |
+| Augmentation | Mode 2 (original + augmented) |
+
+The total loss is: $\mathcal{L} = \mathcal{L}_{\text{role}} + \lambda_p \mathcal{L}_{\text{polarity}} + \lambda_s \mathcal{L}_{\text{salience}}$, where all three terms use weighted cross-entropy with inverse-frequency class weights. Polarity and salience losses are masked for `NO_RELATION` samples.
+
+
+## Results
+
+### Flagship Comparison (seed 456)
+
+| Metric | Unified (v2) | Factorized (v3) | Δ |
+|---|---|---|---|
+| Role Accuracy | — | 88.7 | |
+| Polarity Accuracy | — | 92.0 | |
+| Salience Accuracy | — | 92.4 | |
+| Reconstructed 14-class Accuracy | 75.3 | **76.9** | +1.6 |
+| Reconstructed 14-class F1 | 61.9 | **62.2** | +0.3 |
+| Total errors | 248 | **234** | −14 |
+| Multi-head errors (% of total) | 22.6% | **16.2%** | −6.4 |
+| Entity F1 (strict span match) | 0.691 | **0.765** | +0.074 |
+| Indicator F1 (strict span match) | 0.649 | **0.768** | +0.119 |
+
+The factorized model produces fewer total errors and, critically, a qualitatively different error profile: it reduces multi-head error cascades (where role, polarity, and salience are all wrong simultaneously) from 22.6% to 16.2% of errors, concentrating failures in single, interpretable subtasks.
+
+An unexpected finding is that factorization substantially improves span detection despite both architectures sharing the same token classification head — suggesting that the factorized relation loss provides gradient signals more compatible with the span detection objective.
+
+### Multi-Seed Robustness
+
+Across five random seeds, the factorized model consistently outperforms the unified model:
+
+| | Unified (v2) | Factorized (v3) |
+|---|---|---|
+| Mean accuracy | $0.744 \pm 0.007$ | $\mathbf{0.768 \pm 0.009}$ |
+| Best seed | 0.753 | **0.781** |
+| Worst seed | 0.733 | 0.760 |
+
+The factorized model outperforms the unified model on all five seeds tested. Ablation confirms this is a structural advantage — scaling the unified model's loss to match the factorized model's gradient budget does not close the gap.
+
+### What the Model Gets Right
+
+**Object negation without explicit span detection.** The model correctly inverts polarity from object negation nominals (e.g. *Verlust*, *Vernichtung*) even when these are not detected as separate spans — the relation head has learned to attend to negation context in the sentence.
+
+**Passive and non-canonical word order.** In *Insektensterben wird durch Pestizide verursacht* ("insect death is caused by pesticides"), the model correctly assigns roles semantically rather than positionally: *Insektensterben* (syntactic subject) → EFFECT, *Pestizide* (syntactic oblique) → CAUSE.
+
+**Explicit coordination.** In *Pestizide und Klimawandel verursachen Insektensterben*, both causes correctly receive MONO salience. This is by design: both are explicitly named, and salience reduction to DIST/PRIO is reserved for *implicit* co-causes. Normalization happens downstream during graph aggregation.
+
+### Known Limitations
+
+**Context-based salience detection.** The model reliably detects salience when it is lexicalized in indicator compounds (*Hauptursache* → PRIO, *mitverantwortlich* → DIST) but struggles when salience is projected by context markers alone: separated verbs (*tragen…bei*), indefinite determiners (*eine Ursache*), and priority adverbials (*vor allem*) often fail to trigger the correct salience class.
+
+**Class imbalance.** The relation label distribution is heavily skewed: MONO_POS_EFFECT and MONO_POS_CAUSE together account for 61% of training instances. Rare classes like PRIO_NEG (1 instance) remain difficult despite inverse-frequency class weighting.
+
+**Intra-sentence scope.** The model extracts relations within single sentences only. Cross-sentence causality requires discourse parsing, which is left to future work.
+
+## Usage
+
+### Installation
+
+```bash
+pip install causalbert
+# or from source:
+git clone https://github.com/padjohn/cbert
+cd cbert && pip install -e .
+```
+
+### Quick Start
+
+```python
+from causalbert.infer import load_model, sentence_analysis, extract_tuples
+
+# Load model
+model, tokenizer, config, device = load_model("pdjohn/C-EBERT-610m")
+
+# Analyze sentences
+sentences = [
+    "Pestizide verursachen Insektensterben.",
+    "Naturschutzmaßnahmen stoppen das Artensterben.",
+]
+
+results = sentence_analysis(model, tokenizer, config, sentences, device=device)
+
+# Extract (C, E, I) tuples
+tuples = extract_tuples(results, min_confidence=0.5)
+
+for t in tuples:
+    print(f"({t['cause']}, {t['effect']}, {t['influence']:.2f})")
+    # → (Pestizide, Insektensterben, +1.00)
+    # → (Naturschutzmaßnahmen, Artensterben, -1.00)
+```
+
+### Pipeline Steps
+
+The `sentence_analysis` function runs the full extraction pipeline:
+
+1. **Token classification** — predicts BIOES tags for each token
+2. **Span merging** — groups tagged tokens into indicator and entity spans
+3. **Pair construction** — creates all (indicator, entity) combinations
+4. **Relation classification** — predicts role, polarity, and salience for each pair
+5. **Tuple extraction** — `extract_tuples()` converts results to $(C, E, I)$ dictionaries
+
+Each tuple contains: `cause`, `effect`, `influence` ($\in [-1, +1]$), `sentence`, `confidence`, and `label`.
+
+### Inference Performance
+
+With LoRA fine-tuning, only 0.6M additional parameters are trained on top of the 610M base model. End-to-end inference (span detection + relation classification) takes approximately **37 ms per sentence** on an NVIDIA RTX 4090 (batch size 1). The factorized heads add minimal overhead compared to flat classification.
+
+At batch size 32, the full environmental corpus of 22 million sentences was processed in approximately 10 hours on GPU, yielding 1.6 million unique aggregated causal relations across 357,000 distinct entities.
+
+## Model Variants
+
+Both architectures are released:
+
+| Variant | Description | Use case |
+|---|---|---|
+| **v3 (factorized)** | Three parallel heads (role, polarity, salience) | Recommended default — better accuracy, interpretable errors |
+| **v2 (unified)** | Single 14-class softmax | Simpler pipeline, single prediction per pair |
+
+The architecture version is stored in the model config and automatically detected at load time.
+
+## Further Reading
+
+- For the annotation schema and guidelines that produced the training data, see [Annotation](annotation.qmd)
+- For how extracted tuples are transformed into formal $(C, E, I)$ values, see [Tuple Construction](../processing/tuple-construction.qmd)
+- For a high-level view of the extraction pipeline, see [Extraction Overview](index.qmd)
+- For the theoretical framework motivating polarity and salience, see [Framework](../framework/index.qmd)

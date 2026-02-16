@@ -1,0 +1,164 @@
+---
+title: "Aggregation"
+subtitle: "From individual tuples to cumulative causal patterns"
+---
+
+## Overview
+
+While [tuple construction](tuple-construction.qmd) formalizes individual attestations, aggregation addresses the scaling problem: how do hundreds or thousands of individual $(C, E, I)$ tuples — extracted from different texts, time periods, and discursive contexts — condense into representative causal patterns?
+
+The aggregation pipeline transforms a set of individual tuples into normalized, proportional causal weights through four steps: counting identical tuples, weighting by frequency and salience, summing across attestations for each $(C, E)$ pair, and normalizing to produce proportional influence scores.
+
+```{mermaid}
+graph LR
+    A["Individual<br/>(C, E, I) Tuples"] --> B["Count<br/>Identical Tuples"]
+    B --> C["Weight<br/>(frequency × salience)"]
+    C --> D["Sum per<br/>(C, E) Pair"]
+    D --> E["Normalize"]
+    E --> F["Proportional<br/>Influence Scores"]
+```
+
+## Step 1: Counting Identical Tuples
+
+Tuples with identical $(C, E, I)$ values are grouped and counted. The frequency $n$ quantifies how often a specific tuple configuration occurs in the corpus.
+
+::: {.callout-note appearance="simple"}
+### Example
+
+**Input** (5 individual tuples):
+
+| C | E | I |
+|---|---|---|
+| Pestizide | Insektensterben | +1.0 |
+| Pestizide | Insektensterben | +0.5 |
+| Pestizide | Insektensterben | +0.5 |
+| Klimawandel | Insektensterben | +0.5 |
+| Pestizidverbote | Insektensterben | −0.5 |
+
+**Output** (4 weighted tuples):
+
+| C | E | I | n |
+|---|---|---|---|
+| Pestizide | Insektensterben | +1.0 | 1 |
+| Pestizide | Insektensterben | +0.5 | 2 |
+| Klimawandel | Insektensterben | +0.5 | 1 |
+| Pestizidverbote | Insektensterben | −0.5 | 1 |
+:::
+
+This distinction matters: ten attestations of monocausal attribution (Pestizide, Insektensterben, +1.0) carry ten times the weight of a single attestation of polycausal attribution (Pestizide, Insektensterben, +0.5).
+
+## Step 2: Weighted Summation
+
+Tuples sharing the same $(C, E)$ pair but differing in $I$ values are summed into a single aggregated relation. The aggregated influence is:
+
+$$
+F_{C,E} = \sum_{i} I_i \times n_i
+$$
+
+where $I_i$ are the individual INFLUENCE values and $n_i$ their frequencies. Polarity-specific counters are tracked separately to capture discursive disagreement.
+
+::: {.callout-note appearance="simple"}
+### Example (continuing from above)
+
+For the Pestizide → Insektensterben pair:
+
+$$F = (1.0 \times 1) + (0.5 \times 2) = +2.0$$
+
+Polarity counters: $n_{\text{pos}} = 3$, $n_{\text{neg}} = 0$, $n_{\text{neutral}} = 0$
+
+**Full output:**
+
+| C | E | $F_{\text{agg}}$ | $n_{\text{pos}}$ | $n_{\text{neg}}$ | $n_{\text{neutral}}$ |
+|---|---|---|---|---|---|
+| Pestizide | Insektensterben | +2.0 | 3 | 0 | 0 |
+| Klimawandel | Insektensterben | +0.5 | 1 | 0 | 0 |
+| Pestizidverbote | Insektensterben | −0.5 | 0 | 1 | 0 |
+:::
+
+Three properties of this summation are worth noting. **Neutralized relations** ($I = 0$, from propositional negation) contribute zero to $F_{C,E}$ but are counted in $n_{\text{neutral}}$ to document denied causal claims. **Opposing polarities** partially cancel: if the same entity is attributed as both promoting and inhibiting a given effect (e.g. through contradicting sources or temporal shifts), the aggregated value reflects the net balance, while the polarity counters ($n_{\text{pos}} > 0$ and $n_{\text{neg}} > 0$ simultaneously) expose the controversy. **Salience is already encoded** in the $I$ values from tuple construction — a monocausal attestation ($I = 1.0$) contributes twice the weight of a distributed attestation ($I = 0.5$), so frequency and salience interact multiplicatively.
+
+## Step 3: Normalization
+
+The aggregated values $F_{C,E}$ are normalized to produce proportional influence scores $I_{\text{norm}} \in [-1, +1]$, where the sum of absolute values across all co-relations equals approximately 1.0. The normalization strategy depends on the analysis context.
+
+### Bidirectional Normalization (Focus-Term Analysis)
+
+When analyzing a specific term $T$ exhaustively — examining all its incoming causes and outgoing effects — both directions are normalized independently:
+
+$$
+I_{\text{norm}}(C \to T) = \text{sgn}(F_{C,T}) \times \frac{|F_{C,T}|}{\sum_{C' \in \text{Causes}(T)} |F_{C',T}|}
+$$
+
+$$
+I_{\text{norm}}(T \to E) = \text{sgn}(F_{T,E}) \times \frac{|F_{T,E}|}{\sum_{E' \in \text{Effects}(T)} |F_{T,E'}|}
+$$
+
+This is appropriate when the annotation exhaustively covers all relations involving a focal term but does not cover the co-causes of its effects (e.g. all causes of *Insektensterben* are annotated, but not all causes of *Klimawandel*).
+
+### Unidirectional Normalization (ACG Networks)
+
+For full causal graph construction, only cause-side normalization is applied — the standard asymmetry of causal graphs:
+
+$$
+I_{\text{norm}}(C \to E) = \text{sgn}(F_{C,E}) \times \frac{|F_{C,E}|}{\sum_{C' \in \text{Causes}(E)} |F_{C',E}|}
+$$
+
+This ensures that, for any effect $E$, the absolute influence values of all its causes sum to 1.0.
+
+::: {.callout-note appearance="simple"}
+### Normalization Example (unidirectional)
+
+**Input** (from Step 2):
+
+| C → E | $F_{\text{agg}}$ |
+|---|---|
+| Pestizide → Insektensterben | +2.0 |
+| Klimawandel → Insektensterben | +0.5 |
+| Pestizidverbote → Insektensterben | −0.5 |
+
+**Denominator**: $|2.0| + |0.5| + |0.5| = 3.0$
+
+**Output:**
+
+| C → E | $I_{\text{norm}}$ | Interpretation |
+|---|---|---|
+| Pestizide → Insektensterben | +0.667 | 66.7% of causal attribution (promoting) |
+| Klimawandel → Insektensterben | +0.167 | 16.7% (promoting) |
+| Pestizidverbote → Insektensterben | −0.167 | 16.7% (inhibiting) |
+
+Sum of absolute values: $0.667 + 0.167 + 0.167 = 1.0$ ✓
+:::
+
+Normalization operates on absolute values but preserves the sign via the $\text{sgn}$ function. Promoting and inhibiting relations are normalized jointly — the sign is re-applied after normalization. The polarity-specific counters ($n_{\text{pos}}$, $n_{\text{neg}}$, $n_{\text{neutral}}$) remain unchanged, since normalization scales only the weights, not the underlying evidence counts.
+
+## Step 4: Structuring
+
+The normalized relations are stored as a directed graph where each edge $(C \to E)$ carries:
+
+| Attribute | Description |
+|---|---|
+| `influence_norm` | Normalized influence $I \in [-1, 1]$ |
+| `tuple_count` | Total underlying tuples ($n_{\text{pos}} + n_{\text{neg}} + n_{\text{neutral}}$) |
+| `count_pos` | Attestations with $I > 0$ |
+| `count_neg` | Attestations with $I < 0$ |
+| `count_neutral` | Attestations with $I = 0$ (propositional negation) |
+
+This structure supports two complementary operations: **local entity extraction** — retrieving all causes and effects of a specific entity for focused analysis — and **global centrality measures** — comparing the structural role of all entities in the causal discourse network.
+
+## Analysis Modes
+
+The aggregated graph feeds two analysis modes, each with its own normalization strategy:
+
+**Focus-Term Analysis** positions a single term as a causal nucleus and examines its incoming causes and outgoing effects with bidirectional normalization. Each causal interactant is characterized by three metrics: normalized influence ($I\%$), mean pre-aggregation salience ($\varnothing|I|$, indicating whether the interactant is typically framed monocausally or polycausally), and a Gini coefficient measuring concentration of influence across all interactants (0 = evenly distributed, 1 = fully concentrated on one entity).
+
+**ACG Construction** treats all entities as nodes in a directed graph with unidirectional normalization, enabling network-level analysis: centrality, community detection, and structural comparison across time periods or corpora.
+
+## Compositionality
+
+A key design principle is that aggregation is **compositional**: it takes the tuple values from [tuple construction](tuple-construction.qmd) as given. Any refinement to the tuple construction rules (e.g. finer-grained salience computation) flows directly into aggregation without requiring changes to the aggregation pipeline itself. The choice of normalization strategy and the handling of opposing polarities are analytical decisions that depend on the research context.
+
+## Further Reading
+
+- For how individual tuples are computed from annotations, see [Tuple Construction](tuple-construction.qmd)
+- For the annotation schema that produces the inputs, see [Annotation Guidelines](../extraction/annotation.qmd)
+<!-- - For graph-level analysis using aggregated relations, see [ACG](../acg/index.qmd) -->

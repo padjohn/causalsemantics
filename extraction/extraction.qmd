@@ -1,0 +1,110 @@
+---
+title: "Extraction Overview"
+subtitle: "Identifying causal relations in text"
+---
+
+## Components
+
+Extracting causal relations from natural language requires at least two components: 
+
+- **Indicators**: operators projecting causal roles
+  - e.g. *cause*, *contribute*, *reduce*, *prevent*
+- **Entities**: arguments that function as [Cause]{.smallcaps} and/or [Effect]{.smallcaps}
+  - e.g. *climate change*, *emission*, *poverty*, *war*
+
+
+Indicators can be classified as polar **positive** (e.g. *cause*) and **negative** (e.g. *prevent*) [@dunietz-etal-2017-because] [@rehbein2017]. Following [@wolff2005expressing], $S_C$ further distinguishes between **mono-** (e.g. *cause*) and **polycausal** (e.g *contribute*) relationships. Both dimensions can be modified by **contextual markers**:
+
+- Polarity: *death of*, *rise in*
+- Salience: *less so*, *especially*
+
+Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes. 
+
+::: {.callout-note collapse="true"}
+## Example
+
+Identification and classification of indicators:
+
+> *Absence of emissions [hinders]{.underline} climate change*  
+> *hinder* = polycausal-negative ($I = -0.5$)  
+> $(C, E, -0.5)$
+
+Identification of [Cause]{.smallcaps} and [Effect]{.smallcaps} entities:
+
+> *Absence of [emissions]{.underline} hinders [climate change]{.underline}*  
+> [Cause]{.smallcaps} = [Subject]{.smallcaps} = *emissions*, [Effect]{.smallcaps} = [Direct Object]{.smallcaps} = *climate change*  
+> $(\text{Emission}, \text{Climate change}, 0.5)$
+
+Identification, classification and scope of coefficient markers:
+
+> *[Absence of]{.underline} emissions hinders climate change*  
+> *Absence of* = negates *emissions* ($-1$)  
+> $(\text{Emission}, \text{Climate change}, 0.5)$
+
+$(C, E, I)$ = $(\text{Emission}, \text{Climate change}, 0.5)$
+
+For more examples, see **[Tuple Construction](../processing/aggregation.qmd)**.
+:::
+
+## Application
+Transforming text into tuples can be achieved in a variety of manual or automatic ways. 
+
+Both **rule-based** [@boegel2014] and **prompt-based** [@susanti2024] approaches have been applied to CRE, though neither incorporate salience nor polarity. As of today, a mixture of manual annotation and transformers [@rehbein2020] appear the most promising.
+
+The following sections provide an overview of this two-path structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset [@cbert].
+
+### Annotation
+
+The annotation schema consists of span annotations (indicators, entities, and semantic coefficients like negation and division) – linked by directed relations (Cause, Effect, Constraint). 
+
+A taxonomy of 642 indicator forms organized into 192 families provides the linguistic foundation: each indicator carries an inherent polarity and salience. As presented above, these values are further modified by context markers (division, priority, negation).
+
+The annotation guidelines serve as a reference for manual annotation. At the same time, the annotation also produces the training data for C-BERT [@cbert].
+
+→ **[Annotation Guidelines](annotation.qmd)**: Full schema, annotation principles, indicator taxonomy, context markers, INFLUENCE computation, and data format
+
+### C-BERT
+
+C-BERT is a multi-task transformer built on EuroBERT-610m [@boizard2025eurobertscalingmultilingualencoders]. It emulates manual annotation through span recognition and relation classification.
+
+```{mermaid}
+graph LR
+    A[Text] --> B2[Spans]
+    B2 --> D[Pairs]
+    D --> E[Relations]
+    E --> F["$$(C, E, I)\;$$"]
+```
+
+The pipeline proceeds in three steps:
+
+- **Span classification** predicts BIOES tags for each token.
+  - INDICATOR, ENTITY, O
+- **Pair construction** constructs indicator/entity pairs from extracted spans.
+  - [INDICATOR$_1$, ENTITY$_1$]$, ...\;,$[INDICATOR$_n$, ENTITY$_n$]
+- **Relation classification** determines, for each pair, the projected
+  - role (CAUSE, EFFECT, NO_RELATION)
+  - polarity (POS, NEG)
+  - salience (MONO, DIST, PRIO) 
+
+The classified [INDICATOR, ENTITY] relationships are then algorithmically collapsed into $(C, E, I)$-tuples (see **[Tuple Construction](../processing/aggregation.qmd)**).
+
+→ **[C-BERT Model](c-bert.qmd)**: Architecture, training, results, known limitations, and usage instructions
+
+## At a Glance
+
+|  |  |
+|---|---|
+| **Training data** | 2,391 relations across 4,753 sentences (German environmental discourse) |
+| **Indicator taxonomy** | 642 forms in 192 families, each classified by polarity and salience |
+| **Model** | EuroBERT-610m + LoRA, factorized 3-head relation classification |
+| **Per-head accuracy** | Role: 88.7%, Polarity: 92.0%, Salience: 92.4% |
+| **Reconstructed accuracy** | 76.9% (14-class) |
+| **Span detection** | Entity F1: 0.765, Indicator F1: 0.768 |
+| **Inference speed** | ~37 ms/sentence (RTX 4090, batch size 1) |
+| **Corpus-scale output** | 22M sentences → 1.6M unique relations, 357K entities |
+
+## Continue
+
+- **[Annotation Guidelines](annotation.qmd)** — the schema, principles, and data format behind the training data
+- **[C-BERT Model](c-bert.qmd)** — architecture, experiments, and how to use the model
+- **[Tuple Construction](../processing/tuple-construction.qmd)** — how annotations become formal $(C, E, I)$ values
