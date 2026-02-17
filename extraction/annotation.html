@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../favicon_tight.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -75,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea00c6d781ab57cc19d5286e46ecd834.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-374f9c044f5841db38013488b7397e71.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -88,7 +89,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -103,6 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<meta name="mermaid-theme" content="dark">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -181,12 +185,12 @@ window.Quarto = {
  <span class="dropdown-text">Overview</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../extraction/c-bert.html">
- <span class="dropdown-text">C-BERT</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../extraction/annotation.html">
  <span class="dropdown-text">Annotation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/c-bert.html">
+ <span class="dropdown-text">C-BERT</span></a>
   </li>  
     </ul>
   </li>
@@ -254,7 +258,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#spans" id="toc-spans" class="nav-link" data-scroll-target="#spans">Spans</a></li>
   <li><a href="#relations" id="toc-relations" class="nav-link" data-scroll-target="#relations">Relations</a></li>
-  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked Example</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
   </ul></li>
   <li><a href="#annotation-principles" id="toc-annotation-principles" class="nav-link" data-scroll-target="#annotation-principles">Annotation Principles</a>
   <ul class="collapse">
@@ -266,6 +270,7 @@ window.Quarto = {
   <li><a href="#indicators" id="toc-indicators" class="nav-link" data-scroll-target="#indicators">Indicators</a>
   <ul class="collapse">
   <li><a href="#top-10-indicator-families" id="toc-top-10-indicator-families" class="nav-link" data-scroll-target="#top-10-indicator-families">Top 10 Indicator Families</a></li>
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
   <li><a href="#polarity-and-salience" id="toc-polarity-and-salience" class="nav-link" data-scroll-target="#polarity-and-salience">Polarity and Salience</a></li>
   <li><a href="#syntactic-projection-patterns" id="toc-syntactic-projection-patterns" class="nav-link" data-scroll-target="#syntactic-projection-patterns">Syntactic Projection Patterns</a></li>
   </ul></li>
@@ -313,25 +318,62 @@ window.Quarto = {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This page documents the annotation schema and guidelines used to produce the training data for <a href="extraction/c-bert.qmd">C-BERT</a> and the underlying <span class="math inline">(C, E, I)</span> tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.</p>
-<p>The annotation was developed over three iterations (2024–2025) using the <a href="https://inception-project.github.io/">INCEpTION</a> platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.</p>
+<p>The annotation was developed over three iterations (2024–2025) and primarily conducted via <a href="https://inception-project.github.io/">INCEpTION</a>. A total of 4,753 sentences from German environmental discourse (1990–2022) yielded 2,391 manually annotated causal relations.</p>
 </section>
 <section id="annotation-schema" class="level2">
 <h2 class="anchored" data-anchor-id="annotation-schema">Annotation Schema</h2>
 <p>The schema consists of two layers: <strong>span annotations</strong> that mark causal components in text, and <strong>relation annotations</strong> that link them into structured causal relations.</p>
 <section id="spans" class="level3">
 <h3 class="anchored" data-anchor-id="spans">Spans</h3>
-<p>Each token or token sequence in a sentence receives at most one span label. There are two span categories:</p>
+<p>Each token or token sequence in a sentence receives at most one span label. There are two span categories.</p>
 <p><strong>Role</strong> marks the primary causal components:</p>
 <ul>
-<li><code>Indicator</code> — the lexical marker that projects the causal relation (e.g.&nbsp;<em>verursachen</em>, <em>ist Ursache</em>, <em>weil</em>, <em>stoppen</em>)</li>
-<li><code>Entity</code> — a cause or effect entity involved in the relation (e.g.&nbsp;<em>Klimawandel</em>, <em>Pestizide</em>, <em>Artensterben</em>)</li>
+<li><code>Indicator</code> — the lexical marker that projects the causal relation
+<ul>
+<li>e.g.&nbsp;<em>verursachen</em> ‘cause’, <em>ist Ursache</em> ‘is cause’, <em>weil</em> ‘because’, <em>stoppen</em> ‘stop’</li>
+</ul></li>
+<li><code>Entity</code> — a cause or effect entity involved in the relation
+<ul>
+<li>e.g.&nbsp;<em>Klimawandel</em> ‘climate change’, <em>Pestizide</em> ‘pesticides’</li>
+</ul></li>
 </ul>
 <p><strong>Coefficient</strong> captures semantic modifiers:</p>
+<ul>
+<li><code>Negation</code>
+<ul>
+<li>Neutralizes or inverts the causal relation</li>
+<li><em>nicht</em> ‘not’, <em>kein</em> ‘no’, <em>Verlust</em> ‘loss’, <em>Schwund</em> ‘shrinkage’</li>
+</ul></li>
+<li><code>Division</code>
+<ul>
+<li>Lowers salience</li>
+<li><em>auch</em> ‘also’, <em>unter anderem</em> ‘among others’</li>
+</ul></li>
+<li><code>Priority</code>
+<ul>
+<li>Increases salience</li>
+<li><em>vor allem</em> ‘especially’, <em>wichtig</em> ‘important’</li>
+</ul></li>
+</ul>
+<p>The three above directly affect influence. Other coefficients either run orthogonal (e.g.&nbsp;<code>temporality</code>) – or specify epistemic dimensions (e.g <code>Uncertainty</code>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Orthogonal coefficients
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <table class="caption-top table">
+<caption>Object-based constraints</caption>
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 23%">
+<col style="width: 25%">
+<col style="width: 51%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -342,24 +384,14 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Negation</code></td>
-<td>Negates or inverts the causal relation</td>
-<td><em>nicht</em>, <em>kein</em>, <em>Verlust</em>, <em>Schwund</em></td>
-</tr>
-<tr class="even">
 <td><code>Temporality</code></td>
 <td>Temporal framing</td>
 <td><em>seit</em>, <em>bereits</em>, <em>künftig</em>, <em>Jahre</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Spatiality</code></td>
 <td>Spatial framing</td>
 <td><em>global</em>, <em>lokal</em>, <em>weltweit</em>, <em>Deutschland</em></td>
-</tr>
-<tr class="even">
-<td><code>Uncertainty</code></td>
-<td>Modality and hedging</td>
-<td><em>möglicherweise</em>, <em>könnte</em>, <em>vermutlich</em></td>
 </tr>
 <tr class="odd">
 <td><code>Quality</code></td>
@@ -371,77 +403,90 @@ window.Quarto = {
 <td>Quantitative modification</td>
 <td><em>großes</em>, <em>fünftausend</em>, <em>zwölf</em></td>
 </tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<caption>Propositional-based constraints</caption>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 25%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Coefficient</th>
+<th>Function</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
+<td><code>Uncertainty</code></td>
+<td>Modality and hedging</td>
+<td><em>möglicherweise</em>, <em>könnte</em>, <em>vermutlich</em></td>
+</tr>
+<tr class="even">
 <td><code>Representation</code></td>
 <td>Evidentiality marker</td>
 <td><em>laut</em>, <em>sagt</em>, <em>sei</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Representation Entity</code></td>
 <td>Source/provenance</td>
 <td><em>Studie</em>, <em>Bericht</em>, <em>Forscher</em></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 </section>
 <section id="relations" class="level3">
 <h3 class="anchored" data-anchor-id="relations">Relations</h3>
 <p>Annotated spans are linked by directed relations:</p>
 <ul>
-<li><code>Cause</code>: Indicator → Entity (the entity fills the <span class="smallcaps">Cause</span> role)</li>
+<li><code>Cause</code>: Indicator → Entity (the entity is designated as a <span class="smallcaps">Cause</span>)</li>
 <li><code>Effect</code>: Indicator → Entity (the entity fills the <span class="smallcaps">Effect</span> role)</li>
 <li><code>Constraint</code>: Entity or Indicator → Coefficient (the coefficient modifies its governor)</li>
 </ul>
 </section>
-<section id="worked-example" class="level3">
-<h3 class="anchored" data-anchor-id="worked-example">Worked Example</h3>
-<p>Consider the sentence:</p>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>Consider the the spans in this sentence:</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <blockquote class="blockquote">
-<p><em>Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.</em></p>
-<p>(<em>Climate change and intensive agriculture possibly intensify global species extinction.</em>)</p>
+<p><span class="entity annotated" data-label="Entity">Klimawandel</span> und <span class="priority annotated" data-label="Priority">insbesondere</span> <span class="entity annotated" data-label="Entity">Landwirtschaft</span> <span class="indicator annotated" data-label="Indicator">verstärken</span> <span class="uncertainty annotated" data-label="Uncertainty">möglicherweise</span> das <span class="spatiality annotated" data-label="Spatiality">weltweite</span> <span class="entity annotated" data-label="Entity">Artensterben</span>.</p>
 </blockquote>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Span</th>
-<th>Type</th>
-<th>Relation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Klimawandel</td>
-<td><code>Entity</code></td>
-<td>verstärken → <code>Cause</code></td>
-</tr>
-<tr class="even">
-<td>Landwirtschaft</td>
-<td><code>Entity</code></td>
-<td>verstärken → <code>Cause</code></td>
-</tr>
-<tr class="odd">
-<td>verstärken</td>
-<td><code>Indicator</code></td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td>möglicherweise</td>
-<td><code>Uncertainty</code></td>
-<td>verstärken → <code>Constraint</code></td>
-</tr>
-<tr class="odd">
-<td>weltweite</td>
-<td><code>Spatiality</code></td>
-<td>Artensterben → <code>Constraint</code></td>
-</tr>
-<tr class="even">
-<td>Artensterben</td>
-<td><code>Entity</code></td>
-<td>verstärken → <code>Effect</code></td>
-</tr>
-</tbody>
-</table>
-<p>Key points illustrated here: coordinated entities (<em>Klimawandel und Landwirtschaft</em>) are annotated separately with parallel <code>Cause</code> relations; the attributive adjective <em>intensive</em> is extracted as a <code>Quality</code> coefficient (token minimization principle); the sentence adverb <em>möglicherweise</em> is linked to the indicator since it modifies the causal proposition.</p>
+<blockquote class="blockquote">
+<p><span class="entity annotated" data-label="Entity">Climate change</span> and <span class="priority annotated" data-label="Priority">especially</span> <span class="entity annotated" data-label="Entity">agriculture</span> <span class="uncertainty annotated" data-label="Uncertainty">possibly</span> <span class="indicator annotated" data-label="Indicator">intensify</span> <span class="spatiality annotated" data-label="Spatiality">global</span> <span class="entity annotated" data-label="Entity">species extinction</span>.</p>
+</blockquote>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>Two coordinated entities (<em>Klimawandel und Landwirtschaft</em>) are annotated separately with parallel <code>Cause</code> relations.<br>
+<br> The adverb <em>insbesondere</em> ‘especially’ is scoped to <em>Landwirtschaft</em>, raising its salience as <code>Priority</code>. The sentence adverb <em>möglicherweise</em> (<code>Uncertainty</code>) is parented to the indicator since it modifies the causal proposition.<br>
+<br> Lastly, the adjective <em>weltweit</em> is separately encoded as <code>Spatiality</code> coefficient – in accordance with the token minimization principle.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["*verstärken*"] --&gt;|Cause| B["*Klimawandel*"]
+    A --&gt;|Cause| C["*Landwirtschaft*"] --&gt;|Priority| D["*insbesondere*"]
+    A --&gt;|Uncertainty| E["*möglicherweise*"]
+    A --&gt;|Effect| F["*Artensterben*"]
+    F --&gt;|Spatiality| G["*weltweit*"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="annotation-principles" class="level2">
@@ -474,18 +519,24 @@ window.Quarto = {
 <section id="indicators" class="level2">
 <h2 class="anchored" data-anchor-id="indicators">Indicators</h2>
 <p>Indicators are the lexical or syntactic markers that project causal relations and establish <span class="math inline">(C, E, I)</span> tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.</p>
-<p>The annotation corpus contains <strong>642 distinct indicator forms</strong>, grouped into <strong>192 indicator families</strong> by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g.&nbsp;the <span class="smallcaps">Ursache</span> family includes <em>verursachen</em>, <em>ist Ursache</em>, <em>Ursache sein</em>, <em>Teilursache sein</em>).</p>
+<p>The annotation corpus contains <strong>642 distinct indicator forms</strong>, grouped into <strong>192 indicator families</strong> by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core. E.g. the <span class="smallcaps">Ursache</span> family includes, among other:</p>
+<ul>
+<li><em>verursachen</em> ‘cause’</li>
+<li><em>ist Ursache</em> ‘is the cause’,</li>
+<li><em>Ursache sein</em> ‘to be the cause’</li>
+<li><em>Teilursache sein</em> ‘to be a partial cause’</li>
+</ul>
 <section id="top-10-indicator-families" class="level3">
 <h3 class="anchored" data-anchor-id="top-10-indicator-families">Top 10 Indicator Families</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 55%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 2%">
+<col style="width: 17%">
+<col style="width: 4%">
+<col style="width: 7%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -500,7 +551,7 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Ursache</span></td>
+<td><span class="smallcaps"><a href="javascript:void(0);" class="gloss-link" data-bs-toggle="tooltip" data-bs-title="cause">Ursache</a></span> ‘<span class="smallcaps">Cause</span>’</td>
 <td>21</td>
 <td>167</td>
 <td></td>
@@ -509,7 +560,7 @@ window.Quarto = {
 <td>70</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Verantwortung</span></td>
+<td><span class="smallcaps">Verantwortung</span> <br> ‘<span class="smallcaps">Responsibility</span>’</td>
 <td>11</td>
 <td>122</td>
 <td></td>
@@ -518,7 +569,7 @@ window.Quarto = {
 <td>69</td>
 </tr>
 <tr class="odd">
-<td><span class="smallcaps">Stoppen</span></td>
+<td><span class="smallcaps">Stoppen</span> <br> ‘<span class="smallcaps">Stop</span>’</td>
 <td>3</td>
 <td>111</td>
 <td></td>
@@ -527,7 +578,7 @@ window.Quarto = {
 <td>69</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Gegen</span></td>
+<td><span class="smallcaps">Gegen</span> <br> ‘<span class="smallcaps">Against</span>’</td>
 <td>3</td>
 <td>95</td>
 <td></td>
@@ -536,7 +587,7 @@ window.Quarto = {
 <td>59</td>
 </tr>
 <tr class="odd">
-<td><span class="smallcaps">Durch</span></td>
+<td><span class="smallcaps">Durch</span> <br> ‘<span class="smallcaps">through</span>’</td>
 <td>2</td>
 <td>70</td>
 <td></td>
@@ -547,15 +598,25 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
+<section id="orientation" class="level3">
+<h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<p>Some families are cause-oriented, others are effect-oriented. Compare:</p>
+<blockquote class="blockquote">
+<p><em>Emission<span class="math inline">_C</span> is a cause of pollution<span class="math inline">_E</span>.</em><br>
+<em>Pollution<span class="math inline">_E</span> is an effect of emission<span class="math inline">_C</span>.</em></p>
+</blockquote>
+<p>Alignment affects projection – cause-oriented indicators project <span class="smallcaps">Cause</span> on the subject influence, effect-oriented indicators do the same with <span class="smallcaps">Effect</span>. Predicates (<em>is the cause</em>),</p>
+<p>as <em>Teilursache</em> ‘partial cause’ implies the existence of several causes – hence reducing it’s salience. ‘Teilwirkung’ <em>partial effect</em>, on the other hand, implies a multitude of effects.</p>
+</section>
 <section id="polarity-and-salience" class="level3">
 <h3 class="anchored" data-anchor-id="polarity-and-salience">Polarity and Salience</h3>
-<p>Each indicator family carries an inherent <strong>polarity</strong> (promoting <code>+</code> or inhibiting <code>−</code>) and a default <strong>salience</strong> class:</p>
+<p>Each indicator family carries a default <strong>polarity</strong> (promoting <span class="math inline">+</span> or inhibiting <span class="math inline">-</span>) and a default <strong>salience</strong> class:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 46%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -567,59 +628,66 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Ursache</span></td>
-<td>+</td>
-<td>variable</td>
+<td><span class="smallcaps">Ursache</span> <br> ‘<span class="smallcaps">Cause</span>’</td>
+<td><span class="math inline">+</span></td>
+<td><span class="math inline">[0.5-1]</span></td>
 <td>Prototype; full salience spectrum</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Verantwortung</span></td>
-<td>+</td>
-<td>variable</td>
-<td>Causal-moral attribution</td>
-</tr>
-<tr class="odd">
-<td><span class="smallcaps">Folge</span></td>
-<td>+</td>
-<td>monocausal</td>
+<td><span class="smallcaps">Folge</span> <br> ‘<span class="smallcaps">Consequence</span>’</td>
+<td><span class="math inline">+</span></td>
+<td><span class="math inline">1</span></td>
 <td>Effect-centered perspective</td>
 </tr>
-<tr class="even">
-<td><span class="smallcaps">Beitrag</span></td>
-<td>+</td>
-<td>polycausal</td>
+<tr class="odd">
+<td><span class="smallcaps">Beitrag</span> <br> ‘<span class="smallcaps">Contribution</span>’</td>
+<td><span class="math inline">+</span></td>
+<td><span class="math inline">[0.5-0.75]</span></td>
 <td>Distributional attribution</td>
 </tr>
-<tr class="odd">
-<td><span class="smallcaps">Durch</span></td>
-<td>+</td>
-<td>monocausal</td>
+<tr class="even">
+<td><span class="smallcaps">Durch</span> <br> ‘<span class="smallcaps">Through</span>’</td>
+<td><span class="math inline">+</span></td>
+<td><span class="math inline">1</span></td>
 <td>Grammaticalized preposition</td>
 </tr>
-<tr class="even">
-<td><span class="smallcaps">Stoppen</span></td>
-<td>−</td>
-<td>monocausal</td>
+<tr class="odd">
+<td><span class="smallcaps">Stoppen</span> <br> ‘<span class="smallcaps">Stop</span>’</td>
+<td><span class="math inline">−</span></td>
+<td><span class="math inline">1</span></td>
 <td>Intervention framing</td>
 </tr>
+<tr class="even">
+<td><span class="smallcaps">Gegen</span> <br> ‘<span class="smallcaps">Against</span>’</td>
+<td><span class="math inline">−</span></td>
+<td><span class="math inline">1</span></td>
+<td>Variable condensation (<em>Kampf/Protest gegen</em> ‘fight/protest against’)</td>
+</tr>
 <tr class="odd">
-<td><span class="smallcaps">Gegen</span></td>
-<td>−</td>
-<td>monocausal</td>
-<td>Variable condensation (<em>Kampf gegen</em>, <em>Protest gegen</em>)</td>
+<td><span class="smallcaps">Reduzieren</span> <br> ‘<span class="smallcaps">Reduce</span>’</td>
+<td><span class="math inline">−</span></td>
+<td><span class="math inline">[0.5-0.75]</span></td>
+<td>Prototypical polycausal negative</td>
+</tr>
+<tr class="even">
+<td><span class="smallcaps">Wirkung</span> <br> ‘<span class="smallcaps">Effect</span>’</td>
+<td><span class="math inline">\pm</span></td>
+<td><span class="math inline">[0-1]</span></td>
+<td>Widest range</td>
 </tr>
 </tbody>
 </table>
+<p>Positive, though <em>Gegenwirkung</em> ‘counter-effect’ = <span class="math inline">-</span>, <em>wirkungslos</em> ‘ineffective’ = 0</p>
 </section>
 <section id="syntactic-projection-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="syntactic-projection-patterns">Syntactic Projection Patterns</h3>
-<p>The syntactic realization of each indicator family determines how <span class="smallcaps">Cause</span> and <span class="smallcaps">Effect</span> roles are projected:</p>
+<p>The syntactic realization of each indicator determines how <span class="smallcaps">Cause</span> and <span class="smallcaps">Effect</span> roles are projected:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 39%">
+<col style="width: 32%">
+<col style="width: 13%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -631,45 +699,45 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Ursache</span></td>
-<td><em>X ist Ursache für Y</em></td>
+<td><span class="smallcaps">Ursache</span> <br> ‘<span class="smallcaps">Cause</span>’</td>
+<td><em>X ist Ursache für Y</em> <br> ‘x is the cause of’</td>
 <td>Subject</td>
-<td>PP (<em>für</em>)</td>
+<td>PP (<em>für</em>) <br> ‘for’</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Folge</span></td>
-<td><em>Y ist Folge von X</em></td>
-<td>PP (<em>von</em>)</td>
+<td><span class="smallcaps">Folge</span> <br> ‘<span class="smallcaps">Consequence</span>’</td>
+<td><em>Y ist Folge von X</em> <br> ‘x is a consequence of’</td>
+<td>PP (<em>von</em>) <br> ‘of’</td>
 <td>Subject</td>
 </tr>
 <tr class="odd">
-<td><span class="smallcaps">Verursachen</span></td>
-<td><em>X verursacht Y</em></td>
+<td><span class="smallcaps">Verursachen</span> <br> ’<span class="smallcaps">Cause</span></td>
+<td><em>X verursacht Y</em> <br> ‘x causes y’</td>
 <td>Subject</td>
 <td>Accusative object</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Beitragen</span></td>
-<td><em>X trägt zu Y bei</em></td>
+<td><span class="smallcaps">Beitragen</span> <br> ‘<span class="smallcaps">Contribution</span>’</td>
+<td><em>X trägt zu Y bei</em> <br> ‘x contributes to y’</td>
 <td>Subject</td>
-<td>PP (<em>zu</em>)</td>
+<td>PP (<em>zu</em>) <br> ‘to’</td>
 </tr>
 <tr class="odd">
-<td><span class="smallcaps">Stoppen</span></td>
-<td><em>X stoppt Y</em></td>
+<td><span class="smallcaps">Stoppen</span> <br> ‘<span class="smallcaps">Stop</span>’</td>
+<td><em>X stoppt Y</em> <br> ‘x stops y’</td>
 <td>Subject</td>
 <td>Accusative object</td>
 </tr>
 <tr class="even">
-<td><span class="smallcaps">Durch</span></td>
-<td><em>Y durch X</em></td>
+<td><span class="smallcaps">Durch</span> <br> ‘<span class="smallcaps">Through</span>’</td>
+<td><em>Y durch X</em> <br> ‘x through y’</td>
 <td>PP complement</td>
 <td>Head noun</td>
 </tr>
 <tr class="odd">
-<td><span class="smallcaps">Gegen</span></td>
-<td><em>X gegen Y</em></td>
-<td>Subject/Agent</td>
+<td><span class="smallcaps">Gegen</span> <br> ‘<span class="smallcaps">Against</span>’</td>
+<td><em>X gegen Y</em> <br> ‘x against y’</td>
+<td>Subject</td>
 <td>PP complement</td>
 </tr>
 </tbody>
@@ -681,12 +749,12 @@ window.Quarto = {
 <p>Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:</p>
 <section id="division" class="level3">
 <h3 class="anchored" data-anchor-id="division">Division</h3>
-<p>Division markers signal polycausal structures with implicit co-causes. Typical realizations include <em>unter anderem</em> (“among other things”), <em>auch</em> (“also”), <em>ebenfalls</em> (“likewise”), and the composite <em>nicht nur</em> (“not only”).</p>
+<p>Division markers signal polycausal structures with implicit co-causes. Typical realizations include <em>unter anderem</em> (‘among other things’), <em>auch</em> (‘also’), <em>ebenfalls</em> (‘likewise’), and the composite <em>nicht nur</em> (‘not only’).</p>
 <p>Division markers reduce the salience to <span class="math inline">|I| = 0.5</span> regardless of the indicator’s default.</p>
 </section>
 <section id="priority" class="level3">
 <h3 class="anchored" data-anchor-id="priority">Priority</h3>
-<p>Priority markers establish asymmetric weighting within polycausal sets: <em>vor allem</em> (“above all”), <em>hauptsächlich</em> (“mainly”), <em>maßgeblich</em> (“significantly”). They set <span class="math inline">|I| = 0.75</span> for the prioritized cause.</p>
+<p>Priority markers establish asymmetric weighting within polycausal sets: <em>vor allem</em> (“above all”), <em>hauptsächlich</em> (‘mainly), <em>maßgeblich</em> (’significantly’). They set <span class="math inline">|I| = 0.75</span> for the prioritized cause.</p>
 <p>Both marker types affect only the salience (<span class="math inline">|I|</span>), leaving polarity (<span class="math inline">\pm</span>) unchanged.</p>
 </section>
 <section id="negation" class="level3">
@@ -1412,7 +1480,7 @@ window.Quarto = {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>This page documents the annotation schema and guidelines used to produce the training data for <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](extraction/c-bert.qmd)</span> and the underlying $(C, E, I)$ tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>The annotation was developed over three iterations (2024–2025) using the <span class="co">[</span><span class="ot">INCEpTION</span><span class="co">](https://inception-project.github.io/)</span> platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>The annotation was developed over three iterations (2024–2025) and primarily conducted via <span class="co">[</span><span class="ot">INCEpTION</span><span class="co">](https://inception-project.github.io/)</span>. A total of 4,753 sentences from German environmental discourse (1990–2022) yielded 2,391 manually annotated causal relations.</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Annotation Schema</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -1420,275 +1488,337 @@ window.Quarto = {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Spans</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Each token or token sequence in a sentence receives at most one span label. There are two span categories:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Each token or token sequence in a sentence receives at most one span label. There are two span categories.</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>**Role** marks the primary causal components:</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Indicator`</span> — the lexical marker that projects the causal relation (e.g. *verursachen*, *ist Ursache*, *weil*, *stoppen*)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Entity`</span> — a cause or effect entity involved in the relation (e.g. *Klimawandel*, *Pestizide*, *Artensterben*)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>**Coefficient** captures semantic modifiers:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Indicator`</span> — the lexical marker that projects the causal relation </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>e.g. *verursachen* 'cause', *ist Ursache* 'is cause', *weil* 'because', *stoppen* 'stop'</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Entity`</span> — a cause or effect entity involved in the relation </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>e.g. *Klimawandel* 'climate change', *Pestizide* 'pesticides'</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient <span class="pp">|</span> Function <span class="pp">|</span> Examples <span class="pp">|</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Negation`</span> <span class="pp">|</span> Negates or inverts the causal relation <span class="pp">|</span> *nicht*, *kein*, *Verlust*, *Schwund* <span class="pp">|</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Temporality`</span> <span class="pp">|</span> Temporal framing <span class="pp">|</span> *seit*, *bereits*, *künftig*, *Jahre* <span class="pp">|</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Spatiality`</span> <span class="pp">|</span> Spatial framing <span class="pp">|</span> *global*, *lokal*, *weltweit*, *Deutschland* <span class="pp">|</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Uncertainty`</span> <span class="pp">|</span> Modality and hedging <span class="pp">|</span> *möglicherweise*, *könnte*, *vermutlich* <span class="pp">|</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quality`</span> <span class="pp">|</span> Qualitative modification <span class="pp">|</span> *industrielle*, *parasitischer*, *schwefelhaltiger* <span class="pp">|</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quantity`</span> <span class="pp">|</span> Quantitative modification <span class="pp">|</span> *großes*, *fünftausend*, *zwölf* <span class="pp">|</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation`</span> <span class="pp">|</span> Evidentiality marker <span class="pp">|</span> *laut*, *sagt*, *sei* <span class="pp">|</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation Entity`</span> <span class="pp">|</span> Source/provenance <span class="pp">|</span> *Studie*, *Bericht*, *Forscher* <span class="pp">|</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Relations</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Annotated spans are linked by directed relations:</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Cause`</span>: Indicator → Entity (the entity fills the <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} role)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Effect`</span>: Indicator → Entity (the entity fills the <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} role)</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Constraint`</span>: Entity or Indicator → Coefficient (the coefficient modifies its governor)</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Worked Example</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>Consider the sentence:</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.*</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; (*Climate change and intensive agriculture possibly intensify global species extinction.*)</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Span <span class="pp">|</span> Type <span class="pp">|</span> Relation <span class="pp">|</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Klimawandel <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Cause`</span> <span class="pp">|</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Landwirtschaft <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Cause`</span> <span class="pp">|</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verstärken <span class="pp">|</span> <span class="in">`Indicator`</span> <span class="pp">|</span> — <span class="pp">|</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> möglicherweise <span class="pp">|</span> <span class="in">`Uncertainty`</span> <span class="pp">|</span> verstärken → <span class="in">`Constraint`</span> <span class="pp">|</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> weltweite <span class="pp">|</span> <span class="in">`Spatiality`</span> <span class="pp">|</span> Artensterben → <span class="in">`Constraint`</span> <span class="pp">|</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Artensterben <span class="pp">|</span> <span class="in">`Entity`</span> <span class="pp">|</span> verstärken → <span class="in">`Effect`</span> <span class="pp">|</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>**Coefficient** captures semantic modifiers:</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Negation`</span> </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Neutralizes or inverts the causal relation </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>*nicht* 'not', *kein* 'no', *Verlust* 'loss', *Schwund* 'shrinkage'</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Division`</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Lowers salience </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>*auch* 'also', *unter anderem* 'among others'</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Priority`</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Increases salience</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>*vor allem* 'especially', *wichtig* 'important'</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>The three above directly affect influence. Other coefficients either run orthogonal (e.g. <span class="in">`temporality`</span>) – or specify epistemic dimensions (e.g <span class="in">`Uncertainty`</span>).</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Orthogonal coefficients</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient             <span class="pp">|</span> Function                  <span class="pp">|</span> Examples                                            <span class="pp">|</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="pp">| -----------------------</span> <span class="pp">| -------------------------</span> <span class="pp">| ---------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Temporality`</span>           <span class="pp">|</span> Temporal framing          <span class="pp">|</span> *seit*, *bereits*, *künftig*, *Jahre*               <span class="pp">|</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Spatiality`</span>            <span class="pp">|</span> Spatial framing           <span class="pp">|</span> *global*, *lokal*, *weltweit*, *Deutschland*        <span class="pp">|</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quality`</span>               <span class="pp">|</span> Qualitative modification  <span class="pp">|</span> *industrielle*, *parasitischer*, *schwefelhaltiger* <span class="pp">|</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Quantity`</span>              <span class="pp">|</span> Quantitative modification <span class="pp">|</span> *großes*, *fünftausend*, *zwölf*                    <span class="pp">|</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>: Object-based constraints</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient             <span class="pp">|</span> Function                  <span class="pp">|</span> Examples                                            <span class="pp">|</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="pp">| -----------------------</span> <span class="pp">| -------------------------</span> <span class="pp">| ---------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Uncertainty`</span>           <span class="pp">|</span> Modality and hedging      <span class="pp">|</span> *möglicherweise*, *könnte*, *vermutlich*            <span class="pp">|</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation`</span>        <span class="pp">|</span> Evidentiality marker      <span class="pp">|</span> *laut*, *sagt*, *sei*                               <span class="pp">|</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Representation Entity`</span> <span class="pp">|</span> Source/provenance         <span class="pp">|</span> *Studie*, *Bericht*, *Forscher*                     <span class="pp">|</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>: Propositional-based constraints</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Relations</span></span>
 <span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>Key points illustrated here: coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel `Cause` relations; the attributive adjective *intensive* is extracted as a `Quality` coefficient (token minimization principle); the sentence adverb *möglicherweise* is linked to the indicator since it modifies the causal proposition.</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>Annotated spans are linked by directed relations:</span>
 <span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Annotation Principles</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>Four principles guide annotation decisions in ambiguous cases.</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Cause`</span>: Indicator → Entity (the entity is designated as a <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps})</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Effect`</span>: Indicator → Entity (the entity fills the <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} role)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`Constraint`</span>: Entity or Indicator → Coefficient (the coefficient modifies its governor)</span>
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Minimal Principle</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example</span></span>
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>Only explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g. *verursacht*) and a functional marker (e.g. *durch*) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>Consider the the spans in this sentence:</span>
 <span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>For light verb constructions, only the semantically loaded element is annotated (e.g. *hat etwas mit X **zu tun*** → Indicator: *tun*).</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>::: {layout-ncol="2"}</span>
 <span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### Token Minimization</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>:::: {}</span>
 <span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>Entities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">Klimawandel</span><span class="co">]</span><span class="at">{.entity} und </span><span class="co">[</span><span class="ot">insbesondere</span><span class="co">]</span><span class="at">{.priority} </span><span class="co">[</span><span class="ot">Landwirtschaft</span><span class="co">]</span><span class="at">{.entity} </span><span class="co">[</span><span class="ot">verstärken</span><span class="co">]</span><span class="at">{.indicator} </span><span class="co">[</span><span class="ot">möglicherweise</span><span class="co">]</span><span class="at">{.uncertainty} das </span><span class="co">[</span><span class="ot">weltweite</span><span class="co">]</span><span class="at">{.spatiality} </span><span class="co">[</span><span class="ot">Artensterben</span><span class="co">]</span><span class="at">{.entity}.</span></span>
 <span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*industrielle Landwirtschaft* → Entity: <span class="in">`Landwirtschaft`</span>, Coefficient: <span class="in">`industrielle`</span> (Quality)</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Einsatz von Pestiziden* → Entity: <span class="in">`Pestiziden`</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Exception: named entities (*Europäische Union*) and fixed multi-word expressions (*saurer Regen*) are annotated as single units.</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">Climate change</span><span class="co">]</span><span class="at">{.entity} and </span><span class="co">[</span><span class="ot">especially</span><span class="co">]</span><span class="at">{.priority} </span><span class="co">[</span><span class="ot">agriculture</span><span class="co">]</span><span class="at">{.entity} </span><span class="co">[</span><span class="ot">possibly</span><span class="co">]</span><span class="at">{.uncertainty} </span><span class="co">[</span><span class="ot">intensify</span><span class="co">]</span><span class="at">{.indicator} </span><span class="co">[</span><span class="ot">global</span><span class="co">]</span><span class="at">{.spatiality} </span><span class="co">[</span><span class="ot">species extinction</span><span class="co">]</span><span class="at">{.entity}.</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>This prevents proliferation of marginal entity variants and facilitates downstream aggregation.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>::::</span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Proximity</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>:::: {}</span>
 <span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>When multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Coefficient Conservatism</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>Coefficients (other than <span class="in">`Representation`</span>) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity.</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>Two coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel <span class="in">`Cause`</span> relations.  </span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>The adverb *insbesondere* 'especially' is scoped to *Landwirtschaft*, raising its salience as ``Priority``. The sentence adverb *möglicherweise* (<span class="in">`Uncertainty`</span>) is parented to the indicator since it modifies the causal proposition.  </span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>Lastly, the adjective *weltweit* is separately encoded as <span class="in">`Spatiality`</span> coefficient – in accordance with the token minimization principle.</span>
 <span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Indicators</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>::::</span>
 <span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>Indicators are the lexical or syntactic markers that project causal relations and establish $(C, E, I)$ tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g. the <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} family includes *verursachen*, *ist Ursache*, *Ursache sein*, *Teilursache sein*).</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Top 10 Indicator Families</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span> <span class="pp">|</span> Family <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|---|</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 21 <span class="pp">|</span> 167 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 10 <span class="pp">|</span> 70 <span class="pp">|</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verantwortung</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 11 <span class="pp">|</span> 122 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 6 <span class="pp">|</span> 69 <span class="pp">|</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 3 <span class="pp">|</span> 111 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Kampf</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 8 <span class="pp">|</span> 69 <span class="pp">|</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 3 <span class="pp">|</span> 95 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Führen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 9 <span class="pp">|</span> 59 <span class="pp">|</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 2 <span class="pp">|</span> 70 <span class="pp">|</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">Grund</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 7 <span class="pp">|</span> 57 <span class="pp">|</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>graph LR</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    A[<span class="ot">"</span><span class="st">*verstärken*</span><span class="ot">"</span>] --&gt;|Cause| B[<span class="ot">"</span><span class="st">*Klimawandel*</span><span class="ot">"</span>]</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    A --&gt;|Cause| C[<span class="ot">"</span><span class="st">*Landwirtschaft*</span><span class="ot">"</span>] --&gt;|Priority| D[<span class="ot">"</span><span class="st">*insbesondere*</span><span class="ot">"</span>]</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    A --&gt;|Uncertainty| E[<span class="ot">"</span><span class="st">*möglicherweise*</span><span class="ot">"</span>]</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    A --&gt;|Effect| F[<span class="ot">"</span><span class="st">*Artensterben*</span><span class="ot">"</span>]</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    F --&gt;|Spatiality| G[<span class="ot">"</span><span class="st">*weltweit*</span><span class="ot">"</span>]</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Polarity and Salience</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>Each indicator family carries an inherent **polarity** (promoting `+` or inhibiting `−`) and a default **salience** class:</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Polarity <span class="pp">|</span> Default Salience <span class="pp">|</span> Discourse Function <span class="pp">|</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> variable <span class="pp">|</span> Prototype; full salience spectrum <span class="pp">|</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verantwortung</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> variable <span class="pp">|</span> Causal-moral attribution <span class="pp">|</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> monocausal <span class="pp">|</span> Effect-centered perspective <span class="pp">|</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> polycausal <span class="pp">|</span> Distributional attribution <span class="pp">|</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> + <span class="pp">|</span> monocausal <span class="pp">|</span> Grammaticalized preposition <span class="pp">|</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> − <span class="pp">|</span> monocausal <span class="pp">|</span> Intervention framing <span class="pp">|</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> − <span class="pp">|</span> monocausal <span class="pp">|</span> Variable condensation (*Kampf gegen*, *Protest gegen*) <span class="pp">|</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Projection Patterns</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>The syntactic realization of each indicator family determines how <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} and <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} roles are projected:</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family <span class="pp">|</span> Example <span class="pp">|</span> Cause Projection <span class="pp">|</span> Effect Projection <span class="pp">|</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X ist Ursache für Y* | Subject | PP (*für*) <span class="pp">|</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *Y ist Folge von X* | PP (*von*) <span class="pp">|</span> Subject <span class="pp">|</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verursachen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X verursacht Y* <span class="pp">|</span> Subject <span class="pp">|</span> Accusative object <span class="pp">|</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitragen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X trägt zu Y bei* | Subject | PP (*zu*) <span class="pp">|</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X stoppt Y* <span class="pp">|</span> Subject <span class="pp">|</span> Accusative object <span class="pp">|</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *Y durch X* <span class="pp">|</span> PP complement <span class="pp">|</span> Head noun <span class="pp">|</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> *X gegen Y* <span class="pp">|</span> Subject/Agent <span class="pp">|</span> PP complement <span class="pp">|</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context Markers</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Division</span></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ("among other things"), *auch* ("also"), *ebenfalls* ("likewise"), and the composite *nicht nur* ("not only").</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>Division markers reduce the salience to $|I| = 0.5$ regardless of the indicator's default.</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Priority</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Annotation Principles</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>Four principles guide annotation decisions in ambiguous cases.</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Minimal Principle</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>Only explicitly marked causal relations are annotated — no inference. When a lexically specific marker (e.g. *verursacht*) and a functional marker (e.g. *durch*) co-occur, only the lexically richer element is annotated as indicator. Functional prepositions and connectors are annotated as indicators only when no richer causal lexeme is present.</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>For light verb constructions, only the semantically loaded element is annotated (e.g. *hat etwas mit X **zu tun*** → Indicator: *tun*).</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Token Minimization</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>Entities are reduced to their head token. Attributive modifiers are extracted as separate coefficients:</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*industrielle Landwirtschaft* → Entity: <span class="in">`Landwirtschaft`</span>, Coefficient: <span class="in">`industrielle`</span> (Quality)</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Einsatz von Pestiziden* → Entity: <span class="in">`Pestiziden`</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Exception: named entities (*Europäische Union*) and fixed multi-word expressions (*saurer Regen*) are annotated as single units.</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>This prevents proliferation of marginal entity variants and facilitates downstream aggregation.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Proximity</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>When multiple potential entities compete for a role, the syntactically closest entity to the indicator is preferred, unless semantic considerations override this.</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Coefficient Conservatism</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>Coefficients (other than <span class="in">`Representation`</span>) are only annotated when they stand in a direct syntactic dependency relation with an indicator or entity.</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Indicators</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>Indicators are the lexical or syntactic markers that project causal relations and establish $(C, E, I)$ tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core. E.g. the <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} family includes, among other:</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*verursachen* 'cause'</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*ist Ursache* 'is the cause', </span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Ursache sein* 'to be the cause'</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Teilursache sein* 'to be a partial cause'</span>
 <span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ("mainly"), *maßgeblich* ("significantly"). They set $|I| = 0.75$ for the prioritized cause.</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Top 10 Indicator Families</span></span>
 <span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>Both marker types affect only the salience ($|I|$), leaving polarity ($\pm$) unchanged.</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negation</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>Negation is the structurally most influential marker. Two types are distinguished:</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>**Object-based negation** operates at the entity level through markers like *Verlust* ("loss"), *Schwund* ("decline"), *Rückgang* ("decrease"). These invert the polarity when the count of negations is odd:</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family                                                            <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span>     <span class="pp">|</span> Family                <span class="pp">|</span> Forms <span class="pp">|</span> Instances <span class="pp">|</span></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="pp">| -----------------------------------------------------------------</span> <span class="pp">| -----</span> <span class="pp">| ---------</span> <span class="pp">| ---</span> <span class="pp">| ---------------------</span> <span class="pp">| -----</span> <span class="pp">| ---------</span> <span class="pp">|</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">{{&lt; g Ursache cause &gt;}}</span><span class="co">]</span>{.smallcaps} '<span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}'       <span class="pp">|</span> 21    <span class="pp">|</span> 167       <span class="pp">|</span>     <span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="pp">|</span> 10    <span class="pp">|</span> 70        <span class="pp">|</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verantwortung</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>  '<span class="co">[</span><span class="ot">Responsibility</span><span class="co">]</span>{.smallcaps}' <span class="pp">|</span> 11    <span class="pp">|</span> 122       <span class="pp">|</span>     <span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps}   <span class="pp">|</span> 6     <span class="pp">|</span> 69        <span class="pp">|</span></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>  '<span class="co">[</span><span class="ot">Stop</span><span class="co">]</span>{.smallcaps}'                 <span class="pp">|</span> 3     <span class="pp">|</span> 111       <span class="pp">|</span>     <span class="pp">|</span> <span class="co">[</span><span class="ot">Kampf</span><span class="co">]</span>{.smallcaps}   <span class="pp">|</span> 8     <span class="pp">|</span> 69        <span class="pp">|</span></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>  '<span class="co">[</span><span class="ot">Against</span><span class="co">]</span>{.smallcaps}'                <span class="pp">|</span> 3     <span class="pp">|</span> 95        <span class="pp">|</span>     <span class="pp">|</span> <span class="co">[</span><span class="ot">Führen</span><span class="co">]</span>{.smallcaps}  <span class="pp">|</span> 9     <span class="pp">|</span> 59        <span class="pp">|</span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">through</span><span class="co">]</span>{.smallcaps}'                 <span class="pp">|</span> 2     <span class="pp">|</span> 70        <span class="pp">|</span>     <span class="pp">|</span> <span class="co">[</span><span class="ot">Grund</span><span class="co">]</span>{.smallcaps}   <span class="pp">|</span> 7     <span class="pp">|</span> 57        <span class="pp">|</span></span>
 <span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Verlust von Lebensräumen verursacht Bienensterben.*</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; object negation on [Cause]{.smallcaps} (*Verlust*) → polarity inverted: $I &lt; 0$.</span></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>**Propositional negation** operates at the relation level (*nicht*, *kein*) and neutralizes the entire causal relationship ($I = 0$):</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Orientation</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>Some families are cause-oriented, others are effect-oriented. Compare:</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Emission$_C$ is a cause of pollution$_E$.*</span>  </span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Pollution$_E$ is an effect of emission$_C$.*</span></span>
 <span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Pestizide verursachen **nicht** Insektensterben.*</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; propositional negation → $I = 0$.</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>Alignment affects projection – cause-oriented indicators project <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} on the subject influence, effect-oriented indicators do the same with <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps}. Predicates (*is the cause*), </span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a> as *Teilursache* 'partial cause' implies the existence of several causes – hence reducing it's salience. 'Teilwirkung' *partial effect*, on the other hand, implies a multitude of effects.  </span>
 <span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## From Annotations to INFLUENCE</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Polarity and Salience</span></span>
 <span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>The annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value $I \in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$. In brief: entity identification follows the indicator's syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>Each indicator family carries a default **polarity** (promoting $+$ or inhibiting $-$) and a default **salience** class:</span>
 <span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>For the full formal specification — including the cascade rules, coordination normalization, and worked examples — see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](../processing/tuple-construction.qmd)</span>.</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Format {#data-format}</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>Annotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.</span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Schema</span></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>  <span class="st">"subfolder"</span><span class="op">:</span> <span class="st">"Artensterben_oa"</span><span class="op">,</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  <span class="st">"global_sentence_id"</span><span class="op">:</span> <span class="dv">1148482</span><span class="op">,</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_id"</span><span class="op">:</span> <span class="st">"FAZ_200204_384209"</span><span class="op">,</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_date"</span><span class="op">:</span> <span class="st">"2002-04"</span><span class="op">,</span></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence_id"</span><span class="op">:</span> <span class="st">"12"</span><span class="op">,</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence"</span><span class="op">:</span> <span class="st">"..."</span><span class="op">,</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  <span class="st">"relations"</span><span class="op">:</span> [</span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>      <span class="st">"indicator"</span><span class="op">:</span> <span class="st">"Folge"</span><span class="op">,</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>      <span class="st">"entities"</span><span class="op">:</span> [</span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Kleinplanet"</span><span class="op">,</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Cause"</span><span class="op">,</span></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Jahren"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Temporality"</span>}<span class="op">,</span></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Mexikos"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Spatiality"</span>}</span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Artensterben"</span><span class="op">,</span></span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Effect"</span></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>      <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Division"</span><span class="op">,</span></span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"könnte"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Uncertainty"</span>}</span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation"</span><span class="op">:</span> <span class="st">"berieten"</span><span class="op">,</span></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation_entities"</span><span class="op">:</span> [</span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Teilnehmer"</span><span class="op">,</span></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Constraint"</span><span class="op">,</span></span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"fünftausend"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Quantity"</span>}</span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>      ]</span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Field Reference</span></span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>**Sentence-level fields:**</span>
-<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`subfolder`</span> <span class="pp">|</span> WABI subcorpus and syntactic position (e.g. <span class="in">`Artensterben_oa`</span> = accusative object) <span class="pp">|</span></span>
-<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`global_sentence_id`</span> <span class="pp">|</span> Unique sentence identifier across the full corpus <span class="pp">|</span></span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_id`</span> <span class="pp">|</span> Source document identifier (format: <span class="in">`SOURCE_YYYYMM_ID`</span>) <span class="pp">|</span></span>
-<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_date`</span> <span class="pp">|</span> Publication date (YYYY-MM) <span class="pp">|</span></span>
-<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`sentence`</span> <span class="pp">|</span> Full sentence text <span class="pp">|</span></span>
-<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relations`</span> <span class="pp">|</span> Array of causal relations found in this sentence (empty if none) <span class="pp">|</span></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family                                                  <span class="pp">|</span> Polarity <span class="pp">|</span> Default Salience <span class="pp">|</span> Discourse Function                                                    <span class="pp">|</span></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a><span class="pp">| -------------------------------------------------------</span> <span class="pp">| --------</span> <span class="pp">| ----------------</span> <span class="pp">| ---------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}'        <span class="pp">|</span> $+$      <span class="pp">|</span> $<span class="co">[</span><span class="ot">0.5-1</span><span class="co">]</span>$        <span class="pp">|</span> Prototype; full salience spectrum                                     <span class="pp">|</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Consequence</span><span class="co">]</span>{.smallcaps}'    <span class="pp">|</span> $+$      <span class="pp">|</span> $1$              <span class="pp">|</span> Effect-centered perspective                                           <span class="pp">|</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitrag</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Contribution</span><span class="co">]</span>{.smallcaps}' <span class="pp">|</span> $+$      <span class="pp">|</span> $<span class="co">[</span><span class="ot">0.5-0.75</span><span class="co">]</span>$     <span class="pp">|</span> Distributional attribution                                            <span class="pp">|</span></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Through</span><span class="co">]</span>{.smallcaps}'        <span class="pp">|</span> $+$      <span class="pp">|</span> $1$              <span class="pp">|</span> Grammaticalized preposition                                           <span class="pp">|</span></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Stop</span><span class="co">]</span>{.smallcaps}'         <span class="pp">|</span> $−$      <span class="pp">|</span> $1$              <span class="pp">|</span> Intervention framing                                                  <span class="pp">|</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Against</span><span class="co">]</span>{.smallcaps}'        <span class="pp">|</span> $−$      <span class="pp">|</span> $1$              <span class="pp">|</span> Variable condensation (*Kampf/Protest gegen* 'fight/protest against') <span class="pp">|</span></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Reduzieren</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>  '<span class="co">[</span><span class="ot">Reduce</span><span class="co">]</span>{.smallcaps}'  <span class="pp">|</span> $−$      <span class="pp">|</span> $<span class="co">[</span><span class="ot">0.5-0.75</span><span class="co">]</span>$     <span class="pp">|</span> Prototypical polycausal negative                                      <span class="pp">|</span></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Wirkung</span><span class="co">]</span>{.smallcaps}  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>  '<span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps}'     <span class="pp">|</span> $\pm$    <span class="pp">|</span> $<span class="co">[</span><span class="ot">0-1</span><span class="co">]</span>$          <span class="pp">|</span> Widest range                                                          <span class="pp">|</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>Positive, though *Gegenwirkung* 'counter-effect' = $-$, *wirkungslos* 'ineffective' = 0</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Syntactic Projection Patterns</span></span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>The syntactic realization of each indicator determines how <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps} and <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps} roles are projected:</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Family                                                    <span class="pp">|</span> Example                                          <span class="pp">|</span> Cause Projection     <span class="pp">|</span> Effect Projection     <span class="pp">|</span></span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------------------------------------------------</span> <span class="pp">| ------------------------------------------------</span> <span class="pp">| --------------------</span> <span class="pp">| ---------------------</span> <span class="pp">|</span></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Ursache</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}'          <span class="pp">|</span> *X ist Ursache für Y*  &lt;br&gt; 'x is the cause of'  | Subject              | PP (*für*) <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'for' <span class="pp">|</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Folge</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Consequence</span><span class="co">]</span>{.smallcaps}'      <span class="pp">|</span> *Y ist Folge von X* &lt;br&gt; 'x is a consequence of' | PP (*von*) <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'of' <span class="pp">|</span> Subject               <span class="pp">|</span></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Verursachen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}       <span class="pp">|</span> *X verursacht Y* <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'x causes y'               <span class="pp">|</span> Subject              <span class="pp">|</span> Accusative object     <span class="pp">|</span></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Beitragen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Contribution</span><span class="co">]</span>{.smallcaps}' <span class="pp">|</span> *X trägt zu Y bei* &lt;br&gt; 'x contributes to y'     | Subject              | PP (*zu*) <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'to'   <span class="pp">|</span></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Stoppen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Stop</span><span class="co">]</span>{.smallcaps}'           <span class="pp">|</span> *X stoppt Y* <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'x stops y'                    <span class="pp">|</span> Subject              <span class="pp">|</span> Accusative object     <span class="pp">|</span></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Durch</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Through</span><span class="co">]</span>{.smallcaps}'          <span class="pp">|</span> *Y durch X*  <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'x through y'                  <span class="pp">|</span> PP complement        <span class="pp">|</span> Head noun             <span class="pp">|</span></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Gegen</span><span class="co">]</span>{.smallcaps} <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> '<span class="co">[</span><span class="ot">Against</span><span class="co">]</span>{.smallcaps}'          <span class="pp">|</span> *X gegen Y* <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span> 'x against y'                   <span class="pp">|</span> Subject              <span class="pp">|</span> PP complement         <span class="pp">|</span></span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context Markers</span></span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>Context markers modify and contextualize the causal relations projected by indicators. Unlike indicators, they are not lexically specialized for causality but operate at the predication or proposition level. Three structural marker types directly affect the INFLUENCE computation:</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### Division</span></span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ('among other things'), *auch* ('also'), *ebenfalls* ('likewise'), and the composite *nicht nur* ('not only').</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>Division markers reduce the salience to $|I| = 0.5$ regardless of the indicator's default.</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Priority</span></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ('mainly), *maßgeblich* ('significantly'). They set $|I| = 0.75$ for the prioritized cause.</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>Both marker types affect only the salience ($|I|$), leaving polarity ($\pm$) unchanged.</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negation</span></span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>Negation is the structurally most influential marker. Two types are distinguished:</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>**Object-based negation** operates at the entity level through markers like *Verlust* ("loss"), *Schwund* ("decline"), *Rückgang* ("decrease"). These invert the polarity when the count of negations is odd:</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Verlust von Lebensräumen verursacht Bienensterben.*</span></span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; object negation on [Cause]{.smallcaps} (*Verlust*) → polarity inverted: $I &lt; 0$.</span></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>**Propositional negation** operates at the relation level (*nicht*, *kein*) and neutralizes the entire causal relationship ($I = 0$):</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Pestizide verursachen **nicht** Insektensterben.*</span></span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Indicator *verursachen*: default $I &gt; 0$; propositional negation → $I = 0$.</span></span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## From Annotations to INFLUENCE</span></span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>The annotations documented above — indicators, entities, and context markers — are the inputs to a deterministic computation that produces the final INFLUENCE value $I \in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$. In brief: entity identification follows the indicator's syntactic projection pattern, polarity is determined by indicator class and negation markers, and salience is computed through a cascading hierarchy of morphological, determiner, and syntactic markers.</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>For the full formal specification — including the cascade rules, coordination normalization, and worked examples — see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](../processing/tuple-construction.qmd)</span>.</span>
 <span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>**Relation-level fields:**</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Format {#data-format}</span></span>
 <span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`indicator`</span> <span class="pp">|</span> The causal indicator lexeme <span class="pp">|</span></span>
-<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entities`</span> <span class="pp">|</span> Array of entities with their causal role (<span class="in">`Cause`</span> or <span class="in">`Effect`</span>) <span class="pp">|</span></span>
-<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`coefficient`</span> <span class="pp">|</span> Structural marker on the relation level (<span class="in">`Negation`</span>, <span class="in">`Division`</span>) <span class="pp">|</span></span>
-<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Contextual coefficients attached to the indicator <span class="pp">|</span></span>
-<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation`</span> <span class="pp">|</span> Evidentiality/speech-act verb (if present) <span class="pp">|</span></span>
-<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation_entities`</span> <span class="pp">|</span> Source entities for reported speech <span class="pp">|</span></span>
-<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>**Entity-level fields:**</span>
-<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entity`</span> <span class="pp">|</span> Head token of the entity (token-minimized) <span class="pp">|</span></span>
-<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relation`</span> <span class="pp">|</span> Causal role: <span class="in">`Cause`</span>, <span class="in">`Effect`</span>, or <span class="in">`Constraint`</span> <span class="pp">|</span></span>
-<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Array of coefficients modifying this entity <span class="pp">|</span></span>
-<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sentences Without Relations</span></span>
-<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>Sentences where no explicit causal relation was identified have an empty <span class="in">`relations`</span> array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle.</span>
-<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corpus Statistics</span></span>
-<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total sentences** <span class="pp">|</span> 4,753 <span class="pp">|</span></span>
-<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Sentences with ≥1 WABI relation** <span class="pp">|</span> 1,797 (37.8%) <span class="pp">|</span></span>
-<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total WABI-relevant relations** <span class="pp">|</span> 1,867 <span class="pp">|</span></span>
-<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Distinct indicator forms** <span class="pp">|</span> 642 <span class="pp">|</span></span>
-<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Indicator families** <span class="pp">|</span> 192 <span class="pp">|</span></span>
-<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Mean relations per sentence** <span class="pp">|</span> 0.39 <span class="pp">|</span></span>
-<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>**Per WABI term:**</span>
-<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Term <span class="pp">|</span> Sentences <span class="pp">|</span> Relations <span class="pp">|</span> Rel./Sent. <span class="pp">|</span></span>
-<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Waldsterben <span class="pp">|</span> 1,818 <span class="pp">|</span> 633 <span class="pp">|</span> 0.35 <span class="pp">|</span></span>
-<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Artensterben <span class="pp">|</span> 1,854 <span class="pp">|</span> 744 <span class="pp">|</span> 0.40 <span class="pp">|</span></span>
-<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bienensterben <span class="pp">|</span> 536 <span class="pp">|</span> 257 <span class="pp">|</span> 0.48 <span class="pp">|</span></span>
-<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Insektensterben <span class="pp">|</span> 545 <span class="pp">|</span> 233 <span class="pp">|</span> 0.43 <span class="pp">|</span></span>
-<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
-<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the theoretical motivation behind polarity and salience, see <span class="co">[</span><span class="ot">Framework</span><span class="co">](framework/index.qmd)</span></span>
-<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how annotations are transformed into $(C, E, I)$ tuples, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](processing/tuple-construction.qmd)</span></span>
-<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the C-BERT model trained on this data, see <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](extraction/c-bert.qmd)</span></span>
-<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full annotation data (Bundestag subset): <span class="co">[</span><span class="ot">HuggingFace Dataset</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>Annotated data is exported as JSON. Each entry represents a sentence with its metadata and extracted relations.</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Schema</span></span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>  <span class="st">"subfolder"</span><span class="op">:</span> <span class="st">"Artensterben_oa"</span><span class="op">,</span></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>  <span class="st">"global_sentence_id"</span><span class="op">:</span> <span class="dv">1148482</span><span class="op">,</span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_id"</span><span class="op">:</span> <span class="st">"FAZ_200204_384209"</span><span class="op">,</span></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text_date"</span><span class="op">:</span> <span class="st">"2002-04"</span><span class="op">,</span></span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence_id"</span><span class="op">:</span> <span class="st">"12"</span><span class="op">,</span></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sentence"</span><span class="op">:</span> <span class="st">"..."</span><span class="op">,</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>  <span class="st">"relations"</span><span class="op">:</span> [</span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>      <span class="st">"indicator"</span><span class="op">:</span> <span class="st">"Folge"</span><span class="op">,</span></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>      <span class="st">"entities"</span><span class="op">:</span> [</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Kleinplanet"</span><span class="op">,</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Cause"</span><span class="op">,</span></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Jahren"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Temporality"</span>}<span class="op">,</span></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"Mexikos"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Spatiality"</span>}</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Artensterben"</span><span class="op">,</span></span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Effect"</span></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>      <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Division"</span><span class="op">,</span></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"könnte"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Uncertainty"</span>}</span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation"</span><span class="op">:</span> <span class="st">"berieten"</span><span class="op">,</span></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>      <span class="st">"representation_entities"</span><span class="op">:</span> [</span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>          <span class="st">"entity"</span><span class="op">:</span> <span class="st">"Teilnehmer"</span><span class="op">,</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>          <span class="st">"relation"</span><span class="op">:</span> <span class="st">"Constraint"</span><span class="op">,</span></span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dependent_coefficients"</span><span class="op">:</span> [</span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"coefficient_text"</span><span class="op">:</span> <span class="st">"fünftausend"</span><span class="op">,</span> <span class="st">"coefficient"</span><span class="op">:</span> <span class="st">"Quantity"</span>}</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### Field Reference</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>**Sentence-level fields:**</span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`subfolder`</span> <span class="pp">|</span> WABI subcorpus and syntactic position (e.g. <span class="in">`Artensterben_oa`</span> = accusative object) <span class="pp">|</span></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`global_sentence_id`</span> <span class="pp">|</span> Unique sentence identifier across the full corpus <span class="pp">|</span></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_id`</span> <span class="pp">|</span> Source document identifier (format: <span class="in">`SOURCE_YYYYMM_ID`</span>) <span class="pp">|</span></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_date`</span> <span class="pp">|</span> Publication date (YYYY-MM) <span class="pp">|</span></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`sentence`</span> <span class="pp">|</span> Full sentence text <span class="pp">|</span></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relations`</span> <span class="pp">|</span> Array of causal relations found in this sentence (empty if none) <span class="pp">|</span></span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>**Relation-level fields:**</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`indicator`</span> <span class="pp">|</span> The causal indicator lexeme <span class="pp">|</span></span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entities`</span> <span class="pp">|</span> Array of entities with their causal role (<span class="in">`Cause`</span> or <span class="in">`Effect`</span>) <span class="pp">|</span></span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`coefficient`</span> <span class="pp">|</span> Structural marker on the relation level (<span class="in">`Negation`</span>, <span class="in">`Division`</span>) <span class="pp">|</span></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Contextual coefficients attached to the indicator <span class="pp">|</span></span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation`</span> <span class="pp">|</span> Evidentiality/speech-act verb (if present) <span class="pp">|</span></span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`representation_entities`</span> <span class="pp">|</span> Source entities for reported speech <span class="pp">|</span></span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>**Entity-level fields:**</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`entity`</span> <span class="pp">|</span> Head token of the entity (token-minimized) <span class="pp">|</span></span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`relation`</span> <span class="pp">|</span> Causal role: <span class="in">`Cause`</span>, <span class="in">`Effect`</span>, or <span class="in">`Constraint`</span> <span class="pp">|</span></span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dependent_coefficients`</span> <span class="pp">|</span> Array of coefficients modifying this entity <span class="pp">|</span></span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sentences Without Relations</span></span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>Sentences where no explicit causal relation was identified have an empty <span class="in">`relations`</span> array. These are not noise — they were reviewed during annotation and determined to contain no explicit causal markers per the minimal principle.</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corpus Statistics</span></span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total sentences** <span class="pp">|</span> 4,753 <span class="pp">|</span></span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Sentences with ≥1 WABI relation** <span class="pp">|</span> 1,797 (37.8%) <span class="pp">|</span></span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total WABI-relevant relations** <span class="pp">|</span> 1,867 <span class="pp">|</span></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Distinct indicator forms** <span class="pp">|</span> 642 <span class="pp">|</span></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Indicator families** <span class="pp">|</span> 192 <span class="pp">|</span></span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Mean relations per sentence** <span class="pp">|</span> 0.39 <span class="pp">|</span></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>**Per WABI term:**</span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Term <span class="pp">|</span> Sentences <span class="pp">|</span> Relations <span class="pp">|</span> Rel./Sent. <span class="pp">|</span></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Waldsterben <span class="pp">|</span> 1,818 <span class="pp">|</span> 633 <span class="pp">|</span> 0.35 <span class="pp">|</span></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Artensterben <span class="pp">|</span> 1,854 <span class="pp">|</span> 744 <span class="pp">|</span> 0.40 <span class="pp">|</span></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bienensterben <span class="pp">|</span> 536 <span class="pp">|</span> 257 <span class="pp">|</span> 0.48 <span class="pp">|</span></span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Insektensterben <span class="pp">|</span> 545 <span class="pp">|</span> 233 <span class="pp">|</span> 0.43 <span class="pp">|</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the theoretical motivation behind polarity and salience, see <span class="co">[</span><span class="ot">Framework</span><span class="co">](framework/index.qmd)</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how annotations are transformed into $(C, E, I)$ tuples, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](processing/tuple-construction.qmd)</span></span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the C-BERT model trained on this data, see <span class="co">[</span><span class="ot">C-BERT</span><span class="co">](extraction/c-bert.qmd)</span></span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full annotation data (Bundestag subset): <span class="co">[</span><span class="ot">HuggingFace Dataset</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1712,4 +1842,5 @@ window.Quarto = {
 
 
 
+<script src="../site_libs/quarto-contrib/load_tooltips-1.0.0/load_tooltips.js"></script>
 </body></html>

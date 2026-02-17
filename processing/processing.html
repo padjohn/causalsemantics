@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../favicon_tight.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -75,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea00c6d781ab57cc19d5286e46ecd834.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-374f9c044f5841db38013488b7397e71.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -88,7 +89,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -185,12 +185,12 @@ window.Quarto = {
  <span class="dropdown-text">Overview</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../extraction/c-bert.html">
- <span class="dropdown-text">C-BERT</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../extraction/annotation.html">
  <span class="dropdown-text">Annotation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/c-bert.html">
+ <span class="dropdown-text">C-BERT</span></a>
   </li>  
     </ul>
   </li>
@@ -293,12 +293,12 @@ window.Quarto = {
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A["Annotated Relations&lt;br/&gt;(indicators, entities, markers)"] --&gt; B["Tuple Construction"]
-    B --&gt; C["Individual&lt;br/&gt;(C, E, I) Tuples"]
+    A["Annotated&lt;br/&gt;Relations&lt;br/&gt;(indicators, entities, markers)"] --&gt; B["Tuple&lt;br/&gt;Construction"]
+    B --&gt; C["Individual&lt;br/&gt;(C, E, I)&lt;br/&gt;Tuples"]
     C --&gt; D["Aggregation"]
-    D --&gt; E["Normalized Causal&lt;br/&gt;Patterns"]
-    E --&gt; F["Focus-Term Analysis"]
-    E --&gt; G["ACG Networks"]
+    D --&gt; E["Normalized&lt;br/&gt;Causal&lt;br/&gt;Patterns"]
+    E --&gt; F["Focus-Term&lt;br/&gt;Analysis"]
+    E --&gt; G["ACG&lt;br/&gt;Networks"]
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -801,12 +801,12 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>graph LR</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    A[<span class="ot">"</span><span class="st">Annotated Relations&lt;br/&gt;(indicators, entities, markers)</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Tuple Construction</span><span class="ot">"</span>]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[<span class="ot">"</span><span class="st">Individual&lt;br/&gt;(C, E, I) Tuples</span><span class="ot">"</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    A[<span class="ot">"</span><span class="st">Annotated&lt;br/&gt;Relations&lt;br/&gt;(indicators, entities, markers)</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Tuple&lt;br/&gt;Construction</span><span class="ot">"</span>]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[<span class="ot">"</span><span class="st">Individual&lt;br/&gt;(C, E, I)&lt;br/&gt;Tuples</span><span class="ot">"</span>]</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[<span class="ot">"</span><span class="st">Aggregation</span><span class="ot">"</span>]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[<span class="ot">"</span><span class="st">Normalized Causal&lt;br/&gt;Patterns</span><span class="ot">"</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[<span class="ot">"</span><span class="st">Focus-Term Analysis</span><span class="ot">"</span>]</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    E --&gt; G[<span class="ot">"</span><span class="st">ACG Networks</span><span class="ot">"</span>]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[<span class="ot">"</span><span class="st">Normalized&lt;br/&gt;Causal&lt;br/&gt;Patterns</span><span class="ot">"</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[<span class="ot">"</span><span class="st">Focus-Term&lt;br/&gt;Analysis</span><span class="ot">"</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    E --&gt; G[<span class="ot">"</span><span class="st">ACG&lt;br/&gt;Networks</span><span class="ot">"</span>]</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>This transformation happens in two stages:</span>

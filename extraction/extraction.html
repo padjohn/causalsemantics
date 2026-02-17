@@ -85,6 +85,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../favicon_tight.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -95,7 +96,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea00c6d781ab57cc19d5286e46ecd834.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-374f9c044f5841db38013488b7397e71.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,7 +109,6 @@ div.csl-indent {
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -205,12 +205,12 @@ window.Quarto = {
  <span class="dropdown-text">Overview</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../extraction/c-bert.html">
- <span class="dropdown-text">C-BERT</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../extraction/annotation.html">
  <span class="dropdown-text">Annotation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extraction/c-bert.html">
+ <span class="dropdown-text">C-BERT</span></a>
   </li>  
     </ul>
   </li>
@@ -320,12 +320,12 @@ window.Quarto = {
 <li>e.g.&nbsp;<em>climate change</em>, <em>emission</em>, <em>poverty</em>, <em>war</em></li>
 </ul></li>
 </ul>
-<p>Indicators can be classified as polar <strong>positive</strong> (e.g.&nbsp;<em>cause</em>) and <strong>negative</strong> (e.g.&nbsp;<em>prevent</em>) <span class="citation" data-cites="dunietz-etal-2017-because">[<a href="#ref-dunietz-etal-2017-because" role="doc-biblioref">1</a>]</span> <span class="citation" data-cites="rehbein2017">[<a href="#ref-rehbein2017" role="doc-biblioref">2</a>]</span>. Following <span class="citation" data-cites="wolff2005expressing">[<a href="#ref-wolff2005expressing" role="doc-biblioref">3</a>]</span>, <span class="math inline">S_C</span> further distinguishes between <strong>mono-</strong> (e.g.&nbsp;<em>cause</em>) and <strong>polycausal</strong> (e.g <em>contribute</em>) relationships. Both dimensions can be modified by <strong>contextual markers</strong>:</p>
+<p>Indicators can be classified as polar <strong>positive</strong> (e.g.&nbsp;<em>cause</em>) and <strong>negative</strong> (e.g.&nbsp;<em>prevent</em>) <span class="citation" data-cites="dunietz-etal-2017-because">[<a href="#ref-dunietz-etal-2017-because" role="doc-biblioref">1</a>]</span> <span class="citation" data-cites="rehbein2017">[<a href="#ref-rehbein2017" role="doc-biblioref">2</a>]</span>. Following <span class="citation" data-cites="wolff2005expressing">[<a href="#ref-wolff2005expressing" role="doc-biblioref">3</a>]</span>, <span class="math inline">S_C</span> further distinguishes between <strong>mono-</strong> (e.g.&nbsp;<em>prevent</em>) and <strong>polycausal</strong> (e.g <em>reduce</em>) relationships. Both dimensions can be modified by <strong>contextual markers</strong>:</p>
 <ul>
 <li>Polarity: <em>death of</em>, <em>rise in</em></li>
 <li>Salience: <em>less so</em>, <em>especially</em></li>
 </ul>
-<p>Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes.</p>
+<p>Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of polarity and salience – and apply those values to variable syntactic scopes.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -366,7 +366,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="application">Application</h2>
 <p>Transforming text into tuples can be achieved in a variety of manual or automatic ways.</p>
 <p>Both <strong>rule-based</strong> <span class="citation" data-cites="boegel2014">[<a href="#ref-boegel2014" role="doc-biblioref">4</a>]</span> and <strong>prompt-based</strong> <span class="citation" data-cites="susanti2024">[<a href="#ref-susanti2024" role="doc-biblioref">5</a>]</span> approaches have been applied to CRE, though neither incorporate salience nor polarity. As of today, a mixture of manual annotation and transformers <span class="citation" data-cites="rehbein2020">[<a href="#ref-rehbein2020" role="doc-biblioref">6</a>]</span> appear the most promising.</p>
-<p>The following sections provide an overview of this two-path structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset <span class="citation" data-cites="cbert">[<a href="#ref-cbert" role="doc-biblioref">7</a>]</span>.</p>
+<p>The following sections provide a brief overview of this <strong>two-path</strong> structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset.</p>
 <section id="annotation" class="level3">
 <h3 class="anchored" data-anchor-id="annotation">Annotation</h3>
 <p>The annotation schema consists of span annotations (indicators, entities, and semantic coefficients like negation and division) – linked by directed relations (Cause, Effect, Constraint).</p>
@@ -383,9 +383,9 @@ window.Quarto = {
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A[Text] --&gt; B2[Spans]
-    B2 --&gt; D[Pairs]
-    D --&gt; E[Relations]
+    A[Text] --&gt; B2[Span&lt;br/&gt;classification]
+    B2 --&gt; D[Pair&lt;br/&gt;construction]
+    D --&gt; E[Relation&lt;br/&gt;classification]
     E --&gt; F["$$(C, E, I)\;$$"]
 </pre>
 </div>
@@ -963,12 +963,12 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>e.g. *climate change*, *emission*, *poverty*, *war*</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Indicators can be classified as polar **positive** (e.g. *cause*) and **negative** (e.g. *prevent*) [@dunietz-etal-2017-because] [@rehbein2017]. Following [@wolff2005expressing], $S_C$ further distinguishes between **mono-** (e.g. *cause*) and **polycausal** (e.g *contribute*) relationships. Both dimensions can be modified by **contextual markers**:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Indicators can be classified as polar **positive** (e.g. *cause*) and **negative** (e.g. *prevent*) [@dunietz-etal-2017-because] [@rehbein2017]. Following [@wolff2005expressing], $S_C$ further distinguishes between **mono-** (e.g. *prevent*) and **polycausal** (e.g *reduce*) relationships. Both dimensions can be modified by **contextual markers**:</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Polarity: *death of*, *rise in*</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Salience: *less so*, *especially*</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of polarity and salience – and apply those values to variable syntactic scopes. </span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example</span></span>
@@ -1001,7 +1001,7 @@ window.Quarto = {
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>Both **rule-based** [@boegel2014] and **prompt-based** <span class="co">[</span><span class="ot">@susanti2024</span><span class="co">]</span> approaches have been applied to CRE, though neither incorporate salience nor polarity. As of today, a mixture of manual annotation and transformers <span class="co">[</span><span class="ot">@rehbein2020</span><span class="co">]</span> appear the most promising.</span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>The following sections provide an overview of this two-path structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset <span class="co">[</span><span class="ot">@cbert</span><span class="co">]</span>.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>The following sections provide a brief overview of this **two-path** structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset.</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Annotation</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
@@ -1019,9 +1019,9 @@ window.Quarto = {
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>graph LR</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    A[Text] --&gt; B2[Spans]</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    B2 --&gt; D[Pairs]</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Relations]</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    A[Text] --&gt; B2[Span&lt;br/&gt;classification]</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    B2 --&gt; D[Pair&lt;br/&gt;construction]</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Relation&lt;br/&gt;classification]</span>
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[<span class="ot">"</span><span class="wa">$$</span><span class="st">(C, E, I)\;</span><span class="wa">$$</span><span class="ot">"</span>]</span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
