@@ -35,14 +35,43 @@ a {
   &:hover {
     color: $primary;
   }
+} 
+
+/* The base style for an annotated span */
+/* Base styles for the annotated spans */
+.annotated {
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+  border: 1px solid transparent;
 }
 
-/* 1. Kill the gray box behind the text label */
+/* Label styling (the small tag above/beside the word) */
+.annotated::after {
+  content: attr(data-label);
+  font-size: 0.65em;
+  font-weight: bold;
+  margin-left: 5px;
+  vertical-align: super;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+/* Dark Theme Colors: Using semi-transparent backgrounds for better blending */
+.entity      { border-color: rgb(96, 96, 96);}
+.indicator   { border-color: rgb(136, 136, 136);}
+.uncertainty { border-color: #595959;}
+.priority    { border-color: #5c5c5c;}
+.spatiality  { border-color: #494949;}
+
+
+/* 1. Remove the gray box behind the text label */
 [id^="mermaid-"] .edgeLabel p,
 [id^="mermaid-"] .edgeLabel span,
 [id^="mermaid-"] .labelBkg {
   background-color: #101010 !important;
-  padding: 0px 4zpx 0px 4px !important;
+  padding: 0px 3px 0px 3px !important;
+  font-size: 12px !important;
   // background: none !important;
   color: #ffffff !important; /* Force white text */
 }
@@ -62,4 +91,11 @@ a {
 .mermaid svg path.node {
   fill: transparent !important;
   stroke: transparent !important;
+}
+
+.gloss-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted #2780e3;
+  cursor: help;
 }

@@ -1,5 +1,5 @@
 ---
-title: "(C, E, I) Tuples"
+title: "$(C, E, I)$ Tuples"
 subtitle: "The core representation of causal relations"
 ---
 

@@ -7,7 +7,7 @@ subtitle: "How causal relations are annotated in the Causal Semantics framework"
 
 This page documents the annotation schema and guidelines used to produce the training data for [C-BERT](extraction/c-bert.qmd) and the underlying $(C, E, I)$ tuple representation. If you are using C-BERT or working with annotated data from this project, this page serves as the reference for how annotations are structured, what decisions were made, and how edge cases are handled.
 
-The annotation was developed over three iterations (2024–2025) using the [INCEpTION](https://inception-project.github.io/) platform, applied to 4,753 sentences from German environmental discourse (1990–2022). The resulting corpus contains 2,391 manually annotated causal relations.
+The annotation was developed over three iterations (2024–2025) and primarily conducted via [INCEpTION](https://inception-project.github.io/). A total of 4,753 sentences from German environmental discourse (1990–2022) yielded 2,391 manually annotated causal relations.
 
 ## Annotation Schema
 
@@ -15,52 +15,95 @@ The schema consists of two layers: **span annotations** that mark causal compone
 
 ### Spans
 
-Each token or token sequence in a sentence receives at most one span label. There are two span categories:
+Each token or token sequence in a sentence receives at most one span label. There are two span categories.
 
 **Role** marks the primary causal components:
 
-- `Indicator` — the lexical marker that projects the causal relation (e.g. *verursachen*, *ist Ursache*, *weil*, *stoppen*)
-- `Entity` — a cause or effect entity involved in the relation (e.g. *Klimawandel*, *Pestizide*, *Artensterben*)
+- `Indicator` — the lexical marker that projects the causal relation 
+  - e.g. *verursachen* 'cause', *ist Ursache* 'is cause', *weil* 'because', *stoppen* 'stop'
+- `Entity` — a cause or effect entity involved in the relation 
+  - e.g. *Klimawandel* 'climate change', *Pestizide* 'pesticides'
 
 **Coefficient** captures semantic modifiers:
 
-| Coefficient | Function | Examples |
-|---|---|---|
-| `Negation` | Negates or inverts the causal relation | *nicht*, *kein*, *Verlust*, *Schwund* |
-| `Temporality` | Temporal framing | *seit*, *bereits*, *künftig*, *Jahre* |
-| `Spatiality` | Spatial framing | *global*, *lokal*, *weltweit*, *Deutschland* |
-| `Uncertainty` | Modality and hedging | *möglicherweise*, *könnte*, *vermutlich* |
-| `Quality` | Qualitative modification | *industrielle*, *parasitischer*, *schwefelhaltiger* |
-| `Quantity` | Quantitative modification | *großes*, *fünftausend*, *zwölf* |
-| `Representation` | Evidentiality marker | *laut*, *sagt*, *sei* |
-| `Representation Entity` | Source/provenance | *Studie*, *Bericht*, *Forscher* |
+- `Negation` 
+  - Neutralizes or inverts the causal relation 
+  - *nicht* 'not', *kein* 'no', *Verlust* 'loss', *Schwund* 'shrinkage'
+- `Division`
+  - Lowers salience 
+  - *auch* 'also', *unter anderem* 'among others'
+- `Priority`
+  - Increases salience
+  - *vor allem* 'especially', *wichtig* 'important'
+
+The three above directly affect influence. Other coefficients either run orthogonal (e.g. `temporality`) – or specify epistemic dimensions (e.g `Uncertainty`).
+
+::: {.callout-note collapse="true"}
+
+## Orthogonal coefficients
+
+| Coefficient             | Function                  | Examples                                            |
+| ----------------------- | ------------------------- | --------------------------------------------------- |
+| `Temporality`           | Temporal framing          | *seit*, *bereits*, *künftig*, *Jahre*               |
+| `Spatiality`            | Spatial framing           | *global*, *lokal*, *weltweit*, *Deutschland*        |
+| `Quality`               | Qualitative modification  | *industrielle*, *parasitischer*, *schwefelhaltiger* |
+| `Quantity`              | Quantitative modification | *großes*, *fünftausend*, *zwölf*                    |
+: Object-based constraints
+
+| Coefficient             | Function                  | Examples                                            |
+| ----------------------- | ------------------------- | --------------------------------------------------- |
+| `Uncertainty`           | Modality and hedging      | *möglicherweise*, *könnte*, *vermutlich*            |
+| `Representation`        | Evidentiality marker      | *laut*, *sagt*, *sei*                               |
+| `Representation Entity` | Source/provenance         | *Studie*, *Bericht*, *Forscher*                     |
+: Propositional-based constraints
+:::
 
 ### Relations
 
 Annotated spans are linked by directed relations:
 
-- `Cause`: Indicator → Entity (the entity fills the [Cause]{.smallcaps} role)
+- `Cause`: Indicator → Entity (the entity is designated as a [Cause]{.smallcaps})
 - `Effect`: Indicator → Entity (the entity fills the [Effect]{.smallcaps} role)
 - `Constraint`: Entity or Indicator → Coefficient (the coefficient modifies its governor)
 
-### Worked Example
+### Example
 
-Consider the sentence:
+Consider the the spans in this sentence:
 
-> *Klimawandel und intensive Landwirtschaft verstärken möglicherweise das weltweite Artensterben.*
->
-> (*Climate change and intensive agriculture possibly intensify global species extinction.*)
+::: {layout-ncol="2"}
 
-| Span | Type | Relation |
-|---|---|---|
-| Klimawandel | `Entity` | verstärken → `Cause` |
-| Landwirtschaft | `Entity` | verstärken → `Cause` |
-| verstärken | `Indicator` | — |
-| möglicherweise | `Uncertainty` | verstärken → `Constraint` |
-| weltweite | `Spatiality` | Artensterben → `Constraint` |
-| Artensterben | `Entity` | verstärken → `Effect` |
+:::: {}
 
-Key points illustrated here: coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel `Cause` relations; the attributive adjective *intensive* is extracted as a `Quality` coefficient (token minimization principle); the sentence adverb *möglicherweise* is linked to the indicator since it modifies the causal proposition.
+> [Klimawandel]{.entity} und [insbesondere]{.priority} [Landwirtschaft]{.entity} [verstärken]{.indicator} [möglicherweise]{.uncertainty} das [weltweite]{.spatiality} [Artensterben]{.entity}.
+
+> [Climate change]{.entity} and [especially]{.priority} [agriculture]{.entity} [possibly]{.uncertainty} [intensify]{.indicator} [global]{.spatiality} [species extinction]{.entity}.
+
+
+
+::::
+
+:::: {}
+
+Two coordinated entities (*Klimawandel und Landwirtschaft*) are annotated separately with parallel `Cause` relations.  
+<br>
+The adverb *insbesondere* 'especially' is scoped to *Landwirtschaft*, raising its salience as ``Priority``. The sentence adverb *möglicherweise* (`Uncertainty`) is parented to the indicator since it modifies the causal proposition.  
+<br>
+Lastly, the adjective *weltweit* is separately encoded as `Spatiality` coefficient – in accordance with the token minimization principle.
+
+::::
+
+:::
+
+
+```{mermaid}
+graph LR
+    A["*verstärken*"] -->|Cause| B["*Klimawandel*"]
+    A -->|Cause| C["*Landwirtschaft*"] -->|Priority| D["*insbesondere*"]
+    A -->|Uncertainty| E["*möglicherweise*"]
+    A -->|Effect| F["*Artensterben*"]
+    F -->|Spatiality| G["*weltweit*"]
+```
+
 
 ## Annotation Principles
 
@@ -94,45 +137,63 @@ Coefficients (other than `Representation`) are only annotated when they stand in
 
 Indicators are the lexical or syntactic markers that project causal relations and establish $(C, E, I)$ tuples. They fulfill two functions: projecting causal roles onto syntactic positions in their co-text, and encoding inherent information about polarity and salience.
 
-The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core (e.g. the [Ursache]{.smallcaps} family includes *verursachen*, *ist Ursache*, *Ursache sein*, *Teilursache sein*).
+The annotation corpus contains **642 distinct indicator forms**, grouped into **192 indicator families** by morphological and semantic criteria. A family subsumes all realizations of a shared lexical core. E.g. the [Ursache]{.smallcaps} family includes, among other:
+
+- *verursachen* 'cause'
+- *ist Ursache* 'is the cause', 
+- *Ursache sein* 'to be the cause'
+- *Teilursache sein* 'to be a partial cause'
 
 ### Top 10 Indicator Families
 
-| Family | Forms | Instances | | Family | Forms | Instances |
-|---|---|---|---|---|---|---|
-| [Ursache]{.smallcaps} | 21 | 167 | | [Beitrag]{.smallcaps} | 10 | 70 |
-| [Verantwortung]{.smallcaps} | 11 | 122 | | [Folge]{.smallcaps} | 6 | 69 |
-| [Stoppen]{.smallcaps} | 3 | 111 | | [Kampf]{.smallcaps} | 8 | 69 |
-| [Gegen]{.smallcaps} | 3 | 95 | | [Führen]{.smallcaps} | 9 | 59 |
-| [Durch]{.smallcaps} | 2 | 70 | | [Grund]{.smallcaps} | 7 | 57 |
+| Family                                                            | Forms | Instances |     | Family                | Forms | Instances |
+| ----------------------------------------------------------------- | ----- | --------- | --- | --------------------- | ----- | --------- |
+| [{{< g Ursache cause >}}]{.smallcaps} '[Cause]{.smallcaps}'       | 21    | 167       |     | [Beitrag]{.smallcaps} | 10    | 70        |
+| [Verantwortung]{.smallcaps}  <br>  '[Responsibility]{.smallcaps}' | 11    | 122       |     | [Folge]{.smallcaps}   | 6     | 69        |
+| [Stoppen]{.smallcaps}  <br>  '[Stop]{.smallcaps}'                 | 3     | 111       |     | [Kampf]{.smallcaps}   | 8     | 69        |
+| [Gegen]{.smallcaps}  <br>  '[Against]{.smallcaps}'                | 3     | 95        |     | [Führen]{.smallcaps}  | 9     | 59        |
+| [Durch]{.smallcaps}  <br> '[through]{.smallcaps}'                 | 2     | 70        |     | [Grund]{.smallcaps}   | 7     | 57        |
+
+### Orientation
+Some families are cause-oriented, others are effect-oriented. Compare:
+
+> *Emission$_C$ is a cause of pollution$_E$.*  
+> *Pollution$_E$ is an effect of emission$_C$.*
+
+Alignment affects projection – cause-oriented indicators project [Cause]{.smallcaps} on the subject influence, effect-oriented indicators do the same with [Effect]{.smallcaps}. Predicates (*is the cause*), 
+
+ as *Teilursache* 'partial cause' implies the existence of several causes – hence reducing it's salience. 'Teilwirkung' *partial effect*, on the other hand, implies a multitude of effects.  
 
 ### Polarity and Salience
 
-Each indicator family carries an inherent **polarity** (promoting `+` or inhibiting `−`) and a default **salience** class:
+Each indicator family carries a default **polarity** (promoting $+$ or inhibiting $-$) and a default **salience** class:
 
-| Family | Polarity | Default Salience | Discourse Function |
-|---|---|---|---|
-| [Ursache]{.smallcaps} | + | variable | Prototype; full salience spectrum |
-| [Verantwortung]{.smallcaps} | + | variable | Causal-moral attribution |
-| [Folge]{.smallcaps} | + | monocausal | Effect-centered perspective |
-| [Beitrag]{.smallcaps} | + | polycausal | Distributional attribution |
-| [Durch]{.smallcaps} | + | monocausal | Grammaticalized preposition |
-| [Stoppen]{.smallcaps} | − | monocausal | Intervention framing |
-| [Gegen]{.smallcaps} | − | monocausal | Variable condensation (*Kampf gegen*, *Protest gegen*) |
+| Family                                                  | Polarity | Default Salience | Discourse Function                                                    |
+| ------------------------------------------------------- | -------- | ---------------- | --------------------------------------------------------------------- |
+| [Ursache]{.smallcaps} <br> '[Cause]{.smallcaps}'        | $+$      | $[0.5-1]$        | Prototype; full salience spectrum                                     |
+| [Folge]{.smallcaps} <br> '[Consequence]{.smallcaps}'    | $+$      | $1$              | Effect-centered perspective                                           |
+| [Beitrag]{.smallcaps} <br> '[Contribution]{.smallcaps}' | $+$      | $[0.5-0.75]$     | Distributional attribution                                            |
+| [Durch]{.smallcaps} <br> '[Through]{.smallcaps}'        | $+$      | $1$              | Grammaticalized preposition                                           |
+| [Stoppen]{.smallcaps} <br> '[Stop]{.smallcaps}'         | $−$      | $1$              | Intervention framing                                                  |
+| [Gegen]{.smallcaps} <br> '[Against]{.smallcaps}'        | $−$      | $1$              | Variable condensation (*Kampf/Protest gegen* 'fight/protest against') |
+| [Reduzieren]{.smallcaps}  <br>  '[Reduce]{.smallcaps}'  | $−$      | $[0.5-0.75]$     | Prototypical polycausal negative                                      |
+| [Wirkung]{.smallcaps}  <br>  '[Effect]{.smallcaps}'     | $\pm$    | $[0-1]$          | Widest range                                                          |
+
+Positive, though *Gegenwirkung* 'counter-effect' = $-$, *wirkungslos* 'ineffective' = 0
 
 ### Syntactic Projection Patterns
 
-The syntactic realization of each indicator family determines how [Cause]{.smallcaps} and [Effect]{.smallcaps} roles are projected:
+The syntactic realization of each indicator determines how [Cause]{.smallcaps} and [Effect]{.smallcaps} roles are projected:
 
-| Family | Example | Cause Projection | Effect Projection |
-|---|---|---|---|
-| [Ursache]{.smallcaps} | *X ist Ursache für Y* | Subject | PP (*für*) |
-| [Folge]{.smallcaps} | *Y ist Folge von X* | PP (*von*) | Subject |
-| [Verursachen]{.smallcaps} | *X verursacht Y* | Subject | Accusative object |
-| [Beitragen]{.smallcaps} | *X trägt zu Y bei* | Subject | PP (*zu*) |
-| [Stoppen]{.smallcaps} | *X stoppt Y* | Subject | Accusative object |
-| [Durch]{.smallcaps} | *Y durch X* | PP complement | Head noun |
-| [Gegen]{.smallcaps} | *X gegen Y* | Subject/Agent | PP complement |
+| Family                                                    | Example                                          | Cause Projection     | Effect Projection     |
+| --------------------------------------------------------- | ------------------------------------------------ | -------------------- | --------------------- |
+| [Ursache]{.smallcaps} <br> '[Cause]{.smallcaps}'          | *X ist Ursache für Y*  <br> 'x is the cause of'  | Subject              | PP (*für*) <br> 'for' |
+| [Folge]{.smallcaps} <br> '[Consequence]{.smallcaps}'      | *Y ist Folge von X* <br> 'x is a consequence of' | PP (*von*) <br> 'of' | Subject               |
+| [Verursachen]{.smallcaps} <br> '[Cause]{.smallcaps}       | *X verursacht Y* <br> 'x causes y'               | Subject              | Accusative object     |
+| [Beitragen]{.smallcaps} <br> '[Contribution]{.smallcaps}' | *X trägt zu Y bei* <br> 'x contributes to y'     | Subject              | PP (*zu*) <br> 'to'   |
+| [Stoppen]{.smallcaps} <br> '[Stop]{.smallcaps}'           | *X stoppt Y* <br> 'x stops y'                    | Subject              | Accusative object     |
+| [Durch]{.smallcaps} <br> '[Through]{.smallcaps}'          | *Y durch X*  <br> 'x through y'                  | PP complement        | Head noun             |
+| [Gegen]{.smallcaps} <br> '[Against]{.smallcaps}'          | *X gegen Y* <br> 'x against y'                   | Subject              | PP complement         |
 
 ## Context Markers
 
@@ -140,13 +201,13 @@ Context markers modify and contextualize the causal relations projected by indic
 
 ### Division
 
-Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ("among other things"), *auch* ("also"), *ebenfalls* ("likewise"), and the composite *nicht nur* ("not only").
+Division markers signal polycausal structures with implicit co-causes. Typical realizations include *unter anderem* ('among other things'), *auch* ('also'), *ebenfalls* ('likewise'), and the composite *nicht nur* ('not only').
 
 Division markers reduce the salience to $|I| = 0.5$ regardless of the indicator's default.
 
 ### Priority
 
-Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ("mainly"), *maßgeblich* ("significantly"). They set $|I| = 0.75$ for the prioritized cause.
+Priority markers establish asymmetric weighting within polycausal sets: *vor allem* ("above all"), *hauptsächlich* ('mainly), *maßgeblich* ('significantly'). They set $|I| = 0.75$ for the prioritized cause.
 
 Both marker types affect only the salience ($|I|$), leaving polarity ($\pm$) unchanged.
 

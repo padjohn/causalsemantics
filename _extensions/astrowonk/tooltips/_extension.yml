@@ -5,4 +5,5 @@ quarto-required: ">=1.6.0"
 contributes:
   shortcodes:
     - tooltips.lua
-
+  filters:
+    - annotate.lua

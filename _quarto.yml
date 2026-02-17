@@ -8,10 +8,17 @@ editor:
 bibliography: references.bib
 csl: elsevier-vancouver.csl
 
+
+filters:
+  - tooltips
+  
 website:
   title: "$S_C$"
   description: "A framework for extracting and analyzing causal attributions"
-  
+  favicon: favicon_tight.png
+  search: 
+    location: navbar
+    type: overlay
   navbar:
     left:
       - text: "Home"
@@ -30,10 +37,10 @@ website:
         menu:
           - text: "Overview"
             file: extraction/extraction.qmd
-          - text: "C-BERT"
-            file: extraction/c-bert.qmd
           - text: "Annotation"
             file: extraction/annotation.qmd
+          - text: "C-BERT"
+            file: extraction/c-bert.qmd
       - text: "Processing"
         menu:
           - text: "Overview"
@@ -69,7 +76,7 @@ format:
   html:
     theme: 
       - darkly
-      - styles.css
+      - styles.scss
     toc: true
     toc-depth: 3
     code-fold: false

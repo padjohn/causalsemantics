@@ -13,12 +13,12 @@ Extracting causal relations from natural language requires at least two componen
   - e.g. *climate change*, *emission*, *poverty*, *war*
 
 
-Indicators can be classified as polar **positive** (e.g. *cause*) and **negative** (e.g. *prevent*) [@dunietz-etal-2017-because] [@rehbein2017]. Following [@wolff2005expressing], $S_C$ further distinguishes between **mono-** (e.g. *cause*) and **polycausal** (e.g *contribute*) relationships. Both dimensions can be modified by **contextual markers**:
+Indicators can be classified as polar **positive** (e.g. *cause*) and **negative** (e.g. *prevent*) [@dunietz-etal-2017-because] [@rehbein2017]. Following [@wolff2005expressing], $S_C$ further distinguishes between **mono-** (e.g. *prevent*) and **polycausal** (e.g *reduce*) relationships. Both dimensions can be modified by **contextual markers**:
 
 - Polarity: *death of*, *rise in*
 - Salience: *less so*, *especially*
 
-Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of their polarity and salience – and apply it in accordance with their syntactic scopes. 
+Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of polarity and salience – and apply those values to variable syntactic scopes. 
 
 ::: {.callout-note collapse="true"}
 ## Example
@@ -51,7 +51,7 @@ Transforming text into tuples can be achieved in a variety of manual or automati
 
 Both **rule-based** [@boegel2014] and **prompt-based** [@susanti2024] approaches have been applied to CRE, though neither incorporate salience nor polarity. As of today, a mixture of manual annotation and transformers [@rehbein2020] appear the most promising.
 
-The following sections provide an overview of this two-path structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset [@cbert].
+The following sections provide a brief overview of this **two-path** structure – combining the scalability and determinism of an encoder-only transformer with the interpretability of a manually annotated dataset.
 
 ### Annotation
 
@@ -69,9 +69,9 @@ C-BERT is a multi-task transformer built on EuroBERT-610m [@boizard2025euroberts
 
 ```{mermaid}
 graph LR
-    A[Text] --> B2[Spans]
-    B2 --> D[Pairs]
-    D --> E[Relations]
+    A[Text] --> B2[Span<br/>classification]
+    B2 --> D[Pair<br/>construction]
+    D --> E[Relation<br/>classification]
     E --> F["$$(C, E, I)\;$$"]
 ```
 

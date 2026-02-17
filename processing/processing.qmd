@@ -9,12 +9,12 @@ The processing module takes annotated causal relations — whether produced [man
 
 ```{mermaid}
 graph LR
-    A["Annotated Relations<br/>(indicators, entities, markers)"] --> B["Tuple Construction"]
-    B --> C["Individual<br/>(C, E, I) Tuples"]
+    A["Annotated<br/>Relations<br/>(indicators, entities, markers)"] --> B["Tuple<br/>Construction"]
+    B --> C["Individual<br/>(C, E, I)<br/>Tuples"]
     C --> D["Aggregation"]
-    D --> E["Normalized Causal<br/>Patterns"]
-    E --> F["Focus-Term Analysis"]
-    E --> G["ACG Networks"]
+    D --> E["Normalized<br/>Causal<br/>Patterns"]
+    E --> F["Focus-Term<br/>Analysis"]
+    E --> G["ACG<br/>Networks"]
 ```
 
 This transformation happens in two stages:
