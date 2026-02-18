@@ -5,7 +5,7 @@ subtitle: "Identifying causal relations in text"
 
 ## Components
 
-Extracting causal relations from natural language requires at least two components: 
+Extracting causal relations requires at least two components: 
 
 - **Indicators**: operators projecting causal roles
   - e.g. *cause*, *contribute*, *reduce*, *prevent*
@@ -18,7 +18,7 @@ Indicators can be classified as polar **positive** (e.g. *cause*) and **negative
 - Polarity: *death of*, *rise in*
 - Salience: *less so*, *especially*
 
-Hence, Causal Relation Extraction (CRE) has to identify these components – classify them in terms of polarity and salience – and apply those values to variable syntactic scopes. 
+Causal Relation Extraction (CRE) has to identify these components – classify them in terms of polarity and salience – and apply those values to variable syntactic scopes. 
 
 ::: {.callout-note collapse="true"}
 ## Example
@@ -67,14 +67,6 @@ The annotation guidelines serve as a reference for manual annotation. At the sam
 
 C-BERT is a multi-task transformer built on EuroBERT-610m [@boizard2025eurobertscalingmultilingualencoders]. It emulates manual annotation through span recognition and relation classification.
 
-```{mermaid}
-graph LR
-    A[Text] --> B2[Span<br/>classification]
-    B2 --> D[Pair<br/>construction]
-    D --> E[Relation<br/>classification]
-    E --> F["$$(C, E, I)\;$$"]
-```
-
 The pipeline proceeds in three steps:
 
 - **Span classification** predicts BIOES tags for each token.
@@ -87,6 +79,14 @@ The pipeline proceeds in three steps:
   - salience (MONO, DIST, PRIO) 
 
 The classified [INDICATOR, ENTITY] relationships are then algorithmically collapsed into $(C, E, I)$-tuples (see **[Tuple Construction](../processing/aggregation.qmd)**).
+
+```{mermaid}
+graph LR
+    A[Text] --> B2[Span<br/>classification]
+    B2 --> D[Pair<br/>construction]
+    D --> E[Relation<br/>classification]
+    E --> F["$$(C, E, I)\;$$"]
+```
 
 → **[C-BERT Model](c-bert.qmd)**: Architecture, training, results, known limitations, and usage instructions
 

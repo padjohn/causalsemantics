@@ -1,33 +1,57 @@
 /*-- scss:defaults --*/
 
 // Background and Text
-$body-bg: #101010;
+$body-bg: #161616;
 $body-color: rgb(227, 227, 227);
 
 // Primary and Accents
 $primary: hsl(212, 65%, 57%);
 $link-color: hsl(215, 52%, 62%);
-$navbar-bg: #131313;
+$navbar-bg: #141414;
+$monobackgroundcolor: #101010;
+$code-block-bg: #1a1919;
+$code-color: #ffffff;
 
 // Sidebar and Footer
-$sidebar-bg: #131313;
+// $sidebar-bg: #161616;
 $footer-bg: #131313;
+
+
+// $mermaid-bg-color: $body-bg;
+// $mermaid-node-fg-color: #101010;
+// $mermaid-fg-color: #101010;
+// $mermaid-node-bg-color: $body-bg;
+// $mermaid-node-fg-color: #101010;
 
 /*-- scss:rules --*/
 
-// This ensures the main Quarto containers use your dark background
-.quarto-container, 
-#quarto-content, 
-.sidebar, 
-footer {
-  background-color: $body-bg !important;
-  color: $body-color !important;
-}
+// :root {
+//   --mermaid-node-bg-color: #10101000;
+//   --mermaid-node-fg-color: #ffffff;
+//   --mermaid-fg-color: #ffffff;
+//   --mermaid-edgeLabel-color: #ffffff;
+//   --mermaid-edgeLabel-background-color: #000000;
+//   --mermaid-color: #101010;
+//   --mermaid-label-bg-color: #000000;
+//   --mermaid-label-fg-color: #ffffff;
+//   --mermaid-span-fg-color: #ffffff;
+//   --mermaid-span-color: #ffffff;
+//   --mermaid-label-text: #ffffff;
+// }
 
-// Top navbar
-.navbar {
-  background-color: $navbar-bg !important;
-}
+// This ensures the main Quarto containers use your dark background
+// .quarto-container, 
+// #quarto-content, 
+// .sidebar, 
+// footer {
+//   background-color: $body-bg;
+//   color: $body-color;
+// }
+
+// // Top navbar
+// .navbar {
+//   background-color: $navbar-bg;
+// }
 
 // Styling links to use your accent color
 a {
@@ -59,39 +83,39 @@ a {
 
 /* Dark Theme Colors: Using semi-transparent backgrounds for better blending */
 .entity      { border-color: rgb(96, 96, 96);}
-.indicator   { border-color: rgb(136, 136, 136);}
-.uncertainty { border-color: #595959;}
-.priority    { border-color: #5c5c5c;}
-.spatiality  { border-color: #494949;}
+.indicator   { border-color: rgb(96, 96, 96);}
+.uncertainty { border-color: rgb(96, 96, 96);}
+.priority    { border-color: rgb(96, 96, 96);}
+.spatiality  { border-color: rgb(96, 96, 96);}
 
 
 /* 1. Remove the gray box behind the text label */
-[id^="mermaid-"] .edgeLabel p,
-[id^="mermaid-"] .edgeLabel span,
-[id^="mermaid-"] .labelBkg {
-  background-color: #101010 !important;
-  padding: 0px 3px 0px 3px !important;
-  font-size: 12px !important;
-  // background: none !important;
-  color: #ffffff !important; /* Force white text */
-}
+// [id^="mermaid-"] .edgeLabel p,
+// [id^="mermaid-"] .edgeLabel span,
+// [id^="mermaid-"] .labelBkg {
+//   background-color: #101010 !important;
+//   padding: 0px 3px 0px 3px !important;
+//   font-size: 12px !important;
+//   // background: none !important;
+//   color: #ffffff !important; 
+// }
 
-/* 2. Remove the node boxes  */
-[id^="mermaid-"] .node rect,
-[id^="mermaid-"] .node polygon,
-[id^="mermaid-"] .node circle {
-  fill: #101010 !important;
-  stroke: #101010 !important;
-}
+// /* 2. Remove the node boxes  */
+// [id^="mermaid-"] .node rect,
+// [id^="mermaid-"] .node polygon,
+// [id^="mermaid-"] .node circle {
+//   fill: #101010;
+//   stroke: #101010;
+// }
 
-/* Force transparency on the shapes inside the SVG */
-.mermaid svg rect, 
-.mermaid svg polygon, 
-.mermaid svg circle, 
-.mermaid svg path.node {
-  fill: transparent !important;
-  stroke: transparent !important;
-}
+// /* Force transparency on the shapes inside the SVG */
+// .mermaid svg rect, 
+// .mermaid svg polygon, 
+// .mermaid svg circle, 
+// .mermaid svg path.node {
+//   fill: transparent !important;
+//   stroke: transparent !important;
+// }
 
 .gloss-link {
   color: inherit;

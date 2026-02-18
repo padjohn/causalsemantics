@@ -1,6 +1,7 @@
 ---
 title: "Framework"
 subtitle: "Conceptual foundations of Causal Semantics ($S_C$)"
+draft: true
 ---
 
 ## Logic, Language & Computation
@@ -195,8 +196,8 @@ graph TB
 Explore the framework in depth:
 
 <!-- 1. **[Understanding Tuples](tuples.qmd)**: Deep dive into $(C,E,I)$ representation -->
-2. **[Extraction Methods](../extraction/index.qmd)**: How to identify causal relations in text
-3. **[Processing Pipeline](../processing/index.qmd)**: From annotations to tuples to graphs
+2. **[Extraction Methods](../extraction/extraction.qmd)**: How to identify causal relations in text
+3. **[Processing Pipeline](../processing/processing.qmd)**: From annotations to tuples to graphs
 <!-- 4. **[ACG Analysis](../acg/index.qmd)**: Graph-based discourse analysis -->
 
 Or jump directly to:

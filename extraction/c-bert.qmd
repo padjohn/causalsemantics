@@ -4,14 +4,36 @@ subtitle: "Factorized causal relation extraction with a multi-task transformer"
 ---
 
 ## Overview
+::: {layout-ncol="2"}
 
-C-BERT [@cbert] is a multi-task transformer for extracting fine-grained causal relations as $(C, E, I)$ tuples from German text. Its key design choice is a **factorized architecture** that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label. 
+:::: {.column width="75%"}
 
-This factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.
+C-BERT [@cbert] is a multi-task transformer to extract fine-grained causal relations as $(C, E, I)$ tuples from text. It classifies **tokens** as entities and indicators using BIOES [@ramshaw-marcus-1995-text] tags, then classifies their **relationships**. 
 
-The model is built on EuroBERT-610m [@boizard2025eurobertscalingmultilingualencoders] with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).
+<br>
 
-::: {.callout-note}
+Each indicator → entity relation is described in terms of **role**, **polarity** and **salience** – either by a unified attention-head or three separate heads.
+
+
+
+::::
+
+:::: {.column width="25%"}
+
+```{mermaid}
+graph TB
+    Input["Token"] --> Encoder["Relations"]
+```
+
+::::
+
+:::
+
+The factorization is linguistically motivated: an entity's **role** depends on its syntactic position, its **polarity** on indicator class and negation, and its **salience** on determiners, coordination, and context markers. Each head can tend on its own type of signal.
+
+The German [models](https://huggingface.co/collections/pdjohn/causalbert) are built on the [EuroBERT](https://huggingface.co/collections/EuroBERT/eurobert) family [@boizard2025eurobertscalingmultilingualencoders], fine-tuned via LoRA [@hu2021loralowrankadaptationlarge], using newspaper articles and [plenary debates](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution) focused on biodiversity topics (see [Annotation](annotation.qmd)).
+
+::: {.callout-note collapse="true"}
 ## Resources
 
 - **Model weights**: [HuggingFace — pdjohn/C-EBERT-610m](https://huggingface.co/pdjohn/C-EBERT-610m)
@@ -241,5 +263,5 @@ The architecture version is stored in the model config and automatically detecte
 
 - For the annotation schema and guidelines that produced the training data, see [Annotation](annotation.qmd)
 - For how extracted tuples are transformed into formal $(C, E, I)$ values, see [Tuple Construction](../processing/tuple-construction.qmd)
-- For a high-level view of the extraction pipeline, see [Extraction Overview](index.qmd)
-- For the theoretical framework motivating polarity and salience, see [Framework](../framework/index.qmd)
+- For a high-level view of the extraction pipeline, see [Extraction Overview](extraction.qmd.qmd)
+- For the theoretical framework motivating polarity and salience, see [Framework](../framework/framework.qmd)

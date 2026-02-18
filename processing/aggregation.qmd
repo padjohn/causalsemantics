@@ -161,4 +161,4 @@ A key design principle is that aggregation is **compositional**: it takes the tu
 
 - For how individual tuples are computed from annotations, see [Tuple Construction](tuple-construction.qmd)
 - For the annotation schema that produces the inputs, see [Annotation Guidelines](../extraction/annotation.qmd)
-<!-- - For graph-level analysis using aggregated relations, see [ACG](../acg/index.qmd) -->
+<!-- - For graph-level analysis using aggregated relations, see [ACG](../acg/acg.qmd) -->

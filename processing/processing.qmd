@@ -48,4 +48,4 @@ Individual tuples are condensed into cumulative causal patterns through weighted
 - **[Tuple Construction](tuple-construction.qmd)** — the formal algorithm for computing $(C, E, I)$ values
 - **[Aggregation](aggregation.qmd)** — weighting, summation, and normalization across attestations
 - Back to **[Extraction](../extraction/extraction.qmd)** — how annotations are produced
-<!-- - Forward to **[ACG](../acg/index.qmd)** — graph-level analysis of aggregated relations -->
+<!-- - Forward to **[ACG](../acg/acg.qmd)** — graph-level analysis of aggregated relations -->

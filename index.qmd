@@ -68,7 +68,7 @@ graph LR
 
 1. **[Extraction](extraction/extraction.qmd)**: Identifying causal relations in text through indicators, annotation schemes, and the C-BERT transformer
 2. **[Processing](processing/processing.qmd)**: Converting annotations into formal $(C,E,I)$ tuples and aggregating them
-<!-- 3. **[ACG](acg/index.qmd)**: Constructing and analyzing Attributional Causal Graphs for discourse-level insights -->
+<!-- 3. **[ACG](acg/acg.qmd)**: Constructing and analyzing Attributional Causal Graphs for discourse-level insights -->
 
 <!-- ## Getting Started
 

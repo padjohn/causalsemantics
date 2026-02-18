@@ -13,26 +13,37 @@ filters:
   - tooltips
   
 website:
-  title: "$S_C$"
+  title: ""
   description: "A framework for extracting and analyzing causal attributions"
   favicon: favicon_tight.png
   search: 
     location: navbar
     type: overlay
+  sidebar:
+      - id: "extraction"
+        title: "Extraction"
+        contents: 
+          - section: "Extraction"
+            contents:
+              - extraction/extraction.qmd
+              - extraction/annotation.qmd
+              - extraction/c-bert.qmd
+              
+      - id: "processing"
+        title: "Processing"
+        contents:
+          - section: "Processing"
+            contents:
+              - processing/processing.qmd
+              - processing/tuple-construction.qmd
+              - processing/aggregation.qmd
   navbar:
+    logo: favicon_tight.png
     left:
       - text: "Home"
         file: index.qmd
       # - text: "Framework"
-      #   menu: 
-      #     - text: "Overview"
-      #       file: framework/framework.qmd
-      #     - text: "(C,E,I) Tuples"
-      #       file: framework/tuples.qmd
-      #     - text: "Polarity & Salience"
-      #       file: framework/dimensions.qmd
-      #     - text: "ACG Theory"
-      #       file: framework/acg-theory.qmd
+      #   file: framework/framework.qmd
       - text: "Extraction"
         menu:
           - text: "Overview"
@@ -50,23 +61,13 @@ website:
           - text: "Aggregation"
             file: processing/aggregation.qmd
       # - text: "ACG"
-      #   menu:
-      #     - text: "Overview"
-      #       file: acg/acg.qmd
-      #     - text: "Construction"
-      #       file: acg/construction.qmd
-      #     - text: "Visualization"
-      #       file: acg/visualization.qmd
+      #   file: acg/acg.qmd
       - text: "Resources"
         file: resources.qmd
     right:
       - icon: github
         href: https://github.com/padjohn/causalsemantics
         aria-label: GitHub
-
-  sidebar:
-    style: "floating"
-    
   page-footer:
     left: "Causal Semantics"
     right: 
@@ -85,13 +86,13 @@ format:
     highlight-style: github
     mermaid:
       theme: dark
-      config:
-        themeVariables:
-          edgeLabelBackground: "#101010"
-          lineColor: '#666'
-          nodeBorder: 'rgba(0,0,0,0)'
-          mainBkg: 'rgba(0,0,0,0)'
-          nodeBkg: 'rgba(0,0,0,0)'
+      # themeVariables:
+        # primaryColor: '#BB2528'
+        # primaryTextColor: '#fff'
+        # primaryBorderColor: '#7C0000'
+        # lineColor: '#F8B229'
+        # secondaryColor: '#006100'
+        # tertiaryColor: '#fff'
     
 execute:
   freeze: auto
