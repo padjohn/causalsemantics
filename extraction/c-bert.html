@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>C-BERT – S_C</title>
+<title>C-BERT</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -96,7 +96,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-374f9c044f5841db38013488b7397e71.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-12020395554558e0be7726d6223b1409.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -181,8 +181,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title"><span class="math inline">S_C</span></span>
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../favicon_tight.png" alt="" class="navbar-logo light-content">
+    <img src="../favicon_tight.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -255,7 +256,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">C-BERT</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extraction/extraction.html">Extraction</a></li><li class="breadcrumb-item"><a href="../extraction/c-bert.html">C-BERT</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -265,6 +266,39 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extraction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extraction/extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extraction Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extraction/annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation Guidelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extraction/c-bert.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">C-BERT</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -308,7 +342,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extraction/extraction.html">Extraction</a></li><li class="breadcrumb-item"><a href="../extraction/c-bert.html">C-BERT</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">C-BERT</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 <p class="subtitle lead">Factorized causal relation extraction with a multi-task transformer</p>
@@ -330,18 +364,43 @@ window.Quarto = {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>C-BERT <span class="citation" data-cites="cbert">[<a href="#ref-cbert" role="doc-biblioref">1</a>]</span> is a multi-task transformer for extracting fine-grained causal relations as <span class="math inline">(C, E, I)</span> tuples from German text. Its key design choice is a <strong>factorized architecture</strong> that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label.</p>
-<p>This factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.</p>
-<p>The model is built on EuroBERT-610m <span class="citation" data-cites="boizard2025eurobertscalingmultilingualencoders">[<a href="#ref-boizard2025eurobertscalingmultilingualencoders" role="doc-biblioref">2</a>]</span> with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="column quarto-layout-cell" style="flex-basis: 75.0%;justify-content: flex-start;">
+<p>C-BERT <span class="citation" data-cites="cbert">[<a href="#ref-cbert" role="doc-biblioref">1</a>]</span> is a multi-task transformer to extract fine-grained causal relations as <span class="math inline">(C, E, I)</span> tuples from text. It classifies <strong>tokens</strong> as entities and indicators using BIOES <span class="citation" data-cites="ramshaw-marcus-1995-text">[<a href="#ref-ramshaw-marcus-1995-text" role="doc-biblioref">2</a>]</span> tags, then classifies their <strong>relationships</strong>.</p>
+<p><br></p>
+<p>Each indicator → entity relation is described in terms of <strong>role</strong>, <strong>polarity</strong> and <strong>salience</strong> – either by a unified attention-head or three separate heads.</p>
+</div>
+<div class="column quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
+    Input["Token"] --&gt; Encoder["Relations"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The factorization is linguistically motivated: an entity’s <strong>role</strong> depends on its syntactic position, its <strong>polarity</strong> on indicator class and negation, and its <strong>salience</strong> on determiners, coordination, and context markers. Each head can tend on its own type of signal.</p>
+<p>The German <a href="https://huggingface.co/collections/pdjohn/causalbert">models</a> are built on the <a href="https://huggingface.co/collections/EuroBERT/eurobert">EuroBERT</a> family <span class="citation" data-cites="boizard2025eurobertscalingmultilingualencoders">[<a href="#ref-boizard2025eurobertscalingmultilingualencoders" role="doc-biblioref">3</a>]</span>, fine-tuned via LoRA <span class="citation" data-cites="hu2021loralowrankadaptationlarge">[<a href="#ref-hu2021loralowrankadaptationlarge" role="doc-biblioref">4</a>]</span>, using newspaper articles and <a href="https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution">plenary debates</a> focused on biodiversity topics (see <a href="../extraction/annotation.html">Annotation</a>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Resources
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Model weights</strong>: <a href="https://huggingface.co/pdjohn/C-EBERT-610m">HuggingFace — pdjohn/C-EBERT-610m</a></li>
@@ -350,6 +409,7 @@ window.Quarto = {
 <li><strong>Paper</strong>: Johnson (2025), <em>C-BERT: Factorized Causal Relation Extraction</em></li>
 <li><strong>Annotation guidelines</strong>: <a href="../extraction/annotation.html">Annotation</a></li>
 </ul>
+</div>
 </div>
 </div>
 </section>
@@ -735,8 +795,8 @@ window.Quarto = {
 <ul>
 <li>For the annotation schema and guidelines that produced the training data, see <a href="../extraction/annotation.html">Annotation</a></li>
 <li>For how extracted tuples are transformed into formal <span class="math inline">(C, E, I)</span> values, see <a href="../processing/tuple-construction.html">Tuple Construction</a></li>
-<li>For a high-level view of the extraction pipeline, see <a href="index.qmd">Extraction Overview</a></li>
-<li>For the theoretical framework motivating polarity and salience, see <a href="../framework/index.qmd">Framework</a></li>
+<li>For a high-level view of the extraction pipeline, see <a href="extraction.qmd.qmd">Extraction Overview</a></li>
+<li>For the theoretical framework motivating polarity and salience, see Framework</li>
 </ul>
 
 
@@ -749,8 +809,14 @@ window.Quarto = {
 <div id="ref-cbert" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">Johnson P. C-BERT: Factorized causal relation extraction 2025. <a href="https://doi.org/10.26083/tuda-7797">https://doi.org/10.26083/tuda-7797</a>.</div>
 </div>
+<div id="ref-ramshaw-marcus-1995-text" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Ramshaw L, Marcus M. <a href="https://aclanthology.org/W95-0107/">Text chunking using transformation-based learning</a>. Third workshop on very large corpora, 1995.</div>
+</div>
 <div id="ref-boizard2025eurobertscalingmultilingualencoders" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Boizard N, Gisserot-Boukhlef H, Alves DM, Martins A, Hammal A, Corro C, et al. <a href="https://arxiv.org/abs/2503.05500">EuroBERT: Scaling multilingual encoders for european languages</a> 2025.</div>
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Boizard N, Gisserot-Boukhlef H, Alves DM, Martins A, Hammal A, Corro C, et al. <a href="https://arxiv.org/abs/2503.05500">EuroBERT: Scaling multilingual encoders for european languages</a> 2025.</div>
+</div>
+<div id="ref-hu2021loralowrankadaptationlarge" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Hu EJ, Shen Y, Wallis P, Allen-Zhu Z, Li Y, Wang S, et al. <a href="https://arxiv.org/abs/2106.09685">LoRA: Low-rank adaptation of large language models</a> 2021.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1210,245 +1276,267 @@ window.Quarto = {
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>C-BERT <span class="co">[</span><span class="ot">@cbert</span><span class="co">]</span> is a multi-task transformer for extracting fine-grained causal relations as $(C, E, I)$ tuples from German text. Its key design choice is a **factorized architecture** that decomposes causal influence into three parallel classification heads — role, polarity, and salience — rather than predicting a flat 14-class label. </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>This factorization is linguistically motivated: role depends on syntactic position, polarity on indicator class and negation, and salience on determiners, coordination, and context markers. Each head specializes on its own signal type.</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>The model is built on EuroBERT-610m <span class="co">[</span><span class="ot">@boizard2025eurobertscalingmultilingualencoders</span><span class="co">]</span> with LoRA fine-tuning and jointly performs span recognition (identifying indicators and entities in text) and relation classification (determining how those spans relate causally).</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>::: {layout-ncol="2"}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>:::: {.column width="75%"}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>C-BERT <span class="co">[</span><span class="ot">@cbert</span><span class="co">]</span> is a multi-task transformer to extract fine-grained causal relations as $(C, E, I)$ tuples from text. It classifies **tokens** as entities and indicators using BIOES [@ramshaw-marcus-1995-text] tags, then classifies their **relationships**. </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Each indicator → entity relation is described in terms of **role**, **polarity** and **salience** – either by a unified attention-head or three separate heads.</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Model weights**: <span class="co">[</span><span class="ot">HuggingFace — pdjohn/C-EBERT-610m</span><span class="co">](https://huggingface.co/pdjohn/C-EBERT-610m)</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Code**: <span class="co">[</span><span class="ot">GitHub — padjohn/cbert</span><span class="co">](https://github.com/padjohn/cbert)</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data subset**: <span class="co">[</span><span class="ot">HuggingFace — pdjohn/bundestag-causal-attribution</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span> (487 relations from German parliamentary debates)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Paper**: Johnson (2025), *C-BERT: Factorized Causal Relation Extraction*</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Annotation guidelines**: <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Architecture</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>C-BERT performs two tasks on a shared encoder:</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>graph TB</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    Input[<span class="ot">"</span><span class="st">Input Sentence</span><span class="ot">"</span>] --&gt; Encoder[<span class="ot">"</span><span class="st">EuroBERT-610m + LoRA</span><span class="ot">"</span>]</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>:::: {.column width="25%"}</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>graph TB</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    Input[<span class="ot">"</span><span class="st">Token</span><span class="ot">"</span>] --&gt; Encoder[<span class="ot">"</span><span class="st">Relations</span><span class="ot">"</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    Encoder --&gt; T1[<span class="ot">"</span><span class="st">Task 1: Span Recognition</span><span class="ot">"</span>]</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    Encoder --&gt; T2[<span class="ot">"</span><span class="st">Task 2: Relation Classification</span><span class="ot">"</span>]</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    T1 --&gt; BIOES[<span class="ot">"</span><span class="st">BIOES Tags&lt;br/&gt;(INDICATOR, ENTITY)</span><span class="ot">"</span>]</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Role[<span class="ot">"</span><span class="st">Role Head&lt;br/&gt;(CAUSE, EFFECT, NO_RELATION)</span><span class="ot">"</span>]</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Pol[<span class="ot">"</span><span class="st">Polarity Head&lt;br/&gt;(POS, NEG)</span><span class="ot">"</span>]</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Sal[<span class="ot">"</span><span class="st">Salience Head&lt;br/&gt;(MONO, PRIO, DIST)</span><span class="ot">"</span>]</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    BIOES --&gt; Pipeline[<span class="ot">"</span><span class="st">Tuple Construction</span><span class="ot">"</span>]</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    Role --&gt; Pipeline</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    Pol --&gt; Pipeline</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    Sal --&gt; Pipeline</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    Pipeline --&gt; Tuples[<span class="ot">"</span><span class="st">(C, E, I) Tuples</span><span class="ot">"</span>]</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>The factorization is linguistically motivated: an entity's **role** depends on its syntactic position, its **polarity** on indicator class and negation, and its **salience** on determiners, coordination, and context markers. Each head can tend on its own type of signal.</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>The German <span class="co">[</span><span class="ot">models</span><span class="co">](https://huggingface.co/collections/pdjohn/causalbert)</span> are built on the <span class="co">[</span><span class="ot">EuroBERT</span><span class="co">](https://huggingface.co/collections/EuroBERT/eurobert)</span> family <span class="co">[</span><span class="ot">@boizard2025eurobertscalingmultilingualencoders</span><span class="co">]</span>, fine-tuned via LoRA <span class="co">[</span><span class="ot">@hu2021loralowrankadaptationlarge</span><span class="co">]</span>, using newspaper articles and <span class="co">[</span><span class="ot">plenary debates</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span> focused on biodiversity topics (see <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span>).</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Model weights**: <span class="co">[</span><span class="ot">HuggingFace — pdjohn/C-EBERT-610m</span><span class="co">](https://huggingface.co/pdjohn/C-EBERT-610m)</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Code**: <span class="co">[</span><span class="ot">GitHub — padjohn/cbert</span><span class="co">](https://github.com/padjohn/cbert)</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data subset**: <span class="co">[</span><span class="ot">HuggingFace — pdjohn/bundestag-causal-attribution</span><span class="co">](https://huggingface.co/datasets/pdjohn/bundestag-causal-attribution)</span> (487 relations from German parliamentary debates)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Paper**: Johnson (2025), *C-BERT: Factorized Causal Relation Extraction*</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Annotation guidelines**: <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Architecture</span></span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task 1: Span Recognition</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>C-BERT performs two tasks on a shared encoder:</span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>A token classification head assigns BIOES tags to identify causal indicators and entities in the input sentence:</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tag <span class="pp">|</span> Meaning <span class="pp">|</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`B-INDICATOR`</span> <span class="pp">|</span> Beginning of a causal indicator span <span class="pp">|</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`I-INDICATOR`</span> <span class="pp">|</span> Inside a causal indicator span <span class="pp">|</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E-INDICATOR`</span> <span class="pp">|</span> End of a causal indicator span <span class="pp">|</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`S-INDICATOR`</span> <span class="pp">|</span> Single-token indicator <span class="pp">|</span></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`B-ENTITY`</span> <span class="pp">|</span> Beginning of a causal entity span <span class="pp">|</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`I-ENTITY`</span> / <span class="in">`E-ENTITY`</span> / <span class="in">`S-ENTITY`</span> <span class="pp">|</span> (analogous) <span class="pp">|</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`O`</span> <span class="pp">|</span> Outside any causal span <span class="pp">|</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task 2: Relation Classification</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>For each (indicator, entity) pair extracted from Task 1, the relation head determines the causal relationship. The input is formatted as:</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="in">[indicator] &lt;|parallel_sep|&gt; [entity] &lt;|parallel_sep|&gt; [sentence]</span></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>The CLS representation passes through **three parallel heads**:</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>graph TB</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    Input[<span class="ot">"</span><span class="st">Input Sentence</span><span class="ot">"</span>] --&gt; Encoder[<span class="ot">"</span><span class="st">EuroBERT-610m + LoRA</span><span class="ot">"</span>]</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    Encoder --&gt; T1[<span class="ot">"</span><span class="st">Task 1: Span Recognition</span><span class="ot">"</span>]</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    Encoder --&gt; T2[<span class="ot">"</span><span class="st">Task 2: Relation Classification</span><span class="ot">"</span>]</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    T1 --&gt; BIOES[<span class="ot">"</span><span class="st">BIOES Tags&lt;br/&gt;(INDICATOR, ENTITY)</span><span class="ot">"</span>]</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Role[<span class="ot">"</span><span class="st">Role Head&lt;br/&gt;(CAUSE, EFFECT, NO_RELATION)</span><span class="ot">"</span>]</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Pol[<span class="ot">"</span><span class="st">Polarity Head&lt;br/&gt;(POS, NEG)</span><span class="ot">"</span>]</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    T2 --&gt; Sal[<span class="ot">"</span><span class="st">Salience Head&lt;br/&gt;(MONO, PRIO, DIST)</span><span class="ot">"</span>]</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    BIOES --&gt; Pipeline[<span class="ot">"</span><span class="st">Tuple Construction</span><span class="ot">"</span>]</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    Role --&gt; Pipeline</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    Pol --&gt; Pipeline</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    Sal --&gt; Pipeline</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    Pipeline --&gt; Tuples[<span class="ot">"</span><span class="st">(C, E, I) Tuples</span><span class="ot">"</span>]</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>**Role** (3-class) determines whether the entity is a <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}, <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps}, or unrelated to the indicator. This depends primarily on syntactic position and indicator projection patterns.</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task 1: Span Recognition</span></span>
 <span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>**Polarity** (2-class, masked for <span class="in">`NO_RELATION`</span>) determines whether the causal influence is promoting (<span class="in">`POS`</span>) or inhibiting (<span class="in">`NEG`</span>). This is driven by indicator lexical class and negation context.</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>A token classification head assigns BIOES tags to identify causal indicators and entities in the input sentence:</span>
 <span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>**Salience** (3-class, masked for <span class="in">`NO_RELATION`</span>, applied to <span class="in">`CAUSE`</span> only) determines causal strength:</span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Class <span class="pp">|</span> $<span class="pp">|</span>I<span class="pp">|</span>$ <span class="pp">|</span> Meaning <span class="pp">|</span></span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`MONO`</span> <span class="pp">|</span> 1.0 <span class="pp">|</span> Monocausal — sole or primary cause <span class="pp">|</span></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`PRIO`</span> <span class="pp">|</span> 0.75 <span class="pp">|</span> Prioritized — highlighted among multiple factors <span class="pp">|</span></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DIST`</span> <span class="pp">|</span> 0.5 <span class="pp">|</span> Distributed — one of several contributing factors <span class="pp">|</span></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>Effect entities inherit salience from their associated indicator–cause relation. The final influence value is reconstructed as $I = \text{sign}(\text{polarity}) \times s_{\text{salience}}$, or $0$ for <span class="in">`NO_RELATION`</span>.</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tag <span class="pp">|</span> Meaning <span class="pp">|</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`B-INDICATOR`</span> <span class="pp">|</span> Beginning of a causal indicator span <span class="pp">|</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`I-INDICATOR`</span> <span class="pp">|</span> Inside a causal indicator span <span class="pp">|</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E-INDICATOR`</span> <span class="pp">|</span> End of a causal indicator span <span class="pp">|</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`S-INDICATOR`</span> <span class="pp">|</span> Single-token indicator <span class="pp">|</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`B-ENTITY`</span> <span class="pp">|</span> Beginning of a causal entity span <span class="pp">|</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`I-ENTITY`</span> / <span class="in">`E-ENTITY`</span> / <span class="in">`S-ENTITY`</span> <span class="pp">|</span> (analogous) <span class="pp">|</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`O`</span> <span class="pp">|</span> Outside any causal span <span class="pp">|</span></span>
 <span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why Factorize?</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task 2: Relation Classification</span></span>
 <span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>The full combinatorial label space has 14 classes: $<span class="sc">\{</span>$MONO, PRIO, DIST$<span class="sc">\}</span> \times <span class="sc">\{</span>$POS, NEG$<span class="sc">\}</span> \times <span class="sc">\{</span>$CAUSE, EFFECT$<span class="sc">\}</span>$ = 12, plus NO_RELATION and INTERDEPENDENCY. Flat classification over this space suffers from class sparsity (several classes have fewer than 10 training instances) and conflates signals governed by different linguistic cues.</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>For each (indicator, entity) pair extracted from Task 1, the relation head determines the causal relationship. The input is formatted as:</span>
 <span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>Factorization addresses both problems. It reduces per-head complexity (3-class and 2-class instead of 14-class), eliminates class sparsity within each head, and allows each head to learn from its own loss signal. In practice, the factorized model consistently outperforms unified classification across all random seeds tested.</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>Two intermediate architectures were explored and abandoned during development. A role + influence regression head ($\tanh \to <span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$) could not jointly learn sign and magnitude, causing outputs to cluster near zero when negation markers were present. A discrete role/polarity + continuous salience variant defaulted to safe intermediate values (~0.85) rather than learning the categorical distinction between MONO, PRIO, and DIST. Both failures motivated the fully discretized three-head design.</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="in">[indicator] &lt;|parallel_sep|&gt; [entity] &lt;|parallel_sep|&gt; [sentence]</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Training</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data</span></span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>The model is trained on 2,391 manually annotated causal relations from German environmental discourse (1990–2022), covering four focal terms: *Waldsterben* (forest dieback), *Artensterben* (species extinction), *Bienensterben* (bee death), and *Insektensterben* (insect death). See <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span> for the full annotation schema and guidelines.</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>The data is split 80/20 at the sentence level (3,802 train / 951 test sentences), with data augmentation (entity replacement) doubling the relation training instances to 7,604. The split is performed *before* augmentation to prevent leakage.</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negation-Aware Target Construction</span></span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>A critical preprocessing step separates three distinct negation signals that would otherwise cause the model to learn spurious correlations:</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Indicator base polarity** — looked up from the indicator family taxonomy (e.g. *verursachen* → `+`, *stoppen* → <span class="in">`−`</span>)</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Propositional negation** — particles like *nicht*, *kein* that neutralize the entire relation (these are dropped from training as they are too sparse for the model to learn reliably)</span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Object negation** — negation nominals like *Verlust*, *Rückgang* in entity spans that invert polarity compositionally: $\text{polarity}_{\text{final}} = \text{base} \times (-1)^{\text{neg count}}$</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hyperparameters</span></span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parameter <span class="pp">|</span> Value <span class="pp">|</span></span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Base model <span class="pp">|</span> EuroBERT-610m <span class="pp">|</span></span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LoRA rank / alpha / dropout <span class="pp">|</span> 16 / 32 / 0.05 <span class="pp">|</span></span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Learning rate <span class="pp">|</span> $3 \times 10^{-4}$ (cosine schedule) <span class="pp">|</span></span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Warmup ratio <span class="pp">|</span> 0.05 <span class="pp">|</span></span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Epochs <span class="pp">|</span> 7 <span class="pp">|</span></span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Batch size <span class="pp">|</span> 32 <span class="pp">|</span></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Loss weights ($\lambda_p$, $\lambda_s$) <span class="pp">|</span> 1.0, 1.0 <span class="pp">|</span></span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Augmentation <span class="pp">|</span> Mode 2 (original + augmented) <span class="pp">|</span></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>The total loss is: $\mathcal{L} = \mathcal{L}_{\text{role}} + \lambda_p \mathcal{L}_{\text{polarity}} + \lambda_s \mathcal{L}_{\text{salience}}$, where all three terms use weighted cross-entropy with inverse-frequency class weights. Polarity and salience losses are masked for <span class="in">`NO_RELATION`</span> samples.</span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>The CLS representation passes through **three parallel heads**:</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>**Role** (3-class) determines whether the entity is a <span class="co">[</span><span class="ot">Cause</span><span class="co">]</span>{.smallcaps}, <span class="co">[</span><span class="ot">Effect</span><span class="co">]</span>{.smallcaps}, or unrelated to the indicator. This depends primarily on syntactic position and indicator projection patterns.</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>**Polarity** (2-class, masked for <span class="in">`NO_RELATION`</span>) determines whether the causal influence is promoting (<span class="in">`POS`</span>) or inhibiting (<span class="in">`NEG`</span>). This is driven by indicator lexical class and negation context.</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>**Salience** (3-class, masked for <span class="in">`NO_RELATION`</span>, applied to <span class="in">`CAUSE`</span> only) determines causal strength:</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Class <span class="pp">|</span> $<span class="pp">|</span>I<span class="pp">|</span>$ <span class="pp">|</span> Meaning <span class="pp">|</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`MONO`</span> <span class="pp">|</span> 1.0 <span class="pp">|</span> Monocausal — sole or primary cause <span class="pp">|</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`PRIO`</span> <span class="pp">|</span> 0.75 <span class="pp">|</span> Prioritized — highlighted among multiple factors <span class="pp">|</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DIST`</span> <span class="pp">|</span> 0.5 <span class="pp">|</span> Distributed — one of several contributing factors <span class="pp">|</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>Effect entities inherit salience from their associated indicator–cause relation. The final influence value is reconstructed as $I = \text{sign}(\text{polarity}) \times s_{\text{salience}}$, or $0$ for <span class="in">`NO_RELATION`</span>.</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why Factorize?</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>The full combinatorial label space has 14 classes: $<span class="sc">\{</span>$MONO, PRIO, DIST$<span class="sc">\}</span> \times <span class="sc">\{</span>$POS, NEG$<span class="sc">\}</span> \times <span class="sc">\{</span>$CAUSE, EFFECT$<span class="sc">\}</span>$ = 12, plus NO_RELATION and INTERDEPENDENCY. Flat classification over this space suffers from class sparsity (several classes have fewer than 10 training instances) and conflates signals governed by different linguistic cues.</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>Factorization addresses both problems. It reduces per-head complexity (3-class and 2-class instead of 14-class), eliminates class sparsity within each head, and allows each head to learn from its own loss signal. In practice, the factorized model consistently outperforms unified classification across all random seeds tested.</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>Two intermediate architectures were explored and abandoned during development. A role + influence regression head ($\tanh \to <span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$) could not jointly learn sign and magnitude, causing outputs to cluster near zero when negation markers were present. A discrete role/polarity + continuous salience variant defaulted to safe intermediate values (~0.85) rather than learning the categorical distinction between MONO, PRIO, and DIST. Both failures motivated the fully discretized three-head design.</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Training</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>The model is trained on 2,391 manually annotated causal relations from German environmental discourse (1990–2022), covering four focal terms: *Waldsterben* (forest dieback), *Artensterben* (species extinction), *Bienensterben* (bee death), and *Insektensterben* (insect death). See <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span> for the full annotation schema and guidelines.</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>The data is split 80/20 at the sentence level (3,802 train / 951 test sentences), with data augmentation (entity replacement) doubling the relation training instances to 7,604. The split is performed *before* augmentation to prevent leakage.</span>
 <span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negation-Aware Target Construction</span></span>
 <span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flagship Comparison (seed 456)</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>A critical preprocessing step separates three distinct negation signals that would otherwise cause the model to learn spurious correlations:</span>
 <span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Metric <span class="pp">|</span> Unified (v2) <span class="pp">|</span> Factorized (v3) <span class="pp">|</span> Δ <span class="pp">|</span></span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Role Accuracy <span class="pp">|</span> — <span class="pp">|</span> 88.7 <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Polarity Accuracy <span class="pp">|</span> — <span class="pp">|</span> 92.0 <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Salience Accuracy <span class="pp">|</span> — <span class="pp">|</span> 92.4 <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reconstructed 14-class Accuracy <span class="pp">|</span> 75.3 <span class="pp">|</span> **76.9** <span class="pp">|</span> +1.6 <span class="pp">|</span></span>
-<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reconstructed 14-class F1 <span class="pp">|</span> 61.9 <span class="pp">|</span> **62.2** <span class="pp">|</span> +0.3 <span class="pp">|</span></span>
-<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Total errors <span class="pp">|</span> 248 <span class="pp">|</span> **234** <span class="pp">|</span> −14 <span class="pp">|</span></span>
-<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Multi-head errors (% of total) <span class="pp">|</span> 22.6% <span class="pp">|</span> **16.2%** <span class="pp">|</span> −6.4 <span class="pp">|</span></span>
-<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entity F1 (strict span match) <span class="pp">|</span> 0.691 <span class="pp">|</span> **0.765** <span class="pp">|</span> +0.074 <span class="pp">|</span></span>
-<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Indicator F1 (strict span match) <span class="pp">|</span> 0.649 <span class="pp">|</span> **0.768** <span class="pp">|</span> +0.119 <span class="pp">|</span></span>
-<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>The factorized model produces fewer total errors and, critically, a qualitatively different error profile: it reduces multi-head error cascades (where role, polarity, and salience are all wrong simultaneously) from 22.6% to 16.2% of errors, concentrating failures in single, interpretable subtasks.</span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>An unexpected finding is that factorization substantially improves span detection despite both architectures sharing the same token classification head — suggesting that the factorized relation loss provides gradient signals more compatible with the span detection objective.</span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-Seed Robustness</span></span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>Across five random seeds, the factorized model consistently outperforms the unified model:</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Indicator base polarity** — looked up from the indicator family taxonomy (e.g. *verursachen* → `+`, *stoppen* → <span class="in">`−`</span>)</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Propositional negation** — particles like *nicht*, *kein* that neutralize the entire relation (these are dropped from training as they are too sparse for the model to learn reliably)</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Object negation** — negation nominals like *Verlust*, *Rückgang* in entity spans that invert polarity compositionally: $\text{polarity}_{\text{final}} = \text{base} \times (-1)^{\text{neg count}}$</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hyperparameters</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parameter <span class="pp">|</span> Value <span class="pp">|</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Base model <span class="pp">|</span> EuroBERT-610m <span class="pp">|</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LoRA rank / alpha / dropout <span class="pp">|</span> 16 / 32 / 0.05 <span class="pp">|</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Learning rate <span class="pp">|</span> $3 \times 10^{-4}$ (cosine schedule) <span class="pp">|</span></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Warmup ratio <span class="pp">|</span> 0.05 <span class="pp">|</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Epochs <span class="pp">|</span> 7 <span class="pp">|</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Batch size <span class="pp">|</span> 32 <span class="pp">|</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Loss weights ($\lambda_p$, $\lambda_s$) <span class="pp">|</span> 1.0, 1.0 <span class="pp">|</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Augmentation <span class="pp">|</span> Mode 2 (original + augmented) <span class="pp">|</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>The total loss is: $\mathcal{L} = \mathcal{L}_{\text{role}} + \lambda_p \mathcal{L}_{\text{polarity}} + \lambda_s \mathcal{L}_{\text{salience}}$, where all three terms use weighted cross-entropy with inverse-frequency class weights. Polarity and salience losses are masked for <span class="in">`NO_RELATION`</span> samples.</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> Unified (v2) <span class="pp">|</span> Factorized (v3) <span class="pp">|</span></span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mean accuracy <span class="pp">|</span> $0.744 \pm 0.007$ <span class="pp">|</span> $\mathbf{0.768 \pm 0.009}$ <span class="pp">|</span></span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Best seed <span class="pp">|</span> 0.753 <span class="pp">|</span> **0.781** <span class="pp">|</span></span>
-<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worst seed <span class="pp">|</span> 0.733 <span class="pp">|</span> 0.760 <span class="pp">|</span></span>
-<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>The factorized model outperforms the unified model on all five seeds tested. Ablation confirms this is a structural advantage — scaling the unified model's loss to match the factorized model's gradient budget does not close the gap.</span>
-<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### What the Model Gets Right</span></span>
-<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>**Object negation without explicit span detection.** The model correctly inverts polarity from object negation nominals (e.g. *Verlust*, *Vernichtung*) even when these are not detected as separate spans — the relation head has learned to attend to negation context in the sentence.</span>
-<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>**Passive and non-canonical word order.** In *Insektensterben wird durch Pestizide verursacht* ("insect death is caused by pesticides"), the model correctly assigns roles semantically rather than positionally: *Insektensterben* (syntactic subject) → EFFECT, *Pestizide* (syntactic oblique) → CAUSE.</span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>**Explicit coordination.** In *Pestizide und Klimawandel verursachen Insektensterben*, both causes correctly receive MONO salience. This is by design: both are explicitly named, and salience reduction to DIST/PRIO is reserved for *implicit* co-causes. Normalization happens downstream during graph aggregation.</span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flagship Comparison (seed 456)</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Metric <span class="pp">|</span> Unified (v2) <span class="pp">|</span> Factorized (v3) <span class="pp">|</span> Δ <span class="pp">|</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Role Accuracy <span class="pp">|</span> — <span class="pp">|</span> 88.7 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Polarity Accuracy <span class="pp">|</span> — <span class="pp">|</span> 92.0 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Salience Accuracy <span class="pp">|</span> — <span class="pp">|</span> 92.4 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reconstructed 14-class Accuracy <span class="pp">|</span> 75.3 <span class="pp">|</span> **76.9** <span class="pp">|</span> +1.6 <span class="pp">|</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reconstructed 14-class F1 <span class="pp">|</span> 61.9 <span class="pp">|</span> **62.2** <span class="pp">|</span> +0.3 <span class="pp">|</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Total errors <span class="pp">|</span> 248 <span class="pp">|</span> **234** <span class="pp">|</span> −14 <span class="pp">|</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Multi-head errors (% of total) <span class="pp">|</span> 22.6% <span class="pp">|</span> **16.2%** <span class="pp">|</span> −6.4 <span class="pp">|</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entity F1 (strict span match) <span class="pp">|</span> 0.691 <span class="pp">|</span> **0.765** <span class="pp">|</span> +0.074 <span class="pp">|</span></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Indicator F1 (strict span match) <span class="pp">|</span> 0.649 <span class="pp">|</span> **0.768** <span class="pp">|</span> +0.119 <span class="pp">|</span></span>
 <span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Known Limitations</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>The factorized model produces fewer total errors and, critically, a qualitatively different error profile: it reduces multi-head error cascades (where role, polarity, and salience are all wrong simultaneously) from 22.6% to 16.2% of errors, concentrating failures in single, interpretable subtasks.</span>
 <span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>**Context-based salience detection.** The model reliably detects salience when it is lexicalized in indicator compounds (*Hauptursache* → PRIO, *mitverantwortlich* → DIST) but struggles when salience is projected by context markers alone: separated verbs (*tragen…bei*), indefinite determiners (*eine Ursache*), and priority adverbials (*vor allem*) often fail to trigger the correct salience class.</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>An unexpected finding is that factorization substantially improves span detection despite both architectures sharing the same token classification head — suggesting that the factorized relation loss provides gradient signals more compatible with the span detection objective.</span>
 <span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>**Class imbalance.** The relation label distribution is heavily skewed: MONO_POS_EFFECT and MONO_POS_CAUSE together account for 61% of training instances. Rare classes like PRIO_NEG (1 instance) remain difficult despite inverse-frequency class weighting.</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-Seed Robustness</span></span>
 <span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>**Intra-sentence scope.** The model extracts relations within single sentences only. Cross-sentence causality requires discourse parsing, which is left to future work.</span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>Across five random seeds, the factorized model consistently outperforms the unified model:</span>
 <span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usage</span></span>
-<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Installation</span></span>
-<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install causalbert</span>
-<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a><span class="co"># or from source:</span></span>
-<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/padjohn/cbert</span>
-<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> cbert <span class="kw">&amp;&amp;</span> <span class="ex">pip</span> install <span class="at">-e</span> .</span>
-<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quick Start</span></span>
-<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> causalbert.infer <span class="im">import</span> load_model, sentence_analysis, extract_tuples</span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> Unified (v2) <span class="pp">|</span> Factorized (v3) <span class="pp">|</span></span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mean accuracy <span class="pp">|</span> $0.744 \pm 0.007$ <span class="pp">|</span> $\mathbf{0.768 \pm 0.009}$ <span class="pp">|</span></span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Best seed <span class="pp">|</span> 0.753 <span class="pp">|</span> **0.781** <span class="pp">|</span></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worst seed <span class="pp">|</span> 0.733 <span class="pp">|</span> 0.760 <span class="pp">|</span></span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>The factorized model outperforms the unified model on all five seeds tested. Ablation confirms this is a structural advantage — scaling the unified model's loss to match the factorized model's gradient budget does not close the gap.</span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a><span class="fu">### What the Model Gets Right</span></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>**Object negation without explicit span detection.** The model correctly inverts polarity from object negation nominals (e.g. *Verlust*, *Vernichtung*) even when these are not detected as separate spans — the relation head has learned to attend to negation context in the sentence.</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>**Passive and non-canonical word order.** In *Insektensterben wird durch Pestizide verursacht* ("insect death is caused by pesticides"), the model correctly assigns roles semantically rather than positionally: *Insektensterben* (syntactic subject) → EFFECT, *Pestizide* (syntactic oblique) → CAUSE.</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>**Explicit coordination.** In *Pestizide und Klimawandel verursachen Insektensterben*, both causes correctly receive MONO salience. This is by design: both are explicitly named, and salience reduction to DIST/PRIO is reserved for *implicit* co-causes. Normalization happens downstream during graph aggregation.</span>
 <span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Load model</span></span>
-<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>model, tokenizer, config, device <span class="op">=</span> load_model(<span class="st">"pdjohn/C-EBERT-610m"</span>)</span>
-<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Analyze sentences</span></span>
-<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [</span>
-<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pestizide verursachen Insektensterben."</span>,</span>
-<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Naturschutzmaßnahmen stoppen das Artensterben."</span>,</span>
-<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> sentence_analysis(model, tokenizer, config, sentences, device<span class="op">=</span>device)</span>
-<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract (C, E, I) tuples</span></span>
-<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>tuples <span class="op">=</span> extract_tuples(results, min_confidence<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> tuples:</span>
-<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"(</span><span class="sc">{</span>t[<span class="st">'cause'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t[<span class="st">'effect'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t[<span class="st">'influence'</span>]<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
-<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>    <span class="co"># → (Pestizide, Insektensterben, +1.00)</span></span>
-<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a>    <span class="co"># → (Naturschutzmaßnahmen, Artensterben, -1.00)</span></span>
-<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pipeline Steps</span></span>
-<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>The <span class="in">`sentence_analysis`</span> function runs the full extraction pipeline:</span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a><span class="fu">### Known Limitations</span></span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>**Context-based salience detection.** The model reliably detects salience when it is lexicalized in indicator compounds (*Hauptursache* → PRIO, *mitverantwortlich* → DIST) but struggles when salience is projected by context markers alone: separated verbs (*tragen…bei*), indefinite determiners (*eine Ursache*), and priority adverbials (*vor allem*) often fail to trigger the correct salience class.</span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>**Class imbalance.** The relation label distribution is heavily skewed: MONO_POS_EFFECT and MONO_POS_CAUSE together account for 61% of training instances. Rare classes like PRIO_NEG (1 instance) remain difficult despite inverse-frequency class weighting.</span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>**Intra-sentence scope.** The model extracts relations within single sentences only. Cross-sentence causality requires discourse parsing, which is left to future work.</span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usage</span></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="fu">### Installation</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install causalbert</span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a><span class="co"># or from source:</span></span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/padjohn/cbert</span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> cbert <span class="kw">&amp;&amp;</span> <span class="ex">pip</span> install <span class="at">-e</span> .</span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quick Start</span></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> causalbert.infer <span class="im">import</span> load_model, sentence_analysis, extract_tuples</span>
 <span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Token classification** — predicts BIOES tags for each token</span>
-<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Span merging** — groups tagged tokens into indicator and entity spans</span>
-<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Pair construction** — creates all (indicator, entity) combinations</span>
-<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Relation classification** — predicts role, polarity, and salience for each pair</span>
-<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Tuple extraction** — <span class="in">`extract_tuples()`</span> converts results to $(C, E, I)$ dictionaries</span>
-<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>Each tuple contains: <span class="in">`cause`</span>, <span class="in">`effect`</span>, <span class="in">`influence`</span> ($\in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$), <span class="in">`sentence`</span>, <span class="in">`confidence`</span>, and <span class="in">`label`</span>.</span>
-<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inference Performance</span></span>
-<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>With LoRA fine-tuning, only 0.6M additional parameters are trained on top of the 610M base model. End-to-end inference (span detection + relation classification) takes approximately **37 ms per sentence** on an NVIDIA RTX 4090 (batch size 1). The factorized heads add minimal overhead compared to flat classification.</span>
-<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>At batch size 32, the full environmental corpus of 22 million sentences was processed in approximately 10 hours on GPU, yielding 1.6 million unique aggregated causal relations across 357,000 distinct entities.</span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a><span class="co"># Load model</span></span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a>model, tokenizer, config, device <span class="op">=</span> load_model(<span class="st">"pdjohn/C-EBERT-610m"</span>)</span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Analyze sentences</span></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [</span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pestizide verursachen Insektensterben."</span>,</span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Naturschutzmaßnahmen stoppen das Artensterben."</span>,</span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> sentence_analysis(model, tokenizer, config, sentences, device<span class="op">=</span>device)</span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract (C, E, I) tuples</span></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>tuples <span class="op">=</span> extract_tuples(results, min_confidence<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Variants</span></span>
-<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>Both architectures are released:</span>
-<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variant <span class="pp">|</span> Description <span class="pp">|</span> Use case <span class="pp">|</span></span>
-<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **v3 (factorized)** <span class="pp">|</span> Three parallel heads (role, polarity, salience) <span class="pp">|</span> Recommended default — better accuracy, interpretable errors <span class="pp">|</span></span>
-<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **v2 (unified)** <span class="pp">|</span> Single 14-class softmax <span class="pp">|</span> Simpler pipeline, single prediction per pair <span class="pp">|</span></span>
-<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a>The architecture version is stored in the model config and automatically detected at load time.</span>
-<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
-<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the annotation schema and guidelines that produced the training data, see <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span></span>
-<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how extracted tuples are transformed into formal $(C, E, I)$ values, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](../processing/tuple-construction.qmd)</span></span>
-<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For a high-level view of the extraction pipeline, see <span class="co">[</span><span class="ot">Extraction Overview</span><span class="co">](index.qmd)</span></span>
-<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the theoretical framework motivating polarity and salience, see <span class="co">[</span><span class="ot">Framework</span><span class="co">](../framework/index.qmd)</span></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> tuples:</span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"(</span><span class="sc">{</span>t[<span class="st">'cause'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t[<span class="st">'effect'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t[<span class="st">'influence'</span>]<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>    <span class="co"># → (Pestizide, Insektensterben, +1.00)</span></span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>    <span class="co"># → (Naturschutzmaßnahmen, Artensterben, -1.00)</span></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pipeline Steps</span></span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a>The <span class="in">`sentence_analysis`</span> function runs the full extraction pipeline:</span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Token classification** — predicts BIOES tags for each token</span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Span merging** — groups tagged tokens into indicator and entity spans</span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Pair construction** — creates all (indicator, entity) combinations</span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Relation classification** — predicts role, polarity, and salience for each pair</span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Tuple extraction** — <span class="in">`extract_tuples()`</span> converts results to $(C, E, I)$ dictionaries</span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>Each tuple contains: <span class="in">`cause`</span>, <span class="in">`effect`</span>, <span class="in">`influence`</span> ($\in <span class="co">[</span><span class="ot">-1, +1</span><span class="co">]</span>$), <span class="in">`sentence`</span>, <span class="in">`confidence`</span>, and <span class="in">`label`</span>.</span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inference Performance</span></span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a>With LoRA fine-tuning, only 0.6M additional parameters are trained on top of the 610M base model. End-to-end inference (span detection + relation classification) takes approximately **37 ms per sentence** on an NVIDIA RTX 4090 (batch size 1). The factorized heads add minimal overhead compared to flat classification.</span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a>At batch size 32, the full environmental corpus of 22 million sentences was processed in approximately 10 hours on GPU, yielding 1.6 million unique aggregated causal relations across 357,000 distinct entities.</span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Variants</span></span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a>Both architectures are released:</span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variant <span class="pp">|</span> Description <span class="pp">|</span> Use case <span class="pp">|</span></span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **v3 (factorized)** <span class="pp">|</span> Three parallel heads (role, polarity, salience) <span class="pp">|</span> Recommended default — better accuracy, interpretable errors <span class="pp">|</span></span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **v2 (unified)** <span class="pp">|</span> Single 14-class softmax <span class="pp">|</span> Simpler pipeline, single prediction per pair <span class="pp">|</span></span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a>The architecture version is stored in the model config and automatically detected at load time.</span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the annotation schema and guidelines that produced the training data, see <span class="co">[</span><span class="ot">Annotation</span><span class="co">](annotation.qmd)</span></span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For how extracted tuples are transformed into formal $(C, E, I)$ values, see <span class="co">[</span><span class="ot">Tuple Construction</span><span class="co">](../processing/tuple-construction.qmd)</span></span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For a high-level view of the extraction pipeline, see <span class="co">[</span><span class="ot">Extraction Overview</span><span class="co">](extraction.qmd.qmd)</span></span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For the theoretical framework motivating polarity and salience, see <span class="co">[</span><span class="ot">Framework</span><span class="co">](../framework/framework.qmd)</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
