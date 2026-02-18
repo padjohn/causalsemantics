@@ -1,20 +1,33 @@
 /*-- scss:defaults --*/
 
 // Background and Text
-$body-bg: #161616;
-$body-color: rgb(227, 227, 227);
+$body-bg: #191a19;
+$body-color: #F5F5F5;
 
 // Primary and Accents
-$primary: hsl(212, 65%, 57%);
-$link-color: hsl(215, 52%, 62%);
-$navbar-bg: #141414;
-$monobackgroundcolor: #101010;
-$code-block-bg: #1a1919;
-$code-color: #ffffff;
+$primary: #79c0ff;
+$link-color: #58a6ff;
+$navbar-bg: #222322;
 
+$code-block-bg: #2d2d2d; 
+$code-color: #e6edf3;
+
+// The "Master" variable (covers many basics)
+$component-active-color: #191a19; 
+
+// The specific variable for the menu in your screenshot
+$dropdown-link-active-color: #191a19; 
+
+// Other components that might use blue backgrounds
+$nav-pills-link-active-color: #191a19;
+$pagination-active-color: #191a19;
+$btn-primary-color: #191a19;
 // Sidebar and Footer
 // $sidebar-bg: #161616;
-$footer-bg: #131313;
+$footer-bg: #222322;
+$dropdown-link-active-color: #191a19;
+$dropdown-link-hover-color: #191a19; 
+$dropdown-link-hover-bg: $primary;
 
 
 // $mermaid-bg-color: $body-bg;

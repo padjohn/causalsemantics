@@ -263,5 +263,5 @@ The architecture version is stored in the model config and automatically detecte
 
 - For the annotation schema and guidelines that produced the training data, see [Annotation](annotation.qmd)
 - For how extracted tuples are transformed into formal $(C, E, I)$ values, see [Tuple Construction](../processing/tuple-construction.qmd)
-- For a high-level view of the extraction pipeline, see [Extraction Overview](extraction.qmd.qmd)
+- For a high-level view of the extraction pipeline, see [Extraction Overview](extraction.qmd)
 - For the theoretical framework motivating polarity and salience, see [Framework](../framework/framework.qmd)

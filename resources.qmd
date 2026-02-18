@@ -31,7 +31,7 @@ Pre-trained C-BERT model weights for German causal extraction.
 ### Thesis
 
 ::: {.callout-tip icon="false"}
-## 📖 PhD Dissertation
+## 📖 Dissertation
 **Title**: Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs  
 **Author**: Patrick  
 **Institution**: Technical University Darmstadt  

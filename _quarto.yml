@@ -18,7 +18,7 @@ website:
   favicon: favicon_tight.png
   search: 
     location: navbar
-    type: overlay
+    # type: overlay
   sidebar:
       - id: "extraction"
         title: "Extraction"
@@ -80,7 +80,7 @@ format:
       - styles.scss
     toc: true
     toc-depth: 3
-    code-fold: false
+    code-fold: true
     code-tools: true
     html-math-method: katex
     highlight-style: github

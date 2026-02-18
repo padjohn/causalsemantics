@@ -148,13 +148,26 @@ The annotation corpus contains **642 distinct indicator forms**, grouped into **
 
 ### Top 10 Indicator Families
 
-| Family                                                            | Forms | Instances |     | Family                                                  | Forms | Instances |
-| ----------------------------------------------------------------- | ----- | --------- | --- | ------------------------------------------------------- | ----- | --------- |
-| [Ursache]{.smallcaps} <br> '[Cause]{.smallcaps}'                  | 21    | 167       |     | [Beitrag]{.smallcaps} <br> '[Contribution]{.smallcaps}' | 10    | 70        |
-| [Verantwortung]{.smallcaps}  <br>  '[Responsibility]{.smallcaps}' | 11    | 122       |     | [Folge]{.smallcaps} <br> '[Consequence]{.smallcaps}'    | 6     | 69        |
-| [Stoppen]{.smallcaps}  <br>  '[Stop]{.smallcaps}'                 | 3     | 111       |     | [Kampf]{.smallcaps} <br> '[Fight]{.smallcaps}'          | 8     | 69        |
-| [Gegen]{.smallcaps}  <br>  '[Against]{.smallcaps}'                | 3     | 95        |     | [Führen]{.smallcaps} <br> '[Lead]{.smallcaps}'          | 9     | 59        |
-| [Durch]{.smallcaps}  <br> '[through]{.smallcaps}'                 | 2     | 70        |     | [Grund]{.smallcaps} <br> '[Reason]{.smallcaps}'         | 7     | 57        |
+
+::: {layout-ncol=2}
+
+| Family | Forms | Instances |
+|--------|-------|-----------|
+| [Ursache]{.smallcaps} <br> '[Cause]{.smallcaps}' | 21 | 167 |
+| [Verantwortung]{.smallcaps} <br> '[Responsibility]{.smallcaps}' | 11 | 122 |
+| [Stoppen]{.smallcaps} <br> '[Stop]{.smallcaps}' | 3 | 111 |
+| [Gegen]{.smallcaps} <br> '[Against]{.smallcaps}' | 3 | 95 |
+| [Durch]{.smallcaps} <br> '[through]{.smallcaps}' | 2 | 70 |
+
+| Family | Forms | Instances |
+|--------|-------|-----------|
+| [Beitrag]{.smallcaps} <br> '[Contribution]{.smallcaps}' | 10 | 70 |
+| [Folge]{.smallcaps} <br> '[Consequence]{.smallcaps}' | 6 | 69 |
+| [Kampf]{.smallcaps} <br> '[Fight]{.smallcaps}' | 8 | 69 |
+| [Führen]{.smallcaps} <br> '[Lead]{.smallcaps}' | 9 | 59 |
+| [Grund]{.smallcaps} <br> '[Reason]{.smallcaps}' | 7 | 57 |
+
+:::
 
 ::: {.callout-note collapse="true"}
 ## Orientation
