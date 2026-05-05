@@ -72,6 +72,8 @@ website:
     left: "Causal Semantics"
     right: 
       - text: "License: CC BY 4.0"
+  drafts:
+    - presentations/Kausalsemantik.qmd
 
 format:
   html:
