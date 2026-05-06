@@ -20,15 +20,6 @@ editor:
 ## Kausalsemantik ($S_C$) {.smaller}
 Patrick Johnson
 
-::: {.notes}
-Vielen lieben dank für die Vorstellung. Ich freue mich, hier vortragen zu dürfen und einen methodisch-priorisierten Einblick in meinem Disputationsvortrag zu geben, den ich am 24.06 an der TU Darmstadt in der Vollversion vortrage.
-
-Ich werde die nächsten 20 Minuten darauf verwenden, ein Framework zur Extraktion und Projektion sprachlicher Kausalattribution – genannt Kausalsemantik – und dessen Anwendung zur Analyse von Verantwortungszuschreibungen im deutschsprachigen Umweltdiskurs vorzustellen. 
-
-Auf der Titelfolie sehen wir bereits das Eingangs- und das Ausgangsformat der Kausalsemantik: Wir beginnen mit einer ariablen Anzahl sprachlicher Zeichen und überführen sie ein strukturiertes Format – einen Attributionalen Kausalgraphen –, der sowohl der Häufigkeit als auch der Richtung und Intesität einer beliebigen Menge an Kausalzuschreibungen Rechnung trägt.
-
-Da die Kausalsemantik konzeptionell sprach- und domänenunabhängig ist, möchte ich mit der Erörterung einer inhaltlichen Herausforderung beginnen, die ich als Anwendungsfall zur Demonstration der Kausalsemantik nutze.
-:::
 
 <hr></hr>
 :::: {.columns}
@@ -74,6 +65,16 @@ digraph G {
 :::
 ::::
  
+::: {.notes}
+Vielen lieben dank für die Vorstellung. Ich freue mich, heute hier vortragen zu dürfen und einen methodisch-priorisierten Einblick in meinem Disputationsvortrag zu geben, den ich am 24.06 an der TU Darmstadt in der Vollversion vortragen werde.
+
+Ich werde die nächsten 20 Minuten darauf verwenden, ein Framework zur Extraktion und Projektion sprachlicher Kausalattribution – genannt Kausalsemantik – und dessen Anwendung zur Analyse von Verantwortungszuschreibungen im deutschsprachigen Umweltdiskurs vorzustellen. 
+
+Auf der Titelfolie sehen wir bereits das Eingangs- und das Ausgangsformat der Kausalsemantik: Wir beginnen mit einer variablen Anzahl sprachlicher Zeichen (link oben) und überführen sie ein strukturiertes Format – einen Attributionalen Kausalgraphen (rechte Seite) –, der sowohl der Häufigkeit als auch der Richtung und Intesität einer beliebigen Menge an Kausalzuschreibungen Rechnung trägt.
+
+Da die Kausalsemantik konzeptionell sprach- und domänenunabhängig ist, möchte ich mit der Erörterung einer inhaltlichen Herausforderung beginnen, die ich als Anwendungsfall zur Demonstration der Kausalsemantik nutze.
+:::
+
 :::: footer
 {{< fa brands github >}}&nbsp;&nbsp;causalsemantics.com/pres/dd
 ::::
@@ -85,7 +86,7 @@ digraph G {
 - Diskursive **Salienz** (Häufigkeit) korreliert mit politischer Priorität (Downs 1972)
 - **Problemwahrnehmung** reziprok zu zeitlicher / räumlicher Distanz (Giddens 2009) <br> — „**slow violence**“ (Nixon 2011)
 - **Kausaltyp** $\to$ Interventionsplausibilität (Fischer 2003)
-  - *technisch* $\to$ technische Lösung; 
+  - *technisch* $\to$ technische Lösung
   - *strukturell* $\to$ Systemtransformation 
 
 <hr>
@@ -113,11 +114,13 @@ digraph G {
 ::: {.notes}
 Spezifisch geht es mir um Umwelt und Verantwortung – die Attribution und Aushandlung von Handlungsdruck, der aus Umweltentwicklungen mit negativen Auswirkungen für gegenwärtige und zukünftige Lebewesen abgeleitet wird. Wenn man von 'Umweltproblemen' spricht, handelt es sich weniger um eine Bestandsaufnahme als um eine Forderung nach Verbesserung.
 
-Je häufiger von einem Problem gesprochen wird, desto politisch salienter wird es – Downs spricht von einem Aufmerksamkeitszyklus. Giddens ergänzt eine räumliche und zeitliche Komponente: Ferne oder langsame Entwicklungen werden als weniger dringlich wahrgenommen. Nixon bezeichnet das als slow violence – strukturelle Krisen evozieren weniger Handlungsdruck als akute Katastrophen.
+Je häufiger von einem Problem gesprochen wird, desto politisch salienter wird es – Downs spricht von einem Aufmerksamkeitszyklus. Giddens ergänzt eine räumliche und zeitliche Komponente: Ferne oder langsame Entwicklungen werden als weniger dringlich wahrgenommen. 
 
-Fischer schließt den Bogen zwischen Diskurs und Politik: Welcher Kausaltyp einer Entwicklung zugeschrieben wird, bestimmt, welche Intervention als plausibel gilt. Technische Ursachen motivieren technische Lösungen, strukturelle würden Systemtransformationen erfordern.
+Nixon bezeichnet das als slow violence – strukturelle Krisen evozieren weniger Handlungsdruck als akute Katastrophen.
 
-Das führt direkt zu Stones Ursachentypologie: Natürliche Ursachen entlasten menschliche Verantwortung. Intentionale Ursachen begründen Regulierungs- und Haftungsansprüche. Der dritte Typ ist für die Kausalsemantik besonders relevant: Polykausale Rahmungen diffundieren Verantwortung auf heterogene Strukturen ohne klare Zuständigkeiten (Iyengar). Das ist der konzeptuelle Grund, warum die Unterscheidung zwischen Mono, Prio und Poly nicht nur linguistisch, sondern politisch relevant ist.
+Fischer beschreibt das Verhältnis zwischen Kausaltypen und (politischen) Intervention: Technische Ursachen motivieren technische Lösungen, strukturelle motivieren Systemtransformationen.
+
+In Stones Ursachentypologie entlasten natürliche Ursachen menschliche Akteure, während intentionale Ursachen Regulierungs- und Haftungsansprüche begründen. Ein dritter Kausaltyp ist für die Kausalsemantik besonders relevant: Polykausale Rahmungen diffundieren Verantwortung und vermengen Zuständigkeiten. Die Unterscheidung zwischen Mono- und Polykausalität ist damit nicht nur linguistisch, sondern politisch relevant.
 :::
 
 
@@ -160,13 +163,13 @@ Das führt direkt zu Stones Ursachentypologie: Natürliche Ursachen entlasten me
 ::::
 
 ::: {.notes}
-Kausalattributionen sind selbst das Ergebnis eines – kollektiven oder individuell mentalen – Aushandlungsprozesses. Mehr als 2000 Jahre westlicher Philosophie zielen darauf ab, das Verhältnis zwischen einer Sache und einer unendlichen Menge möglicher Ursachen zu klären.
+Kausalattributionen sind jedoch selbst das Ergebnis eines – kollektiven oder individuell mentalen – Aushandlungsprozesses. Mehr als 2000 Jahre westlicher Philosophie zielen darauf ab, das Verhältnis zwischen einer Sache und einer unendlichen Menge möglicher Ursachen zu klären.
 
-Aristoteles' Wirkursache (causa efficiens) steht noch heute im Kern moderner Konzeptionen, bleibt aber ontologisch. Hume ersetzt metaphysische Notwendigkeit durch beobachtete Abfolgen, die Mill wiederum in induktive Schlussregeln überführt: Die Methode der Differenz, in der sich zwei Situationen nur durch die vermutete Ursache unterscheiden – antizipiert das moderne kontrollierte Experiment. Mackie formalisiert das mit dem INUS-Prinzip, indem eine Ursache nicht hinreichend, aber notwendiger Teil einer hinreichenden Konstellation ist.
+Aristoteles' ontologische Wirkursache (causa efficiens) wird bei Hume durch beobachtete Abfolgen ersetzt. Mill leitet daraus induktive Schlussregeln ab: U.a. Die Methode der Differenz, in der sich zwei Situationen nur durch die vermutete Ursache unterscheiden dürfen.
 
-Lewis versteht Kausalität als einen kontrafaktsiceh Vergleich: 'Wäre X nicht eingetreten, wäre Y ebenfalls nicht eingetreten.' Pearl zieht eine Grenze zwischen Manipulation und Beobachtung: Die konditionale Wahrscheinlichkeit von Y im Falle X ist nicht dasselbe wie die konditionale Wahrscheinlichkeit von Y, wenn man X kontrolliert.
+Während eine Ursache bei Mackie's INUS-Prinzip nicht hinreichend, aber notwendiger Teil einer hinreichenden Konstellation ist, beschreibt Lewis Kausalität als kontrafaktischen Vergleich: 'Wäre X nicht eingetreten, wäre Y ebenfalls nicht passiert.' Pearl verweist darauf, dass die konditionale Wahrscheinlichkeit von Y im Falle X nicht dasselbe ist, wie die konditionale Wahrscheinlichkeit von Y, wenn man bewusst X kontrolliert.
 
-Halpern überträgt wendet dieses Prinzip auf polykausale Konstellationen an, indem der Schuld über Pivotalität quantifiziert: wie viele andere Faktoren müssten entfernt werden, damit diese Ursache allein ausreicht?
+Halpern überträgt dieses Prinzip auf polykausale Konstellationen, indem er Schuld über Pivotalität quantifiziert: wie viele andere Faktoren müssten entfernt werden, damit diese Ursache allein ausreicht?
 
 Die vier Bedingungen unten sind keine sechste Theorie, sondern das gemeinsame Substrat aller fünf: Was sich von Zeile zu Zeile ändert, ist nicht ob diese Bedingungen gelten – sondern wie sie formalisiert, gewichtet und auf Grenzfälle angewendet werden.
 :::
@@ -207,13 +210,13 @@ Die vier Bedingungen unten sind keine sechste Theorie, sondern das gemeinsame Su
 ::::
 
 ::: {.notes}
-Während die logischen Theorien Kausalität formal definieren, beschreibt die kognitions- und sprachwissenschaftliche Forschung, wie Kausalität mental repräsentiert und sprachlich kodiert wird.
+Während die logischen Theorien Kausalität formal definieren, beschreiben kognitions- und sprachwissenschaftliche Arbeiten, wie Kausalität mental repräsentiert und sprachlich kodiert wird.
 
-Lakoff und Johnson zeigen, dass Kausalität als körperlich erfahrbare Kraft-Metapher verinnerlicht ist. Talmys Kraftdynamik konkretisiert das in Verbklassen: Druck (zwingen), Blockierung (verhindern), Transfer (beitragen).
+Lakoff und Johnson zeigen, dass Kausalität als körperlich erfahrbare Kraft-Metapher verinnerlicht wird. Talmys Kraftdynamik überführt das in Verbklassen: Druck (zwingen), Blockierung (verhindern), Transfer (beitragen).
 
-Fillmores Subjektivierungshierarchie erklärt, warum 'Der Klimawandel verursacht X' grammatisch analog zu 'Menschen verursachen X' ist, indem ein AGENS durch das INSTRUMENT oder PATIENS ersetzt wird. Zifonun führt VERURSACHER als Überkategorie ein, das jenseits des AGENS auch abstrakte Entitäten erfasst. Polenz fügt hinzu, dass Passivierung den Verursacher systematisch defokussiert.
+Fillmores Subjektivierungshierarchie beschreibt, warum 'Der Klimawandel verursacht X' grammatisch analog zu 'Menschen verursachen X' ist, indem ein AGENS durch das INSTRUMENT oder PATIENS ersetzt wird. Zifonun führt VERURSACHER als Überkategorie ein, das jenseits des AGENS auch abstrakte Entitäten erfasst. Polenz fügt hinzu, dass Passivierungen Verursacher systematisch defokussieren.
 
-Sweetser beschreibt eine Typologie kausaler Konnektoren, in der Inhaltskausalität die Attribution außersprachlicher Ursache-Wirkungs-Verhältnisse bezeichnet. König ergänzt wichtige Grenzfälle: Konzessiva markieren erwartete Kausalrelationen, die nicht eintreten.
+Schließlich beschreibt Sweetser eine Typologie kausaler Konnektoren, in der Inhaltskausalität die Attribution außersprachlicher Ursache-Wirkungs-Verhältnisse bezeichnet. König ergänzt wichtige Grenzfälle: Konzessiva markieren erwartete Kausalrelationen, die nicht eintreten.
 :::
 
 
@@ -256,9 +259,9 @@ $\to$ **Negation** & **Polykausalität** bleiben unerfasst.
 ::: {.notes}
 Zur automatischen Extraktion von Kausalattributionen spannen Rehbein / Ruppenhofer das weiteste Netz, indem sie sich vor allem auf kompakte Konstruktionen (x verursacht y / x ist die Ursache von y / y durch x usw.) konzentrieren. 
 
-Dunietz et al. unterscheiden (wie Talmy) zwischen fördernden und hemmenden Relationen. Schließlich überführen Wu et al. die extrahierten Attributionen in Subjekt-Prädikat-Objekt Tripel, die zu Causal-Knowledge Graphs aggregiert werden.
+Dunietz et al. unterscheiden (wie Talmy) zwischen fördernden und hemmenden Relationen. Schließlich extrahieren Wu et al. die extrahierten Attributionen in Subjekt-Prädikat-Objekt Tripel, die zu Causal-Knowledge Graphs aggregiert werden.
 
-In der Summe finden sich damit eine große Zahl bestehender Ansätze, die im Folgenden zur Kausalsemantik zusammengeführt und durch Prinzipien der Polykausalität und propositionalen Negation erweitert werden.
+In der Summe finden liegen eine große Zahl bestehender Ansätze zur Extraktion und – zu einem geringeren Teil – der Projektion vor. Beide Stränge werden im Folgenden zur Kausalsemantik fusioniert, die darüber hinaus noch den Prinzipien der Polykausalität Rechnung trägt.
 :::
 
 <!-- slide -->
@@ -313,7 +316,7 @@ $\pm =$  Polarität; $||I|| =$ Salienz
 
 
 ::: {.notes}
-Der ausdrucksseitige Anker liegt in lexikalisch-definierten Indikatoren (u.a. *verursachen*, *verstärken*, *reduzieren*, *stoppen*). Indikatoren projizieren kausale Rollen (Cause, Effect) auf syntaktische Nachbarn, wobei CAUSE in drei-viertel der Fälle auf das Subjekt fällt. 
+Der ausdrucksseitige Anker liegt in lexikalisch-definierten Indikatoren (u.a. *verursachen*, *verstärken*, *reduzieren*, *stoppen*). Indikatoren projizieren kausale Rollen (Cause, Effect) auf syntaktische Nachbarn.
 
 Jeder Indikator lässt sich anhand der Dimensionen Polarität (hemmend/fördernd) und Salienz – als Maß der Exklusivität von Mono bis Poly – kategorisieren.
 
@@ -363,11 +366,11 @@ $\pm =$  Polarität; $||I|| =$ Salienz
 
 
 ::: {.notes}
-Hinzu treten eine Reihe an Kontextmarkern: Priorisierungen wie 'vor allem', sodann sie sich auf Ursachen beziehen, heben / senken, den absoluten Einfluss auf 0,75. Polykausale Marker wie 'unter anderem' setzen den Einfluss auf 0,5.
+Hinzu treten eine Reihe an Kontextmarkern: Priorisierungen wie 'vor allem', sodann sie sich auf Ursachen beziehen, setzen, den absoluten Einfluss auf 0,75. Äquivalent verhalten sich polykausale Marker wie 'unter anderem', wobei der projizierte Einfluss auf 0,5 fällt.
 
 Negation erscheint in zwei unterschiedliche Formen. Propositional – bspw. 'nicht' oder 'keine' in 'keine Schuld' – neutralisieren sie den Einfluss zu 0. Objektbasierte Negationen 'Schwund'/'Verlust/Vernichtung' invertieren die Richtung.
 
-Daraus folgt ein mehrstufiger Algorithmus, indem sowohl lexikalische (verursachen vs. stoppen), morphologische (Ursache vs. Hauptursache) als auch syntaktische (Kontextmarker) Aspekte den finalen Einflusswert einer Tupel bestimmen.
+Daraus folgt ein mehrstufiger Algorithmus, in dem sowohl lexikalische (verursachen vs. stoppen) als auch morphologische Aspekte (Ursache vs. Hauptursache) einen Einflusswert bestimmen, der durch syntaktische Kontextmarker weiter modifiziert wird.
 :::
 
 
@@ -527,9 +530,9 @@ $$
 ::: {.notes}
 Dieses 'Einflussbudget' gilt pro Indikator. Mehrere Indikatoren mit unterschiedlichen (Cause, Effect) Permutationen innerhalb eines Satzes werden bewusst nicht übergangen, sondern stellen – beispielsweise im Rahmen einer Verkettung (oben) – selbst einen satzinternen attributionalen Kausalgraphen dar.
 
-In die selbe Kerbe schlagen Koordinationen. Im unteren Auszug erscheint 'Insektensterben' nicht nur als Ursache, sondern in einem polykausalen Verbund mit einem 'Mangel an Brutplätzen'. Der indikatorspezifische Einfluss von 'leiden' (-1) verteilt sich dabei auf beide Ursachen (jeweils -0.5).
+In eine ähnliche Kerbe schlagen Koordinationen: Im unteren Auszug erscheint 'Insektensterben' nicht als einzige explizite Ursache, sondern in einem polykausalen Verbund mit einem 'Mangel an Brutplätzen'. Der indikatorspezifische Einfluss von 'leiden' (-1) verteilt sich dabei auf beide Ursachen (jeweils -0.5).
 
-In diesem Fall wird 'Mangel' darüber hinaus als objektbasierte Negation gelesen: Das Vorzeichen (Polarität) von 'Brutplätzen' wird von -0.5 zu 0.5 invertiert. In der Summe wird ergibt sich ein positives Verhältnis zwischen Brutplätzen und Arten. 
+Im vorliegenden Fall wird 'Mangel' darüber hinaus als objektbasierte Negation gelesen: Das Vorzeichen (Polarität) von 'Brutplätzen' wird von -0.5 zu 0.5 invertiert. In der Summe ergibt sich ein positives Verhältnis zwischen Brutplätzen und Arten. 
 :::
 
 <!-- slide -->
@@ -577,7 +580,7 @@ In diesem Fall wird 'Mangel' darüber hinaus als objektbasierte Negation gelesen
 ::: {.notes}
 Die Tupeln variabler Konstellationen (hier Ursachen von Waldsterben in zwei Zeiträumen) werden schließlich aggregiert und normalisiert. Daraus ergibt sich neben der absoluten kausalen Okkurrenz (n, zweite Spalte), ein durchschnittlicher Instanzeinfluss (dritte Spalte) und der prozentuale Anteil am Gesamteinfluss (vierte Spalte).
 
-Im vorliegenden Fall wird die Verschiebung der attribuierten Ursachen ablesbar, indem ein Fokus auf Verkehr, Emissionen und Sauren Regen der Hervorhebung klimatischer Faktoren weicht. Anthropogene Einflüsse, die insbesondere bei Autos oder Verkehr noch deutlich expliziter ausfallen, rücken trotz ihres etablierten Beitrags zum Klimawandel somit zunehmend in den Hintergrund.
+Im vorliegenden Fall wird die Verschiebung der attribuierten Ursachen ablesbar, indem ein Fokus auf Verkehr, Emissionen und Sauren Regen (links) der Hervorhebung klimatischer Faktoren auf der rechten Seite weicht. Anthropogene Einflüsse, die insbesondere bei Autos oder Verkehr noch deutlich expliziter ausfallen, rücken trotz ihres etablierten Beitrags zum Klimawandel somit zunehmend in den Hintergrund.
 :::
 
 <!-- slide -->
@@ -625,7 +628,7 @@ Im vorliegenden Fall wird die Verschiebung der attribuierten Ursachen ablesbar, 
 ::: {.notes}
 Ebenso lassen sich Wirkungen gesondert analysieren, wobei ihre absolute Fallzahlen grundsätzlich geringer und versprengter sind. 
 
-Aus Gründen der Vergleichbarkeit wurden verbatime Zeichenketten (bspw. Ernte, Erdbeer-Bauern in der rechten Tabelle) zu insgesamt 12 Kategorien (bspw. Landwirtschaft) aggregiert, von denen sieben in der linken Tabelle zu sehen sind.
+Aus Gründen der Vergleichbarkeit wurden verbatime Entitäten (bspw. *Ernte*, *Erdbeer-Bauern* auf der rechten Seite) zu insgesamt 12 Kategorien (bspw. Landwirtschaft, linke Seite) aggregiert, von denen hier sieben sehen sind.
 :::
 
 <!-- slide -->
@@ -667,9 +670,9 @@ Aus Gründen der Vergleichbarkeit wurden verbatime Zeichenketten (bspw. Ernte, E
 <hr>
 
 ::: {.notes}
-Im Falle Bienensterben wird dabei eine drastische Verschiebung der Wirkungen ersichtlich. Zunächst liegt der (destruktive) Fokus auf bedrohten Imkern und Ernteausfällen durch Bestäubungsverluste (linke Seite). 
+Im Falle Bienensterben wird dabei eine drastische Verschiebung der Wirkungen ersichtlich. Zunächst liegt der Fokus auf bedrohten Imkern und Ernteausfällen durch Bestäubungsverluste (linke Seite). 
 
-In der zweiten Phase dominieren dagegen vor allem Spezifikationen mittel oder unmittelbar bedrohter Arten (Biota), indem unter anderem auch Wildbienen verstärkt Aufmerksamkeit erfahren.
+In der zweiten Phase dominieren dagegen vor allem Spezifikationen mittel- oder unmittelbar bedrohter Arten (Biota), indem unter anderem auch Wildbienen verstärkt Aufmerksamkeit erfahren.
 :::
 
 <!-- slide -->
@@ -716,7 +719,7 @@ In der zweiten Phase dominieren dagegen vor allem Spezifikationen mittel oder un
 ::: {.notes}
 Auf der Seite der Interventionen (hemmende Ursachen) liegt eine begriffsübergreifende Tendenz zur Symbolisierung bzw. Abstrahierung vor. 
 
-Im Falle Artensterben verschieben sich Interventen von generisch-menschlichen Einheiten zunehmend in Richtung der Kategorie ABSTRAKT – vor allem in Form von Pronomina wie 'jemand' oder 'etwas tun'.
+Im Falle Artensterben verschieben sich die Interventen von generisch-menschlichen Einheiten zunehmend in Richtung der Kategorie ABSTRAKT – die vor allem in Form von Pronomina wie 'jemand' oder 'etwas tun' erscheint
 :::
 
 
@@ -761,7 +764,7 @@ Doi: 10.26083/tuda-7797. (Preprint)
 </div>
 
 ::: {.notes}
-Jenseits der diachronen Detailanalyse dienen die annotierten WABI-Sätze auch als Daten zum Training eines eigens entwickelten Multi-Task Transformers, der die sprachlichen Muster mittels modifizierter, numerischer Gewichtsmatrizen verinnerlicht.
+Jenseits der diachronen Detailanalyse dienen die annotierten WABI-Sätze auch als Daten zum Training eines eigens entwickelten Multi-Task Transformers, der sprachliche Muster mittels modifizierter, numerischer Gewichtsmatrizen verinnerlicht.
 
 In einem zweistufigen Verfahren klassifiziert C-BERT sowohl Spannen (Token, oben) als auch Relationen (unten). Letztere werden als Ergebnis maschineller 'Annotation' ebenso in (Cause, Effect, Influence) Tupeln – in diesem Fall (Bundesregierung, Waldsterben, -1) – überführt.  
 :::
@@ -840,8 +843,9 @@ fig.show()
 ::: {.column width="54%"}
 
 ```{.cypher filename="Cypher Query (Neo4j)"}
-// Wirkungen von Klimawandel (max 2 Sprünge) 
-(Klimawandel)-[*..2]->(e)
+// Wirkungen von Klimawandel (unmittelbar)
+MATCH (c:Klimawandel)-[r:influence]->(e)
+RETURN c, e, i
 ```
 
 :::
@@ -850,7 +854,7 @@ fig.show()
 ::: {.notes}
 Auf die 22 Millionen Sätze des Umweltkorpus angewandt, ergibt sich ein Attributionaler Kausalgraph (ACG) bestehend aus 360.000 Entitäten und 1.6 Millionen Relationen, von denen hier 212 Entitäten und 690 Relationen zu sehen sind.  
 
-Neben der Visualisierung lässt sich der ACG – beispielsweise eingebettet in die Graphdatenbank Neo4j – nach Beliebenm abfragen, um unter anderem unmittelbare und einfach nachgelagerte Wirkungen von Klimawandel ausgeben.
+Neben der Visualisierung lässt sich der ACG – beispielsweise eingebettet in die Graphdatenbank Neo4j – nach Belieben abfragen, um unmittelbare (und wahlweise mittelbare) Wirkungen von Klimawandel (unten rechts) auszugeben.
 :::
 
 ## METRIKEN {.smaller}
@@ -868,9 +872,9 @@ Neben der Visualisierung lässt sich der ACG – beispielsweise eingebettet in d
 - *Strom* ($\small 6.565$) $>$ *Waldsterben* ($\small 142$) $>$ *Insektensterben* ($\small 22$) $>$ *Klimawandel* ($\small -3.026$)
 
 ::: {.notes}
-Zur Makroanalyse wurden eine Reihe an Metriken entwickelt, die beispielsweise den absoluten ausgehenden oder eingehenden Einfluss einer Entität messen. 
+Zur Makroanalyse wurden eine Reihe an Metriken entwickelt, die beispielsweise den absoluten ausgehenden (Agency) oder eingehenden Einfluss (Sensitivity) einer Entität messen. 
 
-Dabei zeigt sich, das die WABI zwar saliente Einheiten des Umweltdiskurses darstellen, jedoch weitaus weniger aktiv sind als 'Mensch', 'Klimawandel' oder 'Strom'. 
+Dabei zeigt sich, das die WABI zwar rekurrente Einheiten des Umweltdiskurses darstellen, jedoch weitaus weniger aktiv sind als beispielsweise 'Mensch', 'Klimawandel' oder 'Strom'. 
 
 Discourse Balance, die das Verhältnis zwischen fördernden und hemmenden eingehenden Einflüssen beschreibt, charakterisiert die WABI weiter: Der Fokus liegt bei allen vier Begriffen auf fördernden Ursachen, wobei Insektensterben noch die höchste Rate an hemmenden gegenüber fördernden Ursachen aufweist. 
 
@@ -988,7 +992,7 @@ $$\small \overrightarrow{v}_{\text{Mensch}} = \overrightarrow{v}_{\text{Mensch}_
 
 
 ::: {.notes}
-Schließlich lässt sich der ACG auch in Form einer Matrix repräsentieren. In dem vorliegenden Diagramm ist der fördernde Einfluss von Mensch zu Klimawandel in Reihe 1, Spalte 2 mit rund 343,75 verzeichnet.Reihe 2, Spalte 1 zeigt einen negativen  Rückkopplungseffekt (Klimawandel zu Mensch, -34,5).
+Schließlich lässt sich der ACG auch in Form einer Matrix repräsentieren. In dem vorliegenden Diagramm ist der fördernde Einfluss von Mensch zu Klimawandel in Reihe 1, Spalte 2 mit rund 343,75 angegeben. Reihe 2, Spalte 1 zeigt einen negativen Rückkopplungseffekt (Klimawandel zu Mensch, -34,5).
 
 Zusammengenommen lässt sich aus den Einflusswerten aller Ursachen und Wirkungen einer Entität (bspw. Mensch, unten) ein Vektor konstruieren, der – ähnlich zu Word- oder Sentence-Embeddings – mittels etablierter Distanzmetriken die Ähnlichkeit zwischen Entitäten anhand ihrer attribuierten kausalen Interaktionen misst. 
 :::
@@ -1116,7 +1120,7 @@ Dabei fällt zum einen auf, dass Artensterben und Insektensterben näher an akti
 - #### Kontextmarker
   - *maßgeblich*, *auch*, *nicht*, *Schwund* 
 
-- #### $(C\textit{ause}, E\textit{ffect}, I\textit{nfluence})$ 
+- #### $(C\text{ause}, E\text{ffect}, I\text{nfluence})$ 
   - $I = \pm, ||\text{Salienz}||$
 
 - #### ACG
@@ -1137,7 +1141,7 @@ Dabei fällt zum einen auf, dass Artensterben und Insektensterben näher an akti
   - *Lebensraum* zu *jemand*, *etwas*
 - #### Vektoren
   - *Waldsterben* isoliert; *Artensterben* näher an *Insektensterben* als *Bienensterben* 
-- $K_U$ dominiert durch *Mensch*, *Klimawandel*, [Emission]{.smallcaps}
+- $K_U$ dominiert von *Mensch*, *Klimawandel*, [Emission]{.smallcaps}
 
 :::
 ::::
