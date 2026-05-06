@@ -574,7 +574,7 @@
 <aside class="notes">
 <p>Zur automatischen Extraktion von Kausalattributionen spannen Rehbein / Ruppenhofer das weiteste Netz, indem sie sich vor allem auf kompakte Konstruktionen (x verursacht y / x ist die Ursache von y / y durch x usw.) konzentrieren.</p>
 <p>Dunietz et al.&nbsp;unterscheiden (wie Talmy) zwischen fördernden und hemmenden Relationen. Schließlich extrahieren Wu et al.&nbsp;die extrahierten Attributionen in Subjekt-Prädikat-Objekt Tripel, die zu Causal-Knowledge Graphs aggregiert werden.</p>
-<p>In der Summe finden liegen eine große Zahl bestehender Ansätze zur Extraktion und – zu einem geringeren Teil – der Projektion vor. Beide Stränge werden im Folgenden zur Kausalsemantik fusioniert, die darüber hinaus noch den Prinzipien der Polykausalität Rechnung trägt.</p>
+<p>In der Summe finden liegen eine große Zahl bestehender Ansätze zur Extraktion und – zu einem geringeren Teil – der Projektion vor. Beide Stränge werden im Folgenden zur Kausalsemantik verwoben, die darüber hinaus noch den Prinzipien der Polykausalität Rechnung trägt.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -689,9 +689,9 @@
 <hr>
 <p><span class="math inline">\(\pm =\)</span> Polarität; <span class="math inline">\(||I|| =\)</span> Salienz</p>
 <aside class="notes">
-<p>Hinzu treten eine Reihe an Kontextmarkern: Priorisierungen wie ‘vor allem’, sodann sie sich auf Ursachen beziehen, setzen, den absoluten Einfluss auf 0,75. Äquivalent verhalten sich polykausale Marker wie ‘unter anderem’, wobei der projizierte Einfluss auf 0,5 fällt.</p>
-<p>Negation erscheint in zwei unterschiedliche Formen. Propositional – bspw. ‘nicht’ oder ‘keine’ in ‘keine Schuld’ – neutralisieren sie den Einfluss zu 0. Objektbasierte Negationen ‘Schwund’/‘Verlust/Vernichtung’ invertieren die Richtung.</p>
-<p>Daraus folgt ein mehrstufiger Algorithmus, in dem sowohl lexikalische (verursachen vs.&nbsp;stoppen) als auch morphologische Aspekte (Ursache vs.&nbsp;Hauptursache) einen Einflusswert bestimmen, der durch syntaktische Kontextmarker weiter modifiziert wird.</p>
+<p>Hinzu treten eine Reihe an Kontextmarkern: Priorisierungen wie ‘vor allem’, sodann sie sich auf Ursachen beziehen, setzen den absoluten Einfluss auf 0,75. Äquivalent verhalten sich polykausale Marker wie ‘unter anderem’ – wobei der projizierte Einfluss auf 0,5 fällt.</p>
+<p>Negation erscheint in zwei unterschiedliche Formen. Propositional – bspw. ‘nicht’ oder ‘keine’ in ‘keine Schuld’ – neutralisieren den Einfluss zu 0. Objektbasierte Negationen ‘Schwund’/‘Verlust/Vernichtung’ invertieren die Richtung.</p>
+<p>Daraus folgt ein mehrstufiger Algorithmus, in dem sowohl lexikalische (verursachen vs.&nbsp;stoppen) als auch morphologische Aspekte (Ursache vs.&nbsp;Hauptursache) einen Einflusswert vorgeben, der durch syntaktische Kontextmarker verfeinert wird.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -805,7 +805,7 @@ if (outputEl) {{
 <hr>
 <p><span class="math display">\[ \small | K_U | \approx ~2.2 \cdot 10^7,\quad K_U \subsetneq (\text{FAZ} \cup \text{Spiegel} \cup \text{Bild} \cup \text{taz} \cup \text{ZEIT} \cup \text{SZ} \cup \text{Plenar}_{\text{Bundestag}}) \]</span></p>
 <aside class="notes">
-<p>Sowohl die 642 verschiedenen Indikatorformen als auch Kontextmarker-Kategorien wurden anhand eines Annotationskorpus mit rund 4000 Sätzen identifiziert, die mindestens eins der vier Lemmata ‘Waldsterben’, ‘Artensterben’, ‘Bienensterben’ oder ‘Insektensterben’ (im Folgenden ‘WABI’) enthalten.</p>
+<p>Sowohl die 642 verschiedenen Indikatorformen als auch Kontextmarker-Kategorien wurden anhand eines Annotationskorpus mit rund 4300 Sätzen identifiziert, die mindestens eins der vier Lemmata ‘Waldsterben’, ‘Artensterben’, ‘Bienensterben’ oder ‘Insektensterben’ (im Folgenden ‘WABI’) enthalten.</p>
 <p>Mit diesem Annotationskorpus, das selbst ein Subset eines aus 22 Millionen Sätzen bestehenden Umweltkorpus (KU) aus Zeitungstexten und Plenarprotokollen des dt. Bundestags darstellt, wird ein Zeitraum von 1990-2020 erfasst.</p>
 <p>Die Analyse der WABI zielt dabei darauf ab, sowohl begriffsinterne Dynamiken als auch Gemeinsamkeiten und Divergenzen zwischen den Begriffen mithilfe der Kausalsemantik zu offenbaren.</p>
 <style type="text/css">
@@ -874,7 +874,7 @@ if (outputEl) {{
 \]</span></p>
 <aside class="notes">
 <p>Dieses ‘Einflussbudget’ gilt pro Indikator. Mehrere Indikatoren mit unterschiedlichen (Cause, Effect) Permutationen innerhalb eines Satzes werden bewusst nicht übergangen, sondern stellen – beispielsweise im Rahmen einer Verkettung (oben) – selbst einen satzinternen attributionalen Kausalgraphen dar.</p>
-<p>In eine ähnliche Kerbe schlagen Koordinationen: Im unteren Auszug erscheint ‘Insektensterben’ nicht als einzige explizite Ursache, sondern in einem polykausalen Verbund mit einem ‘Mangel an Brutplätzen’. Der indikatorspezifische Einfluss von ‘leiden’ (-1) verteilt sich dabei auf beide Ursachen (jeweils -0.5).</p>
+<p>In eine ähnliche Kerbe schlagen Koordinationen: Im unteren Auszug erscheint ‘Insektensterben’ nicht als einzige explizite Ursache, sondern in einem polykausalen Verbund mit einem ‘Mangel an Brutplätzen’. Der indikatorbasierte Einfluss von ‘leiden’ (-1) verteilt sich dabei auf beide Ursachen (jeweils -0.5).</p>
 <p>Im vorliegenden Fall wird ‘Mangel’ darüber hinaus als objektbasierte Negation gelesen: Das Vorzeichen (Polarität) von ‘Brutplätzen’ wird von -0.5 zu 0.5 invertiert. In der Summe ergibt sich ein positives Verhältnis zwischen Brutplätzen und Arten.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1574,7 +1574,7 @@ if (outputEl) {{
 </div>
 <aside class="notes">
 <p>Jenseits der diachronen Detailanalyse dienen die annotierten WABI-Sätze auch als Daten zum Training eines eigens entwickelten Multi-Task Transformers, der sprachliche Muster mittels modifizierter, numerischer Gewichtsmatrizen verinnerlicht.</p>
-<p>In einem zweistufigen Verfahren klassifiziert C-BERT sowohl Spannen (Token, oben) als auch Relationen (unten). Letztere werden als Ergebnis maschineller ‘Annotation’ ebenso in (Cause, Effect, Influence) Tupeln – in diesem Fall (Bundesregierung, Waldsterben, -1) – überführt.</p>
+<p>In einem zweistufigen Verfahren klassifiziert C-BERT sowohl Spannen (Token, oben) als auch Relationen (unten). Letztere werden als Ergebnis maschineller ‘Annotation’ ebenso in (Cause, Effect, Influence) Tupeln – hier: (Bundesregierung, Waldsterben, -1) – überführt.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1635,13 +1635,13 @@ if (outputEl) {{
 <pre><strong>Cypher Query (Neo4j)</strong></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="Cypher Query (Neo4j)"><pre class="sourceCode numberSource cypher number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>// Wirkungen von Klimawandel (unmittelbar)</span>
-<span id="cb1-2"><a></a>MATCH (c:Klimawandel)-[r:influence]-&gt;(e)</span>
+<span id="cb1-2"><a></a>MATCH (c:Klimawandel)-[i:influence]-&gt;(e)</span>
 <span id="cb1-3"><a></a>RETURN c, e, i</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 <aside class="notes">
-<p>Auf die 22 Millionen Sätze des Umweltkorpus angewandt, ergibt sich ein Attributionaler Kausalgraph (ACG) bestehend aus 360.000 Entitäten und 1.6 Millionen Relationen, von denen hier 212 Entitäten und 690 Relationen zu sehen sind.</p>
-<p>Neben der Visualisierung lässt sich der ACG – beispielsweise eingebettet in die Graphdatenbank Neo4j – nach Belieben abfragen, um unmittelbare (und wahlweise mittelbare) Wirkungen von Klimawandel (unten rechts) auszugeben.</p>
+<p>Auf die 22 Millionen Sätze des Umweltkorpus angewandt, ergibt sich ein Attributionaler Kausalgraph (ACG) bestehend aus 360.000 Entitäten und 1.6 Millionen Relationen, von denen hier 212 Entitäten und 690 Relationen abgebildet sind.</p>
+<p>Neben der Visualisierung lässt sich der ACG – beispielsweise eingebettet in die Graphdatenbank Neo4j – nach Belieben abfragen, um unmittelbare (und wahlweise auch mittelbare) Wirkungen von Klimawandel (s. unten rechts) auszugeben.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1930,9 +1930,9 @@ if (outputEl) {{
 </ul>
 </div></div>
 <aside class="notes">
-<p>Zusammengefasst ist mit der Kausalsemantik ein Framework zur Extraktion und Projektion entstanden, dass mithilfe lexikalisch definierter Indikatoren kausale Rollen (Cause, Effect) inklusive numerischer Richtung (Polarität) und Gewichtung (Salienz) im Zusammenspiel mit Kontextmarkern ausweist.</p>
+<p>Zusammengefasst ist mit der Kausalsemantik ein Framework zur Extraktion und Projektion sprachlicher Kausalattribution entstanden, dass kausale Rollen (Cause, Effect) inklusive numerischer Richtung (Polarität) und Gewichtung (Salienz) mithilfe lexikalisch definierter Indikatoren im Zusammenspiel mit Kontextmarkern ausweist.</p>
 <p>Unter Nutzung eines Annotationskorpus wurden 4300 Sätze annotiert, um vier Begriffe (Wald-, Arten-, Bienen- und Insektensterben) anhand ihrer attribuierten kausalen Interaktionen diachron zu evaluieren. Kausalattributionen werden dabei als Verantwortungszuschreibungen gelesen, die sich unter anderem naturalisieren (Luftverschmutzung/Verkehr zu Klimawandel), aber auch – vor allem auf der Seite der Interventionen – zunehmend abstrahieren bzw. pronominalisieren.</p>
-<p>Mithilfe des C-BERT Transformers lässt sich die manuelle Annotation in groben Zügen replizieren. Auf das übergeordnete Umweltkorpus angewandt, konnten die WABI sowohl durch zentrale Entitäten des Umweltdiskurses (Klimawandel, Energieträger, Emissionen) – als auch mittels ihrer individuellen nächsten Kausalnachbarn kontextualisiert werden, und – im Dickicht von mehreren hundert Millionen verschiedenen Zeichenketten – auf Basis ihrer attribuierten Kausalinteraktionen, zu charakterisieren.</p>
+<p>Mithilfe des C-BERT Transformers lässt sich die manuelle Annotation in groben Zügen replizieren. Auf das übergeordnete Umweltkorpus angewandt, konnten die WABI sowohl durch den Vergleich zu zentralen Entitäten des Umweltdiskurses (Klimawandel, Energieträger, Emissionen), als auch anhand ihrer individuellen nächsten Kausalnachbarn – im Dickicht von mehreren hundert Millionen verschiedenen Zeichenketten – auf Basis ihrer attribuierten Kausalinteraktionen kontextualisiert und charakterisiert werden.</p>
 <p>Damit schließe ich, bedanke mich vielmals für die Aufmerksamkeit – und freue mich auf die Diskussion.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
