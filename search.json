@@ -282,6 +282,356 @@
     ]
   },
   {
+    "objectID": "pres/disputation.html#kausalsemantik",
+    "href": "pres/disputation.html#kausalsemantik",
+    "title": "",
+    "section": "Kausalsemantik",
+    "text": "Kausalsemantik\nEine Operationalisierung am Beispiel der sterben-Komposita im dt. Umweltdiskurs\n\nVielen lieben dank für die Vorstellung und Einführung.\nLiebe Prüfungskommission, Kollegen, Familie und alle Anderen, die sich heute die Zeit genommen haben, hier zu erscheinen.\nIch freue mich, in den nächsten dreißig Minuten einen Einblick in die Ergebnisse meiner Dissertation zu geben.\n\n\n\n\n\n\n\nLandwirtschaft und Pestizide verursachen Bienensterben.\n\n\nBienensterben bedroht Landwirtschaft.\n\n\n\n\n\n\n\n\n\n\n\nG\n\n\nL\nLandwirtschaft\n\n\n\nB\nBienensterben\n\n\n\nL-&gt;B\n\n\n0,5    \n\n\n\nP\nPestizide\n\n\n\nP-&gt;B\n\n\n0,5\n\n\n\nB-&gt;L\n\n\n-1\n\n\n\n\n\n\n\n\n\n\nPatrick Johnson"
+  },
+  {
+    "objectID": "pres/disputation.html#komponenten",
+    "href": "pres/disputation.html#komponenten",
+    "title": "",
+    "section": "Komponenten",
+    "text": "Komponenten\n\n\nMethodisch\n\nKausalsemantik\n\nExtraktion\nNumerische Projektion\n\n\n\nWie lässt sich sprachliche Kausalattribution quantifizieren?\n\n\n\n\nInhaltlich\n\nUmweltdiskurs\n\nVerantwortung\nDomänenspezifik\n\n\n\nWie strukturieren Kausalstrukturen politische Handlungsfähigkeit im dt. Umweltdiskurs?\n\n\n\nIm Grundsatz besteht die Dissertation aus zwei Komponenten.\nMethodisch führe ich ein Framework zur Extraktion und Projektion sprachlicher Kausalattribution ein.\nInhaltlich wende ich dieses Framework zur Analyse von Verantwortungszuschreibungen im deutschsprachigen Umweltdiskurs an, um das Verhältnis zwischen Kausalstrukturen und politischer Handlungsfähigkeit zu beleuchten."
+  },
+  {
+    "objectID": "pres/disputation.html#umweltdiskurse",
+    "href": "pres/disputation.html#umweltdiskurse",
+    "title": "",
+    "section": "UMWELTDISKURSE",
+    "text": "UMWELTDISKURSE\n\n\nUmweltprobleme diskursiv definiert (Hannigan 2014)\n\n[…] als seien der technische Fortschritt und der Mensch an sich das Problem. [taz 2019]\n\n\n\n\nDiskursive Prominenz korreliert mit politischer Priorität (Downs 1972)\n\n[…] Sturmschäden und Borkenkäferbefall als Symptome einer Erkrankung ‘totgeschwiegen’. [SZ 1994]\n\nProblemwahrnehmung sinkt mit zeitlicher/räumlicher Distanz (Giddens 2009)\n\n[…] Artensterben, die Klimakrise und die Nahrungsmittelkrise noch so weit weg, dass sie nicht bereit sind, sich und ihr Leben zu ändern. [ZEIT 2022]\n\n„slow violence“ (Nixon 2011)\n\nDie Ausrottung geschieht lautlos, paradoxerweise fällt das Insektensterben vielen nur an ihren sauberen Windschutzscheiben auf. [taz 2019]\n\n\n\nUmweldiskurse verstehe ich dabei als Diskurse um Umweltphänomene mit (zumeist) negativen Auswirkungen für gegenwärtige und zukünftige Lebewesen. Als ‘Umweltprobleme’ gerahmt stellen diese Phänomene zwar auch eine Bestandsaufnahme, vor allem aber auch eine (mehr oder minder implizite) Forderung nach Verbesserung dar.\nDie Prominenz eines Problems – also wie häufig darüber gesprochen wird – beeinflusst die Intensität des politischen Handlungsdrucks. Deutlich zu sehen an Ausdrücken wie Wir müssen reden über.\nZeitlich und räumlich entferntere Problem erscheinen dabei als weniger dringlich, erfahren somit also grundsätzlich weniger Aufmerksamkeit.\nSchließlich fließt auch die Geschwindigkeit der Probleme selbst mit ein. ‘slow violence’ Probleme vollziehen sich so schleichend, dass sie teilweise gar nicht wahrgenommen werden. Beispielsweise kann ein jahrezehntelanger Insektenschwund erst an salienten Alltagserfahrungen wie ‘sauberen Windschutzscheiben’ auffallen."
+  },
+  {
+    "objectID": "pres/disputation.html#umweltkorpus",
+    "href": "pres/disputation.html#umweltkorpus",
+    "title": "",
+    "section": "UMWELTKORPUS",
+    "text": "UMWELTKORPUS\n\n\n\nZeitungstexte & Plenardebatten\n184 Keywords\n\nKlimawandel, Artensterben, Fukushima, CO2, Mikroplastik, Pfand\nPro Text mind. ein Keyword\n\n1990-2020\n\n413.892 Texte\n\nPro Jahr mind. 10.000\n\n22 Mio. Sätze\n\n\n\n\n\n\n\nError: The target data file was not found at path: dat/yearly_text_counts.dat\n\n\n\n\n\n\n📄 Stegmeier, J. & Müller, M. (2025). Die Korpora der DFG-Forschungsgruppe “Kontroverse Diskurse. Sprachgeschichte als Zeitgeschichte seit 1990”. Doi: 10.26083/tuprints-00031401.\n\n\nUm die Thematisierung von Umweltphänomenen zu untersuchen, habe ich – wie meine Kollegen in der Forschungsgruppe der ‘Kontroverse Diskursen’ – ein Korpus aus Zeitungstexten und Plenarprotokollen des dt. Bundestags zusammengestellt.\nThematische Ausrichtung wurde das Korpus anhand einer Liste möglichst einschlägiger Umweltausdrücke (Klimawandel, Artensterben, CO2) gewährleistet. Jeder Text soll dabei mindestens eins der Keyword enthalten.\nMit einem Untersuchungszeitraum von 1990-2020 lande ich bei rund 414-Tausend Texten, die ich wiederum in 22 Millionen Sätze segmentiert habe."
+  },
+  {
+    "objectID": "pres/disputation.html#sterben",
+    "href": "pres/disputation.html#sterben",
+    "title": "",
+    "section": "-STERBEN",
+    "text": "-STERBEN\n\n\n\n\\(\\textit{WABI}\\)\n\n\n\n                            \n                                            \n\n\n\n\n\n\n\n\n\n\n\n\n\nForm\n#\n%\n\n\n\n\nAussterben\n3812\n35%\n\n\n— Waldsterben\n1837\n15%\n\n\n— Artensterben\n1562\n13%\n\n\nMassensterben\n692\n6%\n\n\n— Bienensterben\n549\n4%\n\n\n— Insektensterben\n490\n4%\n\n\nFischsterben\n450\n4%\n\n\nAbsterben\n373\n3%\n\n\n\n\n\n\\(\\small \\text{Annotationskorpus (4.434 Sätze): }  \\textit{Artensterben}, \\textit{Bienensterben}, \\textit{Insektensterben}, \\textit{Waldsterben}\\)\n\nDa sich 22 Millionen Sätze nur schwer manuell bearbeiten lassen, beschränkt sich der Großteil meiner Analyse auf eine morphologische Familie. Die sterben-Kompostita umfassen sowohl generischere (bspw. Aussterben) als auch geschlossenere Ausdrücke wie Wald-, Arten-, Bienen- oder Insektensterben.\nDiese vier Lemmata stellen das primäre Untersuchungsobjekt meines Analysekapitels dar. Auf der linken Seite sehen wir ihre Verlaufskurven visualisiert. Ich werde im weiteren Verlauf noch gesondert auf einzelne Hoch- und Tiefphasen eingehen.\nHier möchte ich nur kurz auf Insektensterben (in rot) verweisen, dass erst so wirklich ab 2017 als Begriff erscheint. In diesem Jahr wurde auch eine Studie von Hallmann et al. publiziert. Im Rahmen dieser ‘Krefelder Studie’ wurde die Biomasse von Fluginsekten von 1989 bis 2016 gemessen und ein Rückgang der Biomasse um 75% attestiert.\nNeben den vorher erwähnten ‘sauberen Windschutzscheiben’ tragen also auch wissenschaftliche Publikationen maßgeblich zur Wahrnehmung von schleichender Problem bei."
+  },
+  {
+    "objectID": "pres/disputation.html#verantwortung",
+    "href": "pres/disputation.html#verantwortung",
+    "title": "",
+    "section": "VERANTWORTUNG",
+    "text": "VERANTWORTUNG\n\n\nKausaltyp \\(\\to\\) Konsequenz (Stone 1989; Fischer 2003)\n\nNatürlich/Mechanisch \\(\\to\\) hemmt Verantwortungsübernahme\n\nDie Industrie führt das Bienensterben auf die Varroa-Milbe zurück und nicht auf die eigenen Pestizide. [SZ 2018]\n\nTechnisch \\(\\to\\) Umrüstung\n\nAls das Waldsterben für Schlagzeilen sorgte, sind sie auf Autos mit Katalysator umgestiegen. [ZEIT 2006]\n\nStrukturell \\(\\to\\) Systemtransformation\n\nOhne Agrarwende müssen wir das Insektensterben akzeptieren und bestäuben in 30 Jahren die Pflanzen per Hand. [taz 2018]\n\nPolykausal \\(\\to\\) Verantwortungsdiffusion (Iyengar 1991)\n\nDabei gebe es für das Bienensterben viele Ursachen, außer dem Einsatz von Pestiziden auch Wetterveränderungen und Milbenbefall. [ZEIT 2018]\n\n\n\n\nDie Wahrnehmung bzw. Bestandaufnahme ist jedoch nur der erste Schritt. Denn Probleme erfordern Lösungen, die sich nach Stone und Fisher an unterschiedliche Kausaltypen koppeln lassen.\nDer natürliche Typ ist besonders aus dem Klimawandel-Diskurs bekannt. ‘Natürliche’ Probleme hemmen Verantwortung, weil menschliche Akteure entweder nicht eingreifen können oder sollten. Technisch-induzierte Probleme münden dagegen in Um-/ bzw. Nachrüstung, beispielsweise von Filtern oder Katalysatoren.\nWeitaus schwieriger gestalten sich Probleme, die ganze Strukturen betreffen. Der Übergang von einer industriellen zu einer ökologischen Landwirtschaft soll im Rahmen einer großangelegten Agrarwende erfolgen.\nInsbesondere diese strukturell-bedingten Probleme lassen sich nicht mehr durch isolierte Einzelursachen erklären. Globale Makrokrisen (Klimawandel, Artensterben) erwachsen aus einem Arrangement unterschiedlicher Faktoren. Damit verteilt sich die Verantwortung, bis sich in Extremfällen niemand mehr zuständig fühlt."
+  },
+  {
+    "objectID": "pres/disputation.html#kausalattribution",
+    "href": "pres/disputation.html#kausalattribution",
+    "title": "",
+    "section": "KAUSALATTRIBUTION",
+    "text": "KAUSALATTRIBUTION\n\n\nRehbein / Ruppenhofer (2017)\n\nVerb-zu Konstruktion\n\n\\(C\\) führt zu \\(E\\)\n\nTransitive-kausative Konstruktion\n\n\\(C\\) verursacht \\(E\\)\n\nPräpositionale Konstruktion\n\nDurch \\(C\\) entsteht \\(E\\)\n\n\n\n\n\nDunietz et al. (2017)\n\nFACILITATE ‘erleichtern’\n\nWe are in serious economic trouble because of inadequate regulation.\n\nINHIBIT ‘hemmen’\n\nThe new regulations should prevent future crises.\n\n\n\n\nDie methodische Herausforderung besteht nun darin, Kausalattributionen aus natürlichen Sprachdaten zu extrahieren. Im Feld der ‘Kausalrelationsextraktion’ knüpfe ich an Rehbein / Ruppenhofer an. Sie konzentrieren sich insbesondere auf kompakte Konstruktionen, darunter x führt zu y / x verursacht y / y durch x usw.\nWeiter übernehme ich Dunietz Unterscheidung zwischen fördernden und hemmenden Relationen. Deutschsprachige Indikatoren wie verursachen und stoppen grenze ich damit voneinander ab."
+  },
+  {
+    "objectID": "pres/disputation.html#exzerpte-i",
+    "href": "pres/disputation.html#exzerpte-i",
+    "title": "",
+    "section": "EXZERPTE I",
+    "text": "EXZERPTE I\nFördernd\n\nFipronil wird für das Bienensterben mitverantwortlich gemacht. [taz 2013]\n\n\nHemmend\n\nDie grüne Landwirtschaftsministerin hat das Waldsterben gestoppt. [taz 2003]\n\n\nDieses Vorgehen lässt sich direkt auf zwei Belege aus dem Korpus anwenden. mitverantwortlich weist Fipronil als fördernde Ursache von Bienensterben aus. gestoppt markiert Landwirtschaftsministerin als hemmend ggü. Waldsterben.\nmit in mitverantrortlich verweist jedoch auf eine methodische Lücke. Im Gegensatz zu verantwortlich ist mitverantwortlich inhärent polykausal."
+  },
+  {
+    "objectID": "pres/disputation.html#indikatoren",
+    "href": "pres/disputation.html#indikatoren",
+    "title": "",
+    "section": "INDIKATOREN",
+    "text": "INDIKATOREN\n\\(\\small (C = \\text{Cause}; E = \\text{Effect}; I = [-1, 1])\\)\n\n\n\n\nHemmend\nMono (\\(\\small -1\\))\n\n\\(C\\) stoppt / verhindert / gegen \\(E\\)\n\n\n\nPrio (\\(\\small -0{,}75\\))\n\n\\(C\\) ist die größte Bedrohung für \\(E\\)\n\n\n\nPoly (\\(\\small -0{,}5\\))\n\n\\(C\\) reduziert / mindert \\(E\\)\n\n\n\n\nFördernd\nMono (\\(\\small +1\\))\n\n\\(C\\) ist der Grund / verantwortlich für \\(E\\)\n\n\n\nPrio (\\(\\small +0{,}75\\))\n\n\\(C\\) ist der Hauptgrund für \\(E\\)\n\n\n\nPoly (\\(\\small +0{,}5\\))\n\n\\(C\\) verstärkt / intensiviert \\(E\\)\n\n\n\n\\(\\pm =\\) Polarität; \\(||I|| =\\) Salienz\n\nDaher ergänze ich die bestehende Unterscheidung zwischen hemmenden und fördernden Indikatoren.\nWährend Polarität (hemmend / fördernd) das Vorzeichen (-/+) stellt, beschreibt Salienz das Maß der Exklusvität – hier von polykausal (0.5) zu monokausal (1).\nZusammengenommen ergibt sich ein numerischer Wert auf einer Skala von -1 (monokausal hemmend) bis 1 (monokausal fördernd) – fortan als Einfluss bezeichnet."
+  },
+  {
+    "objectID": "pres/disputation.html#exzerpte-i-1",
+    "href": "pres/disputation.html#exzerpte-i-1",
+    "title": "",
+    "section": "EXZERPTE I",
+    "text": "EXZERPTE I\nFördernd\n\nFipronil wird für das Bienensterben mitverantwortlich gemacht.\n[taz 2013]\n\n\\[\n(\\text{Fipronil}; \\text{Bienensterben}; 0{,}5)\n\\]\n\nHemmend\n\nDie grüne Landwirtschaftsministerin hat das Waldsterben gestoppt. [taz 2003]\n\n\\[\n(\\text{Landwirtschaftsministerin}; \\text{Waldsterben}; -1)\n\\]\n\nSomit modifiziert mit in mitverantwortlich den Einfluss von Fipronil ggü. Bienensterben zu 0,5.\ngestoppt grenzt sich davon sowohl durch das Vorzeichen (-) als auch durch seine monokausale Salienz (1) ab."
+  },
+  {
+    "objectID": "pres/disputation.html#kontextmarker-i",
+    "href": "pres/disputation.html#kontextmarker-i",
+    "title": "",
+    "section": "KONTEXTMARKER I",
+    "text": "KONTEXTMARKER I\n\\(\\small (C = \\text{Cause}; E = \\text{Effect}; I = [-1, 1])\\)\n\n\n\n\nPrio (\\(\\small ||I|| = 0{,}75\\))\n\nvor allem \\(C\\) verursacht \\(E\\)\n\\(C\\) ist wesentlich an \\(E\\) beteiligt\n\n\n\nPoly (\\(\\small ||I|| = 0{,}5\\))\n\nUnter anderem \\(C\\) verursacht \\(E\\)\nNicht nur \\(C\\) verursacht \\(E\\)\n\n\n\n\n\nDas Insektensterben ist wahrscheinlich maßgeblich auf die intensive Landwirtschaft zurückzuführen. [SZ 1992] \\[\n(\\text{Landwirtschaft}; \\text{Insektensterben}; 0{,}75)\n\\]\n\n\n\n\\(\\pm =\\) Polarität; \\(||I|| =\\) Salienz\n\nSchließlich kann der Einfluss noch durch eine Reihe an Kontextmarkern modifiziert werden: Priorisierungen wie vor allem, wesentlich oder maßgeblich setzen den absoluten Einfluss auf 0,75.\nPolykausale Marker wie unter anderem entsprechend auf 0,5."
+  },
+  {
+    "objectID": "pres/disputation.html#kontextmarker-ii",
+    "href": "pres/disputation.html#kontextmarker-ii",
+    "title": "",
+    "section": "KONTEXTMARKER II",
+    "text": "KONTEXTMARKER II\n\\(\\small (C = \\text{Cause}; E = \\text{Effect}; I = [-1, 1])\\)\n\n\n\n\nNegation\nPropositional (\\(\\small I \\cdot 0\\))\n\n\\(C\\) ist nicht der Grund für \\(E\\)\n\n\n\nObjektbasiert (\\(\\small I \\cdot\\) \\(-1\\))\n\n\\(C\\) verursacht die Vernichtung von \\(E\\)\n\n\n\n\n\nNeben dem Insektensterben leiden diese Arten auch unter einem Mangel an Brutplätzen. [SZ 2018] \\[\n(\\text{Insektensterben}; \\text{Arten}; -0{,}5)\n\\] \\[\n(\\text{Brutplätze}; \\text{Arten}; 0{,}5)\n\\]\n\n\n\n\\(\\pm =\\) Polarität; \\(||I|| =\\) Salienz\n\nNegation fließt in zwei verschiedenen Formen ein.\nPropositionale Negation – bspw. nicht oder keine in keine Schuld – neutralisiert den Einfluss, setzt ihn also auf 0. Objektbasierte Negationen (darunter Vernichtung, Schwund oder Mangel) invertieren die Richtung.\nIm Beispiel rechts projiziert leiden einen Einfluss von -1. Dieser Einfluss verteilt sich auf die Ursachen Insektensterben und Brutplätze mit jeweils -0.5. Mangel interviert wiederum den Einfluss von Brutplätzen, so dass Brutplätze Arten positiv affizieren."
+  },
+  {
+    "objectID": "pres/disputation.html#aggregation",
+    "href": "pres/disputation.html#aggregation",
+    "title": "",
+    "section": "AGGREGATION",
+    "text": "AGGREGATION\n\\(\\small (C = \\text{Cause}; E = \\text{Effect}; I = [-1, 1])\\)\n\n\n\n\nSummierung\n\\[\n\\begin{split}\n(\\text{Verkehr}; \\text{Waldsterben}; 0{,}5) \\\\\n+ (\\text{Verkehr}; \\text{Waldsterben}; 1) \\\\ \\\\\n(\\text{Autos}; \\text{Waldsterben}; 0{,}5) \\\\ \\\\\n\\overline{= (\\text{Verkehr}; \\text{Waldsterben}; 1{,}5)} \\\\\n(\\text{Autos}; \\text{Waldsterben}; 0{,}5) \\\\\n\\end{split}\n\\]\n\n\n\nNormalisierung\n\nGlobaler Gesamteinfluss: \\(1{,}5 + 0{,}5 = 2\\) \\[\n\\begin{split}\n(\\text{Verkehr}; \\text{Waldsterben}; 1{,}5 \\;/ \\;2) \\\\\n(\\text{Autos}; \\text{Waldsterben}; 0{,}5 \\;/ \\;2) \\\\ \\\\\n\\overline{= (\\text{Verkehr}; \\text{Waldsterben}; 0{,}75)} \\\\\n(\\text{Autos}; \\text{Waldsterben}; 0{,}25) \\\\\n\\end{split}\n\\]\n\n\n\nSchließlich werden die Tupeln aggregiert. Der Einfluss identischer Ursache-Wirkungsstellen wird addiert: Hier summieren sich die zwei Tupel mit Verkehr zu einem Einfluss von 1,5.\nZusammen mit dem Einfluss von Autos (0,5) ergibt sich hier ein globaler Gesamteinfluss ggü. Waldsterben von 2. Die individuellen Einflusswerte werden schließlich durch eben diesen Gesamteinfluss dividiert. Als Ergebnis beläuft sich der anteilige Einfluss von Verkehr ggü. Waldsterben auf 0,75.\nDas Framework ermöglicht somit, beliebige Bündel aus Tupeln zu bilden. Beispielsweise, wenn mich die Ursachen von Waldsterben interessieren."
+  },
+  {
+    "objectID": "pres/disputation.html#phasen-waldsterben",
+    "href": "pres/disputation.html#phasen-waldsterben",
+    "title": "",
+    "section": "PHASEN (WALDSTERBEN)",
+    "text": "PHASEN (WALDSTERBEN)\n\n\n\n\n                            \n                                            \n\n\n\n\n\n\n\n\n\n📄 Johnson, P. (2026). Waldsterben 2.0 – Climate change as an attributed cause of forest diebacks. In: Landscapes in Language, Society and Cognition (Interdisciplinary Linguistics). Berlin/Boston: De Gruyter Mouton. (i. Dr.)\n\n\nUm aber 30 Jahre ‘nicht in einen Topf zu werfen’, habe ich jedes WABI in individuelle Phasen segmentiert. Die Länge und Anzahl der Phasen erfolgt zum einen anhand der Daten selbst (Anzahl Belege oder Jahre), aber auch anhand prominenter Zäsuren.\nIm Falle Waldsterben nehmen wir nach einer Hochphase in den 90er Jahren eine stetige Reduktion der jährlichen Frequenz wahr. 2003 kommt es zu einer kurzzeitigen Resurgenz, als die damalige Bundeslandwirtschaftsministerin Renate Künäst das Waldsterben für beendet erklärt.\nDarauf folgt eine Ruhephase von 15 Jahren, bevor Waldsterben wieder als neues Waldsterben – bzw. Waldsterben 2.0 – hofiert."
+  },
+  {
+    "objectID": "pres/disputation.html#ursachen-waldsterben",
+    "href": "pres/disputation.html#ursachen-waldsterben",
+    "title": "",
+    "section": "URSACHEN (WALDSTERBEN)",
+    "text": "URSACHEN (WALDSTERBEN)\n\n\n\n\nEtwa 58 Prozent der gesamten Stickoxid- Emissionen und 22 Prozent der Kohlendioxid-Emissionen, die für Waldsterben und Treibhauseffekt verantwortlich sind, werden vom Straßenverkehr im EG-Bereich produziert. [taz 1990]\n\n\n\n\n1990-2002\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nSaurer Regen\n9\n0,87\n6,0\n\n\nStickoxid\n10\n0,56\n4,1\n\n\nLuftverschmutzung\n5\n0,90\n3,4\n\n\nAutos\n6\n0,69\n3,1\n\n\nSchwefeldioxid\n5\n0,78\n2,9\n\n\nOzon\n6\n0,54\n2,5\n\n\nVerkehr\n4\n0,75\n2,3\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,69 über 119 Entitäten (n=187)\n\n\n\nBetrachtet man nun die der fördernden Ursachen von Waldsterben bis 2002, springt die Dominanz schadstofforienter Attributionen hervor.\nStick-, Kohlen- und Schwefeldioxide lese ich als Präzisierung von Luftverschmutzung. Einige Belege führen die Emissionen auch auf Verkehr oder konkrete Verkehrsmittel (hier: Autos) züruck.\nBevor wir zur zweiten Phase übergehen, möchte ich noch kurz auf die Fallzahlen verweisen. In der ersten Phase sind das noch 187 Ursachen in 12 Jahren."
+  },
+  {
+    "objectID": "pres/disputation.html#ursachen-waldsterben-1",
+    "href": "pres/disputation.html#ursachen-waldsterben-1",
+    "title": "",
+    "section": "URSACHEN (WALDSTERBEN)",
+    "text": "URSACHEN (WALDSTERBEN)\n\n\n\n\nDie Folgen davon bekommt er noch heute zu spüren, wenn es in der Klimadebatte heißt, dass auch das Waldsterben letztlich eine Erfindung der Wissenschaft gewesen sei, und das ist der Schaden, der bleibt. [FAZ 2013]\n\n\n\n\n2003-2018\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nSaurer Regen\n4\n0,81\n10,0\n\n\nSchwefeldioxid\n3\n0,92\n8,5\n\n\nUnternehmen\n2\n0,75\n4,6\n\n\nWissenschaft\n1\n1,00\n3,1\n\n\nÖkobauern\n1\n1,00\n3,1\n\n\nAltlast\n1\n1,00\n3,1\n\n\nBraunkohlekraftwerk\n1\n1,00\n3,1\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,79 über 35 Entitäten (n=41)\n\n\n\nIn der zweiten Phase (die 15 Jahre umfasst), sinkt die Anzahl der Ursachen auf 41. Der Fokus auf Emissionen nimmt ebenso ab.\nDagegen nimmt die Prominz von Rahmungen zu, die man auch aus dem Diskurs um den Klimawandel kennt.\nWaldsterben wird als Erfindung, Medienmärchen oder Hysterie bezeichnet. Das Waldsterben wurde nach dieser Lesart also nicht umgekehrt, da es nicht oder nur in einem unproblematischen Ausmaß existiert hat."
+  },
+  {
+    "objectID": "pres/disputation.html#ursachen-waldsterben-2",
+    "href": "pres/disputation.html#ursachen-waldsterben-2",
+    "title": "",
+    "section": "URSACHEN (WALDSTERBEN)",
+    "text": "URSACHEN (WALDSTERBEN)\n\n\n\n\nEs mehren sich die Signale, dass wir durch den Klimawandel in Deutschland auf ein neues Waldsterben zusteuern.[taz 2019]\n\n\n\n\n2019-2020\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nKlimawandel\n8\n0,71\n27,5\n\n\nLuftverschmutzung\n2\n1,00\n11,6\n\n\nTrockenheit\n2\n1,00\n11,6\n\n\nHirsch\n1\n1,00\n5,8\n\n\nErderwärmung\n1\n1,00\n5,8\n\n\nSaurer Regen\n4\n0,25\n5,8\n\n\nDürre \n1\n1,00\n5,8\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,66 über 15 Entitäten (n=29)\n\n\n\nIn jedem Fall nimmt der Diskurs um Waldsterben 2019 wieder schlagartig Fahrt auf. Konkret steigt die jährliche Anzahl fördernder Ursachen auf das Fünffache.\nInhaltlich sticht dabei die Präsenz von Klimawandel und seinen Ausläufern (Trockenheit, Dürre oder Hitze) hervor. Hinzu gesellen sich verstärkt nicht-menschliche Tiere, darunter Hirsch, Wild oder Borkenkäfer.\nKurzum erfolgt bei den attributierten Ursachen von Waldsterben also eine Substitution. Insbesondere die Verschiebung von Luftverschmutzung zu Klimawandel ist interessant – da Klimawandel gemeinhin selbst auf Luftverschmutzung zurückgeführt wird."
+  },
+  {
+    "objectID": "pres/disputation.html#ursachen",
+    "href": "pres/disputation.html#ursachen",
+    "title": "",
+    "section": "URSACHEN",
+    "text": "URSACHEN\n\n\n\n\nArtensterben\n\n1990-2009\n\nGenerisch anthropogen (Mensch) & Himmelskörper (Meteorit)\n\n2010-2017\n\nLandwirtschaft (Monokultur)\n\n2018-2020\n\nMensch + Landwirtschaft\n\n\n\n\n\nBienensterben\n\n1990-2013\n\nPestizidprodukte (Poncho Pro, Bayer)\n\n2014-2020\n\nNeonikotinoide & Landwirtschaft\n\n\nInsektensterben\n\n2017-2018\n\nPestizide & Landwirtschaft\n\n2019-2020\n\n+ Lichtverschmutzung\n\n\n\n\nAus Zeitgründen würde ich die fördernden Ursachen der anderen WABI hier nur kurz umreißen.\nMir geht es vor allem darum, Waldsterben als Ausreißer zu markieren. Wir nehmen nämlich bei keinem anderen WABI eine nennenswerte Präsenz von Luftverschmutzung wahr. Lediglich bei Artensterben erscheint Erderwärmung vereinzelt als Repräsentant klimatischer Faktoren in der ersten Phase. Der Fokus liegt jedoch weitaus stärker auf generisch anthropogenen Faktoren (der Mensch) und extraterrestischen Einflüssen (Meteorit, Supernova).\nDarauf folgt Landwirtschaft (u. a. in Form von Monokultur). Grundsätzlich ist Landwirtschaft sehr präsent: sowohl in der zweiten Phase von Bienensterben und durchgängig bei Insektensterben. Ebenso sind bei beiden WABI Pestizide in unterschiedlichen Spezifikationsgraden hochgradig vertreten.\nAllgemein scheint ein struktureller Trend vorzuliegen. Fördernde Ursachen werden tendenziell diverser. Auch Bienensterben beginnt mit spezifischen Produkten (und Herstellern), bevor in der zweiten Phase verstärkt landwirtschaftliche Ursachen erscheinen."
+  },
+  {
+    "objectID": "pres/disputation.html#phasen-bienensterben",
+    "href": "pres/disputation.html#phasen-bienensterben",
+    "title": "",
+    "section": "PHASEN (BIENENSTERBEN)",
+    "text": "PHASEN (BIENENSTERBEN)\n\n\n\n\n                            \n                                            \n\n\n\n\n\n\n\n\nZwei mögliche Gründe für diese Erweiterung habe ich in der Verlaufskurve von Bienensterben markiert. Nach einem Bienensterben in den USA (2007) wird vor allem ein lokales Bienensterben im Oberrheingraben thematisiert.\nDie Lokalität des Vorfalls ermöglicht es dann auch, das entsprechende Bienensterben vergleichweise sauber auf eine Reihe konkreter Substanzen (vor allem Clothianidin) zurückzuführen. 2013 wird dann der Freilandeinsatz von Clothianidin und zwei weiteren Substanzen durch die EU verboten.\nIm Anschluss werden Pestizide zunehmend durch genuin landwirtschaftliche Ursachen (Landwirtschaft, Monokultur) ergänzt."
+  },
+  {
+    "objectID": "pres/disputation.html#wirkungen-bienensterben",
+    "href": "pres/disputation.html#wirkungen-bienensterben",
+    "title": "",
+    "section": "WIRKUNGEN (BIENENSTERBEN)",
+    "text": "WIRKUNGEN (BIENENSTERBEN)\n\n\n\n\nEin rätselhaftes Bienensterben bedroht die Existenz zahlreicher Erdbeer-Bauern südlich der niederländischen Stadt Breda.[taz 1990]\n\n\n\n\n1990-2013\n\n\n\n\n\n\n\n\nEffect\nn\nKategorie\n\n\n\n\nErnte\n2\nLandwirtschaft\n\n\nBienenkrankheiten\n1\nBiota\n\n\nBundesamt\n1\nPolitik\n\n\nErdbeer-Bauern\n1\nLandwirtschaft\n\n\nNaturhaushalt\n1\nBiota\n\n\nLandwirtschaft\n1\nLandwirtschaft\n\n\nKolonien\n1\nBiota\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,82 über 25 Entitäten (n=27)\n\n\n\nBei den Wirkungen (also den attribuierten Konsequenzen) hat mich grundsätzlich interessiert, ob und in welcher Form spezifiziert wird, was denn eigentlich ‘stirbt’. In der ersten Phase von Bienensterben erhält dieser Aspekt kaum Aufmerksamkeit.\nTatsächlich scheint sich Bienen in Bienensterben hier vor allem auf gezüchtete Honigbienen, also von Imkern gehaltene landwirtschaftliche Nutztiere zu beziehen. Als Wirkungen erscheinen unter anderem Imker, Züchter oder auch ein Imkersterben.\nBienensterben erscheint damit zunächst als Kapitalverlust. Jenseits von Imkern betrifft der Schwund von Bienen – mittels Bestäubungsverlust – auch die sesshafte Landwirtschaft (u. a. Erdbeer-Bauern).\nDer Fokus auf Landwirtschaft wird besonders deutlich, wenn man die (hier zugegeben spärlichen) Einzelwirkungen kategorisiert."
+  },
+  {
+    "objectID": "pres/disputation.html#wirkungen-bienensterben-1",
+    "href": "pres/disputation.html#wirkungen-bienensterben-1",
+    "title": "",
+    "section": "WIRKUNGEN (BIENENSTERBEN)",
+    "text": "WIRKUNGEN (BIENENSTERBEN)\n\n\n\n\nEin rätselhaftes Bienensterben bedroht die Existenz zahlreicher Erdbeer-Bauern südlich der niederländischen Stadt Breda.[taz 1990]\n\n\n\n\n1990-2013\n\n\n\n\n\n\n\n\n\nEffect\nn\n∅ I\n% I\n\n\n\n\nLandwirtschaft\n15\n-0,8\n-48,4\n\n\nPolitik\n2\n-1,00\n-12,9\n\n\nBiota\n4\n-1,00\n-12,9\n\n\nDiskurs\n2\n+0,75\n9,7\n\n\nAbstrakt\n2\n+0,75\n9,7\n\n\nEmission\n1\n+0,50\n3,2\n\n\nMensch\n1\n+0,50\n3,2\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,82 über 25 Entitäten (n=27)\n\n\n\nZwar erscheinen Biota auch vereinzelt, jedoch weitaus seltener als Landwirtschaft. Tatsächlich fällt Letzterer sogar fast die Hälfte des Gesamteinflusses zu.\nZur Erinnerung: Auf der Ursachenseite erscheint Landwirtschaft im selben Zeitraum kaum. Der Fokus liegt dort noch auf Pestizden, während Landwirtschaft höchstens als Einsatzort von Pestiziden Erwähnung findet."
+  },
+  {
+    "objectID": "pres/disputation.html#wirkungen-bienensterben-2",
+    "href": "pres/disputation.html#wirkungen-bienensterben-2",
+    "title": "",
+    "section": "WIRKUNGEN (BIENENSTERBEN)",
+    "text": "WIRKUNGEN (BIENENSTERBEN)\n\n\n\n\nFatal auch das Bienensterben, das alle Arten erfasst: Wildbienen, Waldbienen, Weltbienen.[taz 2017]\n\n\n\n\n2014-2020\n\n\n\n\n\n\n\n\n\nEffect\nn\n∅ I\n% I\n\n\n\n\nBiota\n8\n-1,00\n-48,0\n\n\nDiskurs\n3\n-0,83\n20,0\n\n\nLandwirtschaft\n1\n-1,00\n-8,0\n\n\nMensch\n3\n-1,00\n-8,0\n\n\nPolitik\n1\n-1,00\n-8,0\n\n\nAbstrakt\n6\n+0,92\n4,0\n\n\nEmission\n2\n+0,70\n4,0\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,90 über 22 Entitäten (n=24)\n\n\n\nSomit verschiebt sich der Fokus in der zweiten Phase auf beiden Seiten. Landwirtschaft wird als Ursache dominanter, als Wirkung fällt sie fast vollständig weg.\nErsetzt wird Landwirtschaft vor allem durch Verweise auf primär (und teilweise sekundär) betroffene nicht-menschliche Lebewesen (hier zu Biota gebündelt).\nImplizite Beschränkungen auf kulturelle Honigbienen werden dabei nicht nur durch die Inklusion von Wildbienen gesprengt, sondern teilweise auch explizit hervorgehoben. Zitat aus der taz: Das Bienensterben betrifft vor allem die Wildbienen, zu denen auch Hummeln gehören.."
+  },
+  {
+    "objectID": "pres/disputation.html#wirkungen",
+    "href": "pres/disputation.html#wirkungen",
+    "title": "",
+    "section": "WIRKUNGEN",
+    "text": "WIRKUNGEN\n\n\n\nWaldsterben\n\n1990-2002: Biota (Fichten, Buchen)\n2003-2018: Diskurs (Protest, Demonstration)\n2019-2020: Diskurs retrospektiv & Biota ggw.\n\n\n\n\n\nArtensterben\n\n1990-2009: Biota (Amphibien)\n2010-2017: Biota & (Land)Wirtschaft\n2018-2020: Biota\n\nInsektensterben\n\n2017-2018: Biota (Vögel)\n2019-2020: Biota & Landwirtschaft\n\n\n\nIm Abgleich mit anderen WABI stellt sich heraus, dass Biota allgemein durchgängig vertreten sind. Die Betonung nicht-menschlicher Opfer ist in sämtlichen Diskursen weitestgehend präsent.\nSelbst bei Waldsterben werden betroffene Baumarten nahezu durchgehend konkretisiert. Die einzige Ausnahme bildet die Ruhephase zwischen 2003 und 2018. Hier werden vor allem diskursive Reaktionen (Proteste, Demonstrationen) reflektiert.\nDiese Reaktionen erscheinen auch in der letzten Phase. Während die Schäden (bedrohte Baumarten) jedoch zu Opfern des neuen Waldsterbens aktualisiert werden, bleiben Verweise auf zivilgesellschaftliche Bewegungen ausschließlich retrospektiv.\nZum Beispiel auch in der FAZ 2019: Schölmerich hat als Jugendlicher 1982 in Bonn gegen das Waldsterben demonstriert.."
+  },
+  {
+    "objectID": "pres/disputation.html#phasen-artensterben",
+    "href": "pres/disputation.html#phasen-artensterben",
+    "title": "",
+    "section": "PHASEN (ARTENSTERBEN)",
+    "text": "PHASEN (ARTENSTERBEN)\n\n\n\n\n                            \n                                            \n\n\n\n\n\n\n\n\nAls dritte und letzte Relationskategorie möchte ich noch über Interventionen (also hemmende Ursachen) sprechen. Dazu ziehe ich den Diskurs um Artensterben heran.\nBereits die Verlaufskurve spricht ein deutliches Bild. Fast umgekehrt zu Waldsterben ist das Lemma Artensterben zu Beginn kaum etabliert – steigt jedoch tendenziell von Jahr zu Jahr an.\nEin erster Höhepunkt findet sich mit der Nationalen Strategie zur Biologischen Vielfalt (2007). 2015 dann die Studie von Ceballos et al.: ‘Accelerated modern human–induced species losses: Entering the sixth mass extinction’.\nSeinen Höhepunkt erfährt die Frequenz von Artensterben jedoch 2019 mit der Publikation des IPCC-Reports (Intergovernmental Panel on Climate Change). Wie bei der Krefelder Studie für das Insektensterben sind die Aufmerksamkeitszykeln von Artensterben besonders an wissenschaftliche Studien gekoppelt."
+  },
+  {
+    "objectID": "pres/disputation.html#interventionen-artensterben",
+    "href": "pres/disputation.html#interventionen-artensterben",
+    "title": "",
+    "section": "INTERVENTIONEN (ARTENSTERBEN)",
+    "text": "INTERVENTIONEN (ARTENSTERBEN)\n\n\n\n\nIm Kampf gegen das Artensterben will die Bundesregierung einzigartige Rotbuchenwälder in Wildnis zurückverwandeln.[Spiegel 2007]\n\n\n\n\n1990-2009\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nPolitik\n29\n-0,88\n-43,5\n\n\nMensch\n15\n-0,86\n-22,2\n\n\nAbstrakt\n9\n-0,93\n-14,3\n\n\nBiota\n9\n-0,56\n-8,5\n\n\nWirtschaft\n3\n-1,00\n-5,1\n\n\nNaturschutz\n2\n-1,00\n-3,4\n\n\nDiskurs\n1\n-1,00\n-1,7\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,82 über 60 Entitäten (n=70)\n\n\n\nDer darauf folgende Handlungsdruck fällt dabei vor allem politischen Akteuren zu.\nZu Beginn sind das noch überwiegend regionale bzw. nationale Akteure – hier zum Beispiel die Bundesregierung.\nNeben Politik erscheinen jedoch auch generisch anthropogene Interventionen (Mensch), zum Beispiel in Form von Spenden."
+  },
+  {
+    "objectID": "pres/disputation.html#interventionen-artensterben-1",
+    "href": "pres/disputation.html#interventionen-artensterben-1",
+    "title": "",
+    "section": "INTERVENTIONEN (ARTENSTERBEN)",
+    "text": "INTERVENTIONEN (ARTENSTERBEN)\n\n\n\n\nBis 2020 wollen die EU-Mitglieds-staaten das Artensterben aufhalten. [taz 2012]\n\n\n\n\n2010-2017\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nPolitik\n21\n-0,89\n-68,1\n\n\nNaturschutz\n3\n-1\n-10,7\n\n\nMensch\n3\n-0,83\n-9,0\n\n\nAbstrakt\n3\n-0,83\n-9,0\n\n\nLandwirtschaft\n1\n-0,75\n-2,7\n\n\nBiota\n1\n-0,17\n-0,6\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,86 über 27 Entitäten (n=32)\n\n\n\nIn der zweiten Phase fällt diese Kategorie weitestgehend weg. Politik dominiert dafür mit über zwei Dritteln des Gesamteinflusses.\nInnerhalb der Kategorie verschiebt sich jedoch die Skopierung: regionale Akteure verschwinden weitestgehend – nationale werden zunehmend durch internationale Institutionen (EU) bzw. Abkommen (Erdgipfel) ergänzt."
+  },
+  {
+    "objectID": "pres/disputation.html#interventionen-artensterben-2",
+    "href": "pres/disputation.html#interventionen-artensterben-2",
+    "title": "",
+    "section": "INTERVENTIONEN (ARTENSTERBEN)",
+    "text": "INTERVENTIONEN (ARTENSTERBEN)\n\n\n\n\nUm das Artensterben zu stoppen, muss sich grundsätzlich etwas ändern. [taz 2018]\n\n\n\n\n2019-2020\n\n\n\n\n\n\n\n\n\nCause\nn\n∅ I\n% I\n\n\n\n\nPolitik\n25\n-0,92\n-35,2\n\n\nAbstrakt\n23\n-0,82\n-27,6\n\n\nNaturschutz\n6\n-1,00\n-9,2\n\n\nDiskurs\n6\n-0,88\n-8,4\n\n\nMensch\n4\n-0,88\n-5,4\n\n\nWirtschaft\n3\n-0,88\n-5,4\n\n\nLandwirtschaft\n2\n-1,00\n-4,6\n\n\n\n\n\n\n\n\n\n\n\n\nGesamt: ∅ \\(||I||\\) = 0,91 über 59 Entitäten (n=74)\n\n\n\nUnd schließlich passiert das, was bei eigentlich jedem WABI in der letzten Phase passiert.\nPolitik steht bei Artensterben nach wie vor an der Spitze, die Akteure und Maßnahmen werden jedoch zunehmend abstrahiert.\nBesonders Pronomen (etwas tun, irgendjemand, wir) dominieren diese Kategorie."
+  },
+  {
+    "objectID": "pres/disputation.html#interventionen",
+    "href": "pres/disputation.html#interventionen",
+    "title": "",
+    "section": "INTERVENTIONEN",
+    "text": "INTERVENTIONEN\n\n\n\nWaldsterben\n\n1990-2002: Politik (Koalitionsvertrag)\n2003-2018: Abstrakt (Einen) & Diskurs (Protest)\n2019-2020: Diskurs (Demonstration) & Abstrakt (Wir)\n\n\n\n\nBienensterben\n\n1990-2013: Landwirtschaft (Imker)\n2014-2020: Abstrakt (Sie, Etwas)\n\nInsektensterben\n\n2017-2018: Politik & Landwirtschaft\n2019-2020: Politik & Abstrakt (Wir)\n\n\n\n\nWie eben erwähnt ist das ein allgemeiner Trend.\nInitiale Divergenzen (Politik auch bei Insektensterben) erhalten sich teilweise als Komplemente. Bei Waldsterben ist Diskurs auch bei den Interventionen in der letzten Phase präsent.\nAllgemein werden konkretere Interventen jedoch zunehmend durch abstrakte verdrängt."
+  },
+  {
+    "objectID": "pres/disputation.html#diskursökologien",
+    "href": "pres/disputation.html#diskursökologien",
+    "title": "",
+    "section": "DISKURSÖKOLOGIEN",
+    "text": "DISKURSÖKOLOGIEN\n\n\n\nWaldsterben\n\nNaturalisierung (Emission \\(\\to\\) Klima)\nTemporale Entkopplung Schäden &lt;-&gt; Reaktion\n\nBienensterben\n\nDiversifikation d. Ursachen (+ Landwirtschaft)\nPronominalisierung (Imker \\(\\to\\) Etwas)\n\n\n\n\nInsektensterben\n\nDiversifikation d. Ursachen (+ Lichtverschmutzung)\nDepersonalisierung (Schulze \\(\\to\\) Regierung)\n\nArtensterben\n\nTemporäre Sektoralisierung (Mensch \\(\\to\\) \\ \\(+\\) [Land]Wirtschaft)\nInternationalisierung (regionale \\(\\to\\) internat. Interventen)\n\n\n\nDiese Tendenz soll jedoch nicht darüber hinwegtäuschen, dass die einzelnen WABI unterschiedliche Diskursökologien repräsentieren.\nEine Substitution (von Schadstoffen zu klimatischen Faktoren) liegt eben nur bei Waldsterben vor. Ebenso charakteristisch für Waldsterben ist die durchgehende Präsenz von Retrospektiven. Noch im Jahr 2020 werden Demonstrationen der 80er und 90er Jahre fast schon nostalgisch zelebriert.\nWenn also Uekötter sagt, dass sich das (originale) Waldsterben als Modell für Umweltprobleme kognitiv festgebissen hat, sehe ich das bestätigt.\nDenn die Diversität der Ursachen korelliert mit der Absenz konkreter Interventionen.\nSei es das klimainduzierte Waldsterben, landwirtschaftlich verursachte Bienensterben, infrastrukturell bedingte Insektensterben oder allgemein anthropogene Artensterben. Sie sind strukturelle Probleme, die sich nicht allein durch den Einbau von Katalysatoren und einzelner Pestizidverbote lösen lassen."
+  },
+  {
+    "objectID": "pres/disputation.html#c-bert",
+    "href": "pres/disputation.html#c-bert",
+    "title": "",
+    "section": "C-BERT",
+    "text": "C-BERT\n\n\n\n\n\n\n\n\n\n\nToken\nClassification\nConfidence\n\n\n\n\nDie\nO\n0,57\n\n\nBundesregierung\nENTITY\n0,59\n\n\nstoppt\nINDICATOR\n0,54\n\n\ndas\nO\n0,30\n\n\nWaldsterben\nENTITY\n0,65\n\n\n\n\n\n\n\n🤗 pdjohn/C-EBERT-610m\n\n\n padjohn/cbert\n\n\n\n\n\n\n\n\n\n\n\n\nIndicator\nEntity\nRelation\nConfidence\n\n\n\n\nstoppt\nBundesregierung\nMONO_POS_CAUSE\n0,99\n\n\nstoppt\nWaldsterben\nMONO_NEG_EFFECT\n0,88\n\n\n\n\n\n\n 📄 Johnson P. (2026). C-BERT: Factorized Causal Relation Extraction. Doi: 10.26083/tuda-7797. (Preprint)\n\n\nDa WABI jedoch nicht die einzigen Umweltprobleme sind, möchte ich zum Abschluss noch kurz auf das allgemeine Potenzial der Kausalsemantik eingehen.\nIn der Dissertation führe ich C-BERT als Multi-Task Transformer ein. Die annotierten WABI-Sätze habe ich als Trainingsdaten genutzt.\nC-BERT identifizert zunächst Entitäten und Indikatoren. Die einzelnen Indikator-Entitätspaare werden anschließend als Relationen klassifizert. Daraus lassen sich wiederum die bekannten (URSACHE, WIRKUNG, EINFLUSS) Tupeln konstruieren."
+  },
+  {
+    "objectID": "pres/disputation.html#attributional-causal-graph",
+    "href": "pres/disputation.html#attributional-causal-graph",
+    "title": "",
+    "section": "ATTRIBUTIONAL CAUSAL GRAPH",
+    "text": "ATTRIBUTIONAL CAUSAL GRAPH\n\n\n\n                            \n                                            \n\n\n\n\n\n360.000 Entitäten\n1,6 Mio. Relationen\n\n\n\n\n\n\nCypher Query (Neo4j)\n\n// Wirkungen von Klimawandel (max 2 Sprünge) \n(Klimawandel)-[*..2]-&gt;(e)\n\n\n\nAuf die 22 Millionen Sätze des Umweltkorpus angewandt, ergibt sich ein Attributionaler Kausalgraph.\nDer Graph besteht aus 360.000 Entitäten und 1.6 Millionen Relationen, von denen hier einige Hundert abgebildet.\nDie Präsentation der Metriken spare ich aus Zeitgründen aus. Es sei nur gesagt, dass Mensch in dem Umweltkorpus die einflussreichste Ursache UND die am meisten beeinflusste Wirkung ist."
+  },
+  {
+    "objectID": "pres/disputation.html#kausale-nachbarschaft",
+    "href": "pres/disputation.html#kausale-nachbarschaft",
+    "title": "",
+    "section": "KAUSALE NACHBARSCHAFT",
+    "text": "KAUSALE NACHBARSCHAFT\n\n\n                            \n                                            \n\n\n\n\n\nInsektensterben\n\n\n\n\n\n\n\n\nRang\nNachbar\n\\(\\cos(\\theta)\\)\n\n\n\n\n1\nArtenschwund\n0,64\n\n\n2\nKulturlandschaft\n0,43\n\n\n3\nNitrate\n0,41\n\n\n4\nArtensterben\n0,40\n\n\n5\nWelternährung\n0,40\n\n\n\n\n\n\nArtensterben\n\n\n\n\n\n\n\n\nRang\nNachbar\n\\(\\cos(\\theta)\\)\n\n\n\n\n1\nKlimaänderung\n0,60\n\n\n2\nErwärmung\n0,57\n\n\n3\nKlimawandel\n0,47\n\n\n4\nTreibhauseffekt\n0,46\n\n\n5\nErderwärmung\n0,43\n\n\n\n\n\nAuf der methodischen Seite sei betont, dass numerische Einflusswerte prädestiniert für Vektoren sind.\nWie Wort- oder Satzvektoren lassen sie sich miteinander vergleichen. Waldsterben sticht dabei erneut als Ausreißer hervor. Seine Ursachen und Wirkungen setzen sich also stärker von den anderen WABI ab. Insbesondere Arten- und Insektensterben liegen nahe beieinander.\nTatsächlich deckt sich Artensterben jedoch am ehesten mit Klimaänderung. Die Überschneidungen sind sogar so ausgeprägt, dass die Top-5 Nachbarn von Artensterben alle im Zusammenhang mit Klimawandel stehen.\nArtensterben zeigt sich demnach auch in dieser Hinsicht als DIE Makrokrise unter den WABI-Problemen."
+  },
+  {
+    "objectID": "pres/disputation.html#zusammenfassung",
+    "href": "pres/disputation.html#zusammenfassung",
+    "title": "",
+    "section": "ZUSAMMENFASSUNG",
+    "text": "ZUSAMMENFASSUNG\n\n\nKausalsemantik\n\nIndikatoren\n\nverursachen, beitragen, reduzieren, stoppen\n\nKontextmarker\n\nmaßgeblich, auch, nicht, Schwund\n\n\\((C\\text{ause}, E\\text{ffect}, I\\text{nfluence})\\)\n\n\\(I = \\pm, ||\\text{Salienz}||\\)\n\nACG\n\nCBERT\nKausalprofile\n\n\n\n\n\nDiskursökologien\n\nWaldsterben\n\nNaturalisierung verschleiert Anthropogenität\n\nArtensterben\n\nOszillierung verhindert Konvergenz\n\nBienensterben\n\nStrukturalisierung fragmentiert Verantwortung\n\nInsektensterben\n\nIntersektoralisierung erfordert Koordination\n\n\n\n\nIch fasse zusammen.\nMeine Dissertation führt mit der Kausalsemantik ein Framework zur Extraktion und Projektion sprachlicher Kausalattribution ein.\nIndikatoren erachte ich als Scharnier, die Elemente in ihrem kotextuellen Umfeld kausale Rollen zuweisen. Zusammen mit Kontextmarkern lässt sich ein attribuierter Einfluss als numerischer Wert quantifizieren.\nDer Einfluss gibt dabei sowohl die Richtung (Polarität) als auch Gewichtung (Salienz) an.\nNeben dem vorliegenden Anwendungsfall (WABI) demonstriere ich weiter, dass sich die Kausalsemantik mithilfe einer eigens entwickelten Transformer Architektur auch auf das gesamte Umweltkorpus in groben Zügen extrapolieren lässt. Als Ergebnis entsteht ein Attributional Causal Graph (ACG) – sowie vergleichbare Kausalvektoren.\nIm Rahmen des Vortrag haben ich die vier WABI als unterschiedliche Diskursökologien präsentiert. Ihre attribuierten Ursachen (Emission, Mensch, Pestizide, Landwirtschaft) divergieren, weiten sich jedoch bei allen WABI aus.\nAuch die Wirkungen unterscheiden sich zwischen den WABI. Nichtsdestotrotz werden ‘sterbende Entitäten’ fast durchweg thematisiert.\nSchließlich konnte gezeigt werden, dass Ursachen – bzw. Stone’s und Fisher’s Kausaltypen – mit Interventionen korrellieren. Je diverser und weiter das Feld der Ursachen, desto abstrahierter erscheinen die Interventen.\nNationale Luftverschmutzung oder einzelne Neonikotinoide lassen sich noch mit konkreten Maßnahmen bekämpfen. Strukturelle bzw. globale Krisen sprengen dieses Paradigma. Selbst internationale Institutionen scheinen in den einzelnen Spätphasen nicht mehr adäquat zu sein.\nAls Folge verbleiben maximal abstrahierte Interventen als Ausdruck maximaler Verantwortungsdiffusion. Die WABI sind entsprechend zu Problemen herangewachsen, für die sich jeder ein bisschen schuldig – aber niemand so wirklich verantwortlich fühlt.\nDamit schließe ich, bedanke mich vielmals für die Aufmerksamkeit – und freue mich auf die Diskussion."
+  },
+  {
+    "objectID": "pres/disputation.html#metriken",
+    "href": "pres/disputation.html#metriken",
+    "title": "",
+    "section": "METRIKEN",
+    "text": "METRIKEN\nAgency (\\(\\to\\))\n\nAbsolute Summe ausgehender Einflüsse\nMensch (\\(\\small 16.149\\)) \\(&gt;\\) Klimawandel (\\(\\small 10.418\\)) \\(&gt;\\) Waldsterben (\\(\\small 164\\)) \\(&gt;\\) Insektensterben (\\(\\small 41\\))\n\nSensitivity (\\(\\leftarrow\\))\n\nAbsolute Summe eingehender Einflüsse\nMensch (\\(\\small 22.060\\)) \\(&gt;\\) Strom (\\(\\small 10.758\\)) \\(&gt;\\) Artensterben (\\(\\small 421\\)) \\(&gt;\\) Insektensterben (\\(\\small 129\\))\n\nDiscourse Balance (\\(\\overset{\\pm}{\\leftarrow}\\))\n\nVerhältnis zwischen fördernden und hemmenden eingehenden Einflüssen\nStrom (\\(\\small 6.565\\)) \\(&gt;\\) Waldsterben (\\(\\small 142\\)) \\(&gt;\\) Insektensterben (\\(\\small 22\\)) \\(&gt;\\) Klimawandel (\\(\\small -3.026\\))\n\n\nZur Makroanalyse wurden eine Reihe an Metriken entwickelt, die beispielsweise den absoluten ausgehenden oder eingehenden Einfluss einer Entität messen.\nDabei zeigt sich, das die WABI zwar saliente Einheiten des Umweltdiskurses darstellen, jedoch weitaus weniger aktiv sind als ‘Mensch’, ‘Klimawandel’ oder ‘Strom’.\nDiscourse Balance, die das Verhältnis zwischen fördernden und hemmenden eingehenden Einflüssen beschreibt, charakterisiert die WABI weiter: Der Fokus liegt bei allen vier Begriffen auf fördernden Ursachen, wobei Insektensterben noch die höchste Rate an hemmenden gegenüber fördernden Ursachen aufweist."
+  },
+  {
+    "objectID": "pres/disputation.html#sweetser",
+    "href": "pres/disputation.html#sweetser",
+    "title": "",
+    "section": "SWEETSER",
+    "text": "SWEETSER\nEpistemische Kausalität\n\n\n\nHe’s sick, because he has a fever.\n\n\n\n\n\nHe must be sick, because he has a fever.\n\n\n\n\n\nI conclude that the has a fever, because I know he is sick and being sick generally causes fever.\n\n\n\n\n\n\nHe has a feverE, because he is sickC.\n\n\n\n\n\nHe’s sickC, because he has a feverE."
+  },
+  {
+    "objectID": "pres/disputation.html#kausalvektoren",
+    "href": "pres/disputation.html#kausalvektoren",
+    "title": "",
+    "section": "KAUSALVEKTOREN",
+    "text": "KAUSALVEKTOREN\n\n\n                            \n                                            \n\n\n\n\n\n\n\\[\\small \\overrightarrow{v}_{\\text{Mensch}_C} = [\\text{Mensch}, \\text{Klimawandel}, \\text{Artensterben}, ... ] = [0; 343{,}75; 30{,}75; ... ]\\] \\[\\small \\overrightarrow{v}_{\\text{Mensch}_E} = [\\text{Mensch}, \\text{Klimawandel}, \\text{Artensterben}, ... ] = [0; -34{,}5; -2; ...]\\]\n\n\n\n\n\n\\[\\small \\overrightarrow{v}_{\\text{Mensch}} = \\overrightarrow{v}_{\\text{Mensch}_C} \\oplus \\overrightarrow{v}_{\\text{Mensch}_E}\\]\n\nEbenso den Prozess zur Vektorisierung der Relationen.\nEs seit jedoch betont, dass die numerischen Einflusswerte auch dazu dienen, Entitäten als Kausalvektoren bzw.Kausalprofile zu verstehen.\nDiese Vektoren lassen sich, wie bei Word- oder Satzembedding, miteinander vergleichen."
+  },
+  {
+    "objectID": "pres/disputation.html#dependenz",
+    "href": "pres/disputation.html#dependenz",
+    "title": "",
+    "section": "DEPENDENZ",
+    "text": "DEPENDENZ\n\n\n\\(\\textit{nk}_\\pm\\) = Ursache von | Kampf gegen \\(\\textit{WABI}_i\\)\n\n\\(\\textit{oa}_\\pm\\) = verursacht | stoppt \\(\\textit{WABI}_i\\)"
+  },
+  {
+    "objectID": "pres/disputation.html#annotation",
+    "href": "pres/disputation.html#annotation",
+    "title": "",
+    "section": "ANNOTATION",
+    "text": "ANNOTATION"
+  },
+  {
+    "objectID": "pres/disputation.html#json",
+    "href": "pres/disputation.html#json",
+    "title": "",
+    "section": "JSON",
+    "text": "JSON\n  {\n    \"subfolder\": \"Waldsterben_sb\",\n    \"global_sentence_id\": 19507294,\n    \"text_id\": \"pp_13_158_00017\",\n    \"sentence\": \"Das Waldsterben löst Ängste aus.\",\n    \"relations\": [\n      {\n        \"indicator\": \"löst\",\n        \"entities\": [\n          {\n            \"entity\": \"Waldsterben\",\n            \"relation\": \"Cause\"\n          },\n          {\n            \"entity\": \"Ängste\",\n            \"relation\": \"Effect\"\n          }\n        ]\n      }\n    ]\n  }\n\n\n\\(\\tiny |K_A| \\approx 4.300; \\quad K_A \\subsetneq K_U(\\textit{Artensterben} \\cup \\textit{Bienensterben} \\cup \\textit{Insektensterben} \\cup \\textit{Waldsterben})\\)"
+  },
+  {
+    "objectID": "pres/disputation.html#kognition-frames",
+    "href": "pres/disputation.html#kognition-frames",
+    "title": "",
+    "section": "KOGNITION & FRAMES",
+    "text": "KOGNITION & FRAMES\n\n\nMentale Repräsentation\n\nLakoff / Johnson (1980): Causation is a Force — Intensität × Richtung\nTalmy (1988): Kraftdynamik\n\nzwingen (Druck) · verhindern (Blockierung)\n\\(\\to\\) fördernd / hemmend\n\n\nSemantische Rollen\n\nFillmore (1968)\n\nAgens \\(\\to\\) Instrument \\(\\to\\) Patiens\n\nZifonun (1997)\n\nVerursacher (\\(\\supsetneq\\) Agens) → abstrakte Kausalattributionen"
+  },
+  {
+    "objectID": "pres/disputation.html#logische-kausalinferenz",
+    "href": "pres/disputation.html#logische-kausalinferenz",
+    "title": "",
+    "section": "LOGISCHE KAUSALINFERENZ",
+    "text": "LOGISCHE KAUSALINFERENZ\n\n\n\n\nAristotles - Mill (1739)\n\nSequentialität\n\nDie Straße ist nass, nachdem es geregnet hat.\n\\(t_{C} &lt; t_{E}\\)\n\nHinlänglichkeit\n\nRegen bedingt nasse Straßen.\n\\(C \\to E\\)\n\nNotwendigkeit\n\nNasse Straßen setzen Regen voraus.\n\\(E \\to C\\)\n\n\n\n\n\nMackie (1965) - Halpern (2016)\n\nKontrafaktizität\n\nDie Straße ist nass, wenn und nur wenn es geregnet hat.\n\\((C \\land E) \\land (\\neg C \\land \\neg E)\\)\n\nSchuld\n\nRegen ist nicht die einzige Ursache von nassen Straßen.\n\\(C_i =\\frac{C}{\\#C}\\)"
+  },
+  {
+    "objectID": "pres/disputation.html#kontextdimensionen",
+    "href": "pres/disputation.html#kontextdimensionen",
+    "title": "",
+    "section": "Kontextdimensionen",
+    "text": "Kontextdimensionen\n\n\nRäumlichkeit\n\nGIS Polygone\nin Deutschland\n\n\\(\\small [[12.10, 50.32],[12.10, 50.31], ...]\\)\n\n\nTemporalität\n\nzwei Jahre später\n\n\\(\\Delta 5.256^6\\)\n\n\nUnsicherheit\n\nwahrscheinlich / könnte\n\n\\(P(X) &lt; 1\\)\n\n\n\n\n\nProvenienz\n\nkönne / verantwortlich gemacht (\\(\\phi\\))\nlaut \\(X\\) (\\(\\phi_X\\))\nStatement Nodes (Wikidata)\n\n\n\nAttribute\n\nIntensive Landwirtschaft\n\n\\((\\text{Landwirtschaft}_\\text{Intensiv},...,...)\\)\n\\((\\text{Landwirtschaft}, \\text{Intensiv}, \\text{Type})\\)\n\nAutos verursachen dreckige Luft\n\n\\((\\text{Autos}, \\text{Luft}, -1)\\)?"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Causal Semantics (S_C)",
+    "section": "",
+    "text": "Causal Semantics is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Causal Semantics (S_C)",
+    "section": "",
+    "text": "Causal Semantics is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
+  },
+  {
+    "objectID": "index.html#core-innovation",
+    "href": "index.html#core-innovation",
+    "title": "Causal Semantics (S_C)",
+    "section": "Core Innovation",
+    "text": "Core Innovation\nThe framework models causal relations as (C, E, I) tuples, where:\n\nC (Cause): The causing entity\nE (Effect): The affected entity\n\nI (Influence): A signed scalar \\in [-1, +1] encoding:\n\nPolarity (sign): Promoting (+) vs. inhibiting (−) influence\nSalience (magnitude): Monocausal (|I|=1.0) vs. polycausal (|I|&lt;1.0) attribution\n\n\nThis representation enables:\n\nSemantic precision: Capturing the direction and strength of a causal attribution\nQuantitative aggregation: Accumulating attributions into weighted causal networks\nGraph-based analysis: Visualizing discourse dynamics as Attributional Causal Graphs (ACGs)"
+  },
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "Causal Semantics (S_C)",
+    "section": "Example",
+    "text": "Example\nConsider these sentences from environmental discourse:\n\nClimate change causes species extinction.\n(C_\\text{climate change}, E_\\text{species extinction}, I_{+1.0})\n\n\nConservation measures reduce forest dieback.\n(C_\\text{conservation measures}, E_\\text{forest dieback}, I_{-0.5})\n\nThe first example expresses a promoting, monocausal relation (I=+1.0), while the second expresses an inhibiting, contributory relation (I=-0.5)."
+  },
+  {
+    "objectID": "index.html#architecture",
+    "href": "index.html#architecture",
+    "title": "Causal Semantics (S_C)",
+    "section": "Architecture",
+    "text": "Architecture\nThe framework consists of three main modules:\n\n\n\n\n\ngraph LR\n    A[Text Input] --&gt; B1[Annotation]\n    A[Text Input] --&gt; B2[C-BERT]\n\n    B1 --&gt; C[Tuple-Construction]\n    B2 --&gt; C\n\n    C --&gt; D[Aggregation]\n    D --&gt; E[ACG]\n    \n    E --&gt; D2[Visualization]\n    E --&gt; D3[Analysis]\n\n\n\n\n\n\n\nExtraction: Identifying causal relations in text through indicators, annotation schemes, and the C-BERT transformer\nProcessing: Converting annotations into formal (C,E,I) tuples and aggregating them"
+  },
+  {
+    "objectID": "index.html#applications",
+    "href": "index.html#applications",
+    "title": "Causal Semantics (S_C)",
+    "section": "Applications",
+    "text": "Applications\nThis framework has been applied to a German Environmental corpus (1990-2022) to:\n\nanalyze responsibility attributions in biodiversity debates [1]\ndisambiguate references to forest diebacks [2]"
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Causal Semantics (S_C)",
+    "section": "Citation",
+    "text": "Citation\nIf you use this framework in your research, please cite:\n@phdthesis{johnson2026causalsemantics,\n  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},\n  author={Patrick Johnson},\n  school={Technical University of Darmstadt},\n  year={forthcoming}\n}\n@misc{cbert,\n  title={C-BERT: Factorized Causal Relation Extraction},\n  author={Patrick Johnson},\n  doi={10.26083/tuda-7797},\n  year={2026}\n}"
+  },
+  {
     "objectID": "pres/dd.html#kausalsemantik-s_c",
     "href": "pres/dd.html#kausalsemantik-s_c",
     "title": "",
@@ -504,62 +854,6 @@
     "title": "",
     "section": "KOGNITION & ARGUMENTATION",
     "text": "KOGNITION & ARGUMENTATION\n\n\nPearl (2000)\nAssoziation (Sehen)\n\nBeobachtung von Korrelationen\n\nB. Wenn ich X sehe, wie wahrscheinlich ist Y?\n\n\nIntervention (Tun)\n\nReflexion intendierter Handlungen\n\nB. Was, wenn ich X herbeiführe / verhindere?\n\n\nKontrafaktische Aussagen (Vorstellen):\n\nSimulation hypothetischer Szenarien\n\nB. Was, wenn ich X (nicht) getan hätte?\n\nKognitive Prozesse, simulierte Modelle, Experimentaldesigns (RCT)\n\nZifonun (1997)\n\nDifferenzierung kausaler Rollen innerhalb von Sachverhaltskonfigurationen, in dem zwischen einem Verursacher'' (als breitere Kategorie über dem AGENS) und demBewirkten’’ unterschieden wird.\n\n\n\n\nLakoff / Johnson (1980)\n\n“source-path-goal-Schemata”\nkomplexere kausale Ketten mit Zwischenschritten\n\nFillmore (1968)\n\nSubjektivierung\nSteht kein Agens zur Verfügung, rückt das Instrument oder das Patiens in die Subjektposition."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Causal Semantics (S_C)",
-    "section": "",
-    "text": "Causal Semantics is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
-  },
-  {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Causal Semantics (S_C)",
-    "section": "",
-    "text": "Causal Semantics is a computational framework for extracting and analyzing causal relations from natural language text. It bridges three research traditions:\n\nLogical theories differentiating between monocausal and polycausal structures\nLinguistic analyses identifying semantic dimensions like promoting vs. inhibiting influences\nComputational methods that scale, but tend to reduce relations to binary cause-effect pairs\n\nIn short, S_C aims to extract and represent causal attributions:\n\nClimate change causes species extinction.\n\nand represent them as graphs:\n \\text{Climate change} \\xrightarrow{+1} \\text{Species extinction}"
-  },
-  {
-    "objectID": "index.html#core-innovation",
-    "href": "index.html#core-innovation",
-    "title": "Causal Semantics (S_C)",
-    "section": "Core Innovation",
-    "text": "Core Innovation\nThe framework models causal relations as (C, E, I) tuples, where:\n\nC (Cause): The causing entity\nE (Effect): The affected entity\n\nI (Influence): A signed scalar \\in [-1, +1] encoding:\n\nPolarity (sign): Promoting (+) vs. inhibiting (−) influence\nSalience (magnitude): Monocausal (|I|=1.0) vs. polycausal (|I|&lt;1.0) attribution\n\n\nThis representation enables:\n\nSemantic precision: Capturing the direction and strength of a causal attribution\nQuantitative aggregation: Accumulating attributions into weighted causal networks\nGraph-based analysis: Visualizing discourse dynamics as Attributional Causal Graphs (ACGs)"
-  },
-  {
-    "objectID": "index.html#example",
-    "href": "index.html#example",
-    "title": "Causal Semantics (S_C)",
-    "section": "Example",
-    "text": "Example\nConsider these sentences from environmental discourse:\n\nClimate change causes species extinction.\n(C_\\text{climate change}, E_\\text{species extinction}, I_{+1.0})\n\n\nConservation measures reduce forest dieback.\n(C_\\text{conservation measures}, E_\\text{forest dieback}, I_{-0.5})\n\nThe first example expresses a promoting, monocausal relation (I=+1.0), while the second expresses an inhibiting, contributory relation (I=-0.5)."
-  },
-  {
-    "objectID": "index.html#architecture",
-    "href": "index.html#architecture",
-    "title": "Causal Semantics (S_C)",
-    "section": "Architecture",
-    "text": "Architecture\nThe framework consists of three main modules:\n\n\n\n\n\ngraph LR\n    A[Text Input] --&gt; B1[Annotation]\n    A[Text Input] --&gt; B2[C-BERT]\n\n    B1 --&gt; C[Tuple-Construction]\n    B2 --&gt; C\n\n    C --&gt; D[Aggregation]\n    D --&gt; E[ACG]\n    \n    E --&gt; D2[Visualization]\n    E --&gt; D3[Analysis]\n\n\n\n\n\n\n\nExtraction: Identifying causal relations in text through indicators, annotation schemes, and the C-BERT transformer\nProcessing: Converting annotations into formal (C,E,I) tuples and aggregating them"
-  },
-  {
-    "objectID": "index.html#applications",
-    "href": "index.html#applications",
-    "title": "Causal Semantics (S_C)",
-    "section": "Applications",
-    "text": "Applications\nThis framework has been applied to a German Environmental corpus (1990-2022) to:\n\nanalyze responsibility attributions in biodiversity debates [1]\ndisambiguate references to forest diebacks [2]"
-  },
-  {
-    "objectID": "index.html#citation",
-    "href": "index.html#citation",
-    "title": "Causal Semantics (S_C)",
-    "section": "Citation",
-    "text": "Citation\nIf you use this framework in your research, please cite:\n@phdthesis{johnson2026causalsemantics,\n  title={Kausalsemantik. Eine Operationalisierung der -sterben Komposita im Umweltdiskurs},\n  author={Patrick Johnson},\n  school={Technical University of Darmstadt},\n  year={forthcoming}\n}\n@misc{cbert,\n  title={C-BERT: Factorized Causal Relation Extraction},\n  author={Patrick Johnson},\n  doi={10.26083/tuda-7797},\n  year={2026}\n}"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
   },
   {
     "objectID": "resources.html",
